@@ -1,0 +1,171 @@
+{
+  "timestamp": "2026-09-14T12:50:28.373288+07:00",
+  "experiment": "P1.2 penalty study",
+  "seed": 12,
+  "instances_per_setting": 50,
+  "annealing": {
+    "restarts": 64,
+    "sweeps": 100,
+    "schedule": "geometric, T_start = max single-flip |dE|, T_end = 0.05 * cost spread"
+  },
+  "multipliers_of_A_crit": [
+    1.1,
+    1.5,
+    2.0,
+    5.0,
+    10.0,
+    50.0
+  ],
+  "summary": {
+    "pure 3x3": {
+      "instances": 50,
+      "variables_mean": 9.0,
+      "median_safe_over_crit": 46.826216453333174,
+      "share_max_abs_cost_enough": 1.0,
+      "by_penalty": {
+        "x1.1": {
+          "median_normalised_gap": 0.004498385323615201,
+          "mean_sa_success": 0.565,
+          "mean_sa_feasible_share": 0.65125,
+          "median_A_over_Acrit": 1.1
+        },
+        "x1.5": {
+          "median_normalised_gap": 0.011232540649147645,
+          "mean_sa_success": 0.661875,
+          "mean_sa_feasible_share": 0.968125,
+          "median_A_over_Acrit": 1.5
+        },
+        "x2": {
+          "median_normalised_gap": 0.009092925060040042,
+          "mean_sa_success": 0.5540625,
+          "mean_sa_feasible_share": 0.988125,
+          "median_A_over_Acrit": 2.0
+        },
+        "x5": {
+          "median_normalised_gap": 0.0043291377431518546,
+          "mean_sa_success": 0.3425,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 5.0
+        },
+        "x10": {
+          "median_normalised_gap": 0.002318534727573766,
+          "mean_sa_success": 0.2528125,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 10.0
+        },
+        "x50": {
+          "median_normalised_gap": 0.0004916937365767942,
+          "mean_sa_success": 0.190625,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 50.0
+        },
+        "safe": {
+          "median_normalised_gap": 0.0005304768267312013,
+          "mean_sa_success": 0.1828125,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 46.826216453333174
+        }
+      }
+    },
+    "pure 4x4": {
+      "instances": 50,
+      "variables_mean": 16.0,
+      "median_safe_over_crit": 105.58276804166147,
+      "share_max_abs_cost_enough": 1.0,
+      "by_penalty": {
+        "x1.1": {
+          "median_normalised_gap": 0.001582094467688073,
+          "mean_sa_success": 0.256875,
+          "mean_sa_feasible_share": 0.3140625,
+          "median_A_over_Acrit": 1.1
+        },
+        "x1.5": {
+          "median_normalised_gap": 0.004872407679327416,
+          "mean_sa_success": 0.54125,
+          "mean_sa_feasible_share": 0.848125,
+          "median_A_over_Acrit": 1.5
+        },
+        "x2": {
+          "median_normalised_gap": 0.003948395751883153,
+          "mean_sa_success": 0.455,
+          "mean_sa_feasible_share": 0.9546875,
+          "median_A_over_Acrit": 2.0
+        },
+        "x5": {
+          "median_normalised_gap": 0.0018482179284142722,
+          "mean_sa_success": 0.20125,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 5.0
+        },
+        "x10": {
+          "median_normalised_gap": 0.0009799853613752137,
+          "mean_sa_success": 0.1178125,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 10.0
+        },
+        "x50": {
+          "median_normalised_gap": 0.0002054975900066766,
+          "mean_sa_success": 0.0475,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 50.0
+        },
+        "safe": {
+          "median_normalised_gap": 9.712900832520828e-05,
+          "mean_sa_success": 0.0453125,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 105.58276804166147
+        }
+      }
+    },
+    "augmented 2 targets": {
+      "instances": 50,
+      "variables_mean": 11.0,
+      "median_safe_over_crit": 21.594609954238763,
+      "share_max_abs_cost_enough": 1.0,
+      "by_penalty": {
+        "x1.1": {
+          "median_normalised_gap": 0.005211196509000458,
+          "mean_sa_success": 0.423125,
+          "mean_sa_feasible_share": 0.4871875,
+          "median_A_over_Acrit": 1.1
+        },
+        "x1.5": {
+          "median_normalised_gap": 0.018030506669581767,
+          "mean_sa_success": 0.6528125,
+          "mean_sa_feasible_share": 0.7715625,
+          "median_A_over_Acrit": 1.5
+        },
+        "x2": {
+          "median_normalised_gap": 0.026433046207698565,
+          "mean_sa_success": 0.6834375,
+          "mean_sa_feasible_share": 0.8403125,
+          "median_A_over_Acrit": 2.0
+        },
+        "x5": {
+          "median_normalised_gap": 0.018025484998824122,
+          "mean_sa_success": 0.574375,
+          "mean_sa_feasible_share": 0.87375,
+          "median_A_over_Acrit": 5.0
+        },
+        "x10": {
+          "median_normalised_gap": 0.009040587493799025,
+          "mean_sa_success": 0.4384375,
+          "mean_sa_feasible_share": 0.8825,
+          "median_A_over_Acrit": 10.0
+        },
+        "x50": {
+          "median_normalised_gap": 0.0018125976388626089,
+          "mean_sa_success": 0.265,
+          "mean_sa_feasible_share": 0.88375,
+          "median_A_over_Acrit": 50.0
+        },
+        "safe": {
+          "median_normalised_gap": 0.005719773970016076,
+          "mean_sa_success": 0.324375,
+          "mean_sa_feasible_share": 1.0,
+          "median_A_over_Acrit": 21.594609954238763
+        }
+      }
+    }
+  }
+}

@@ -203,3 +203,73 @@ Stated limits:
 
 Next: P1.2 — how small can the penalty A be before infeasible strings win, and what does a large A do to the
 energy landscape a heuristic or QAOA has to search?
+
+## 2026-09-14 — P1.2: the penalty study
+
+Code: `src/p1_penalty.py`. Tests: `tests/test_p1_penalty.py`. Raw output: `results/p1_2-penalty-20260914-125028.json`.
+
+**The critical penalty is exact, not searched for.** With E_A(x) = cost(x) + A·V(x) and V = 0 exactly on feasible
+strings, the optimum wins iff A > (optimum − cost(x)) / V(x) for every infeasible x, so
+A_crit = max(0, max over infeasible x of (optimum − cost(x)) / V(x)), computed by enumeration.
+Test: just above A_crit the brute-force QUBO minimum is feasible and optimal; 0.1% below it, an infeasible string wins.
+
+**Tests — 16 of 16 pass** (4 new: the threshold check above; energies from cost + A·V equal the QUBO matrix energy
+on every bit string; the normalised gap lies in (0, 1]; annealing is deterministic per seed and solves a tiny instance).
+
+Set-up: 50 instances each of pure 3 × 3 (9 variables), pure 4 × 4 (16) and augmented 2-target scenes (mean 11,
+at most 18), seed 12. For A = 1.1, 1.5, 2, 5, 10, 50 × A_crit and the provably safe A = 2·Σ|c| + 1:
+- **normalised gap** (E1 − E0)/(Emax − E0) — solver-independent
+- **simulated annealing**: single-bit flips, 64 restarts, 100 sweeps, geometric schedule from
+  T_start = largest single-flip |ΔE| (grows with A) to T_end = 0.05 × cost spread (independent of A).
+  **The annealing numbers depend on this schedule.**
+
+How generous the safe penalty is: median A_safe / A_crit = **46.8×** (3 × 3), **105.6×** (4 × 4), **21.6×** (augmented).
+The simple rule A = max|c| was above A_crit in **all 150 instances** — observed, not proven.
+
+| setting | A / A_crit | normalised gap (median) | SA finds optimum | SA ends feasible |
+|---------|-----------|-------------------------|------------------|------------------|
+| pure 3 × 3 | 1.1 | 0.0045 | 0.565 | 0.651 |
+| | **1.5** | **0.0112** | **0.662** | 0.968 |
+| | 2 | 0.0091 | 0.554 | 0.988 |
+| | 5 | 0.0043 | 0.343 | 1.000 |
+| | 10 | 0.0023 | 0.253 | 1.000 |
+| | 50 | 0.0005 | 0.191 | 1.000 |
+| | safe (46.8) | 0.0005 | 0.183 | 1.000 |
+| pure 4 × 4 | 1.1 | 0.0016 | 0.257 | 0.314 |
+| | **1.5** | **0.0049** | **0.541** | 0.848 |
+| | 2 | 0.0039 | 0.455 | 0.955 |
+| | 5 | 0.0018 | 0.201 | 1.000 |
+| | 10 | 0.0010 | 0.118 | 1.000 |
+| | 50 | 0.0002 | 0.048 | 1.000 |
+| | safe (105.6) | 0.0001 | 0.045 | 1.000 |
+| augmented, 2 targets | 1.1 | 0.0052 | 0.423 | 0.487 |
+| | 1.5 | 0.0180 | 0.653 | 0.772 |
+| | **2** | **0.0264** | **0.683** | 0.840 |
+| | 5 | 0.0180 | 0.574 | 0.874 |
+| | 10 | 0.0090 | 0.438 | 0.882 |
+| | 50 | 0.0018 | 0.265 | 0.884 |
+| | safe (21.6) | 0.0057 | 0.324 | 1.000 |
+
+What the numbers say:
+1. **There is a sweet spot, and it is close to A_crit.** Both the solver-independent gap and annealing success peak
+   at 1.5–2 × A_crit in every setting.
+2. **Too small is bad in one way:** at 1.1 × A_crit infeasible strings sit just above the optimum, the gap is small,
+   and annealing often ends infeasible (31–65% feasible).
+3. **Too large is bad in another:** the energy range explodes, cost differences become tiny relative to it, and
+   annealing wanders among valid but poor assignments — feasible 100% of the time, optimal rarely.
+4. **The provably safe penalty is expensive, and more so as instances grow.** Against the best multiplier, annealing
+   success drops 0.662 → 0.183 (3.6× worse) on 3 × 3 and 0.541 → 0.045 (12× worse) on 4 × 4.
+
+Stated limits and one unexplained point:
+- A_crit needs enumeration, which is exponential — it is an oracle for studying the problem, not something a real
+  solver can compute. The practical question it raises is whether a *computable* rule such as A = max|c| lands near
+  the sweet spot. That is the natural first question for P1.3.
+- Annealing results are conditional on the schedule above; the gap metric points the same way without any solver.
+- **Unexplained:** on augmented scenes the feasible share stays at 0.88 even at 50 × A_crit, while the safe penalty
+  (a median 21.6 ×) reaches 1.000. The per-instance data needed to explain this was not saved in this run.
+  A plausible hypothesis — not yet tested — is that with a very large A, moving an assignment by single bit flips
+  passes through doubly-violating states whose barrier freezes annealing in infeasible local minima, and that the
+  per-instance safe multipliers differ from 50 × in a way that avoids this. P1.3 will save per-instance results to check.
+
+Next: P1.3 — simulated annealing baseline with computable penalty rules (A = max|c| versus the 1.5 × A_crit oracle),
+saving per-instance results.
