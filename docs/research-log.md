@@ -156,3 +156,50 @@ What this already says about the rest of P1:
    only for pure 2 × 2 and 3 × 3 instances (4 and 9 variables); larger instances stay on classical solvers.
 
 Next: P1.1 — QUBO builder and the hard gate (QUBO minimum = Hungarian optimum on every test instance).
+
+## 2026-09-14 — P1.1: QUBO builder — the gate is passed
+
+Code: `src/p1_qubo.py`. Tests: `tests/test_p1_qubo.py`. Raw gate output: `results/p1_1-gate-20260914-124400.json`.
+
+Encoding: one binary variable per **allowed** cell of the assignment matrix (gated-out cells get no variable,
+so no big-M constants), E(x) = Σ c·x + A·Σ_rows(Σx − 1)² + A·Σ_cols(Σx − 1)², stored as an upper-triangular
+Q with Q_kk = c_k − 2A, Q_kl = 2A per shared row or column, offset 2nA.
+
+Penalty for the gate: **A = 2·Σ|c| + 1.** Argument: an infeasible string violates at least one constraint, so
+its penalty is at least A; its cost part is at least −Σ|c|; the optimum costs at most Σ|c|. So no infeasible
+string can undercut the optimum. This A is deliberately generous; P1.2 asks how small it can be.
+
+One design change found while writing it: in the augmented matrix the dummy × dummy block (clutter row j,
+miss column i) was fully open at zero cost. It only needs a cell where track i may take measurement j — those
+are exactly the cells that complete a real assignment. Every valid association still has a completion of the
+same cost, with fewer variables and far fewer duplicate optima.
+
+**Tests — 12 of 12 pass** (6 from P1.0, 6 new), each against a quantity computed without the QUBO:
+- energy of every valid permutation equals the plain assignment cost
+- on 200 random bit strings with random A, energy − cost equals A × squared constraint violation exactly
+- pruning the augmented matrix never changes the Hungarian optimum (200 scenes, 1–4 targets)
+- brute-force QUBO minimum equals the Hungarian optimum, and its argmin decodes to a valid assignment
+
+**Gate — seed 11, 100 scenes per setting, exhaustive search up to 20 variables:**
+
+| setting | tested | passed | skipped (> 20 vars) | variables mean (max) | before pruning → after |
+|---------|--------|--------|---------------------|----------------------|------------------------|
+| pure 2 × 2 | 100 | 100 | 0 | 4.0 (4) | 4.0 → 4.0 |
+| pure 3 × 3 | 100 | 100 | 0 | 9.0 (9) | 9.0 → 9.0 |
+| pure 4 × 4 | 100 | 100 | 0 | 16.0 (16) | 16.0 → 16.0 |
+| augmented, 1 target | 100 | 100 | 0 | 4.8 (11) | 5.7 → 4.8 |
+| augmented, 2 targets | 100 | 100 | 0 | 10.3 (18) | 12.6 → 10.3 |
+| augmented, 3 targets | 88 | 88 | 12 | 16.7 (26) | 22.7 → 16.7 |
+
+**GATE PASSED: 588 / 588** — the QUBO minimum equals the Hungarian optimum on every instance checked.
+
+Stated limits:
+- Exhaustive verification stops at 20 variables; 12 of the 3-target augmented scenes were larger and were
+  not brute-forced. The algebraic tests hold at any size, but the minimum itself was not checked there.
+- On the 3-target augmented scenes, pruning the dummy block cut the variables by about a quarter
+  (22.7 → 16.7 on the same scenes). The larger reduction from P1.0's naive n² count comes mostly from not
+  creating variables for gated-out cells; P1.0 used a different scene set, so the two numbers are not compared
+  directly here.
+
+Next: P1.2 — how small can the penalty A be before infeasible strings win, and what does a large A do to the
+energy landscape a heuristic or QAOA has to search?
