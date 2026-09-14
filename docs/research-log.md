@@ -462,3 +462,29 @@ What this suggests for P1.5, to be decided before any QPU time is spent: use A =
 (11 and 22 CZ gates in the estimate) as the main hardware experiment, and at most 3 × 3 at p = 1 (58 CZ) as a stress point
 expected to be dominated by noise. Full assignment-matrix readout calibration needs 2⁹ = 512 circuits at 9 qubits, so the
 9-qubit case would need a per-qubit (tensored) readout correction instead of the P0.5 method.
+
+## 2026-09-14 — P1.5 pre-registration: predictions written before submitting to hardware
+
+Approved by the account owner to use the free Open Plan allowance. Code: `src/p1_5_hardware.py`. Tests:
+`tests/test_p1_5_hardware.py` (29 of 29 pass, including tensored readout correction exactly undoing an independent
+readout model and agreeing with the P0.5 full-matrix method).
+
+**Dry run (no job submitted, no QPU time).**
+- The rebuilt instances and the stored P1.4 parameters reproduce P1.4's P(optimal) exactly for all 25 circuits.
+- Device ranking from today's calibration data, by median CZ error: `ibm_kingston` 0.0019 (median readout 0.0088),
+  `ibm_fez` 0.0028 (0.0101), `ibm_marrakesh` 0.0032 (0.0137). Chosen: **`ibm_kingston`**.
+- Transpiled on `ibm_kingston`: 2 × 2 p = 1 → 11 CZ, depth 45–49; 2 × 2 p = 2 → 22 CZ, depth 63–68; 3 × 3 p = 1 → 58 CZ,
+  depth 128–134. These match the heavy-hex model estimates from P1.4.
+- One job: 25 QAOA circuits + 4 readout calibration circuits, 2048 shots each, 59,392 shots in total.
+- Pre-registered selection: the first 10 pure 2 × 2 instances (p = 1 and p = 2) and the first 5 pure 3 × 3 instances (p = 1),
+  A = max|c|, parameters taken from the simulator — nothing tuned on hardware.
+
+**Predictions, fixed before the results exist:**
+1. 2 × 2, p = 1 (11 CZ): hardware P(optimal) stays close to the simulator — within 20% of the simulator value after readout
+   correction.
+2. 2 × 2, p = 2 (22 CZ): hardware keeps a smaller share of the simulator value than p = 1 does, **but p = 2 still beats p = 1 on
+   hardware** in mean P(optimal). If this fails, extra depth is already not worth its noise at 4 qubits.
+3. 3 × 3, p = 1 (58 CZ, depth ~130 — about the same depth as the P0 Grover circuit): hardware P(optimal) is clearly degraded
+   from the simulator's 0.0176 but **remains above guessing (0.0020)**.
+4. Readout correction raises P(optimal) by a few percentage points at most, as in P0.5; it does not change which of the
+   comparisons above hold.
