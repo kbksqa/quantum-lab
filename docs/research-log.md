@@ -121,3 +121,38 @@ symmetric readout error (seed 1234, 4096 shots):
   by the matrix inversion. That residual is the method's own error bar and must be kept in mind on hardware.
 - **Readout error alone reproduces the P0 signature.** A 3% readout error gives 0.035 per state at
   distance 1 — close to the 0.037 seen on `ibm_kingston`. The hypothesis is plausible; hardware decides.
+
+## 2026-09-14 — P1.0: scenario generator and Hungarian baseline
+
+Plan: `docs/p1-plan.md` (pre-registered). Code: `src/p1_scenario.py`. Tests: `tests/test_p1_scenario.py`.
+
+Textbook parameters: constant-velocity Kalman prediction (dt = 1 s, white-noise acceleration σ = 1 m/s²),
+previous-estimate σ = 20 m / 5 m/s, measurement σ = 10 m per axis, P_D = 0.9, on average 1 false alarm per
+scan in a window 200 m around the tracks, chi-square gate 9.21 (2 dof, 99%), targets spaced about 50 m apart
+so the association is genuinely ambiguous. Cost = −ln(P_D·N(z; ẑ, S)/λ), missed detection −ln(1 − P_D),
+augmented (T + M) × (T + M) matrix.
+
+**Tests — 6 of 6 pass**, each against a route independent of the code under test:
+- the cost equals −(ln P_D + log N(z; ẑ, S) − ln λ) computed with SciPy's multivariate normal, to 9 decimals
+- the Hungarian optimum on the augmented matrix equals direct enumeration of every valid association on
+  240 random scenes with 1–4 targets
+- no assigned pair ever lies outside the gate; same seed gives the same scene; matrix shapes are right;
+  with near-zero noise the optimum always equals the truth
+
+**Baseline, 3 targets, 500 scenes, seed 2026:**
+
+| mode | mean track accuracy vs truth | scenes where optimum = truth | matrix size | QUBO variables (mean) |
+|------|------------------------------|------------------------------|-------------|-----------------------|
+| augmented (P_D = 0.9, clutter) | 0.8980 | 0.8220 | 4–11 (mean 6.72) | 46.5 |
+| pure (P_D = 1, no clutter) | 0.9453 | 0.9180 | 3 | 9 |
+
+What this already says about the rest of P1:
+1. **The optimum is not the truth.** Even a perfect solver returns the true association in only 82% of
+   augmented scenes and 92% of pure ones at this spacing. That ceiling comes from the noise and the cost
+   model, not from the solver — so every QUBO, annealing and QAOA result will be scored against the
+   *optimum* (P(optimal)) and, separately, against the truth.
+2. **Size decides where quantum can run.** A realistic augmented 3-target scan averages 46.5 binary variables
+   and reaches 121 — far beyond what QAOA runs reliably on current hardware. This confirms the plan: hardware
+   only for pure 2 × 2 and 3 × 3 instances (4 and 9 variables); larger instances stay on classical solvers.
+
+Next: P1.1 — QUBO builder and the hard gate (QUBO minimum = Hungarian optimum on every test instance).

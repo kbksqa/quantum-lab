@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-09-14T12:21:57.759072+07:00",
+  "experiment": "P1.0 Hungarian baseline",
+  "mode": "pure",
+  "targets": 3,
+  "seed": 2026,
+  "params": {
+    "dt": 1.0,
+    "sigma_accel": 1.0,
+    "sigma_meas": 10.0,
+    "sigma_prev_pos": 20.0,
+    "sigma_prev_vel": 5.0,
+    "p_detect": 1.0,
+    "clutter_per_scan": 0.0,
+    "window_pad": 200.0,
+    "gate": null,
+    "spacing": 50.0,
+    "speed": 10.0
+  },
+  "summary": {
+    "scenes": 500,
+    "mean_track_accuracy": 0.9453333333333334,
+    "share_optimum_equals_truth": 0.918,
+    "matrix_size_min": 3,
+    "matrix_size_max": 3,
+    "matrix_size_mean": 3.0,
+    "qubits_if_qubo_mean": 9.0
+  }
+}
