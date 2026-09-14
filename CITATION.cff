@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "quantum-lab: experiments in quantum algorithms for tracking and planning problems"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Suthsilp"
+    given-names: "Kiettisak"
+    email: "kiettisak.suthsilp@gmail.com"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"      # fill in after registering
+repository-code: "https://github.com/USERNAME/quantum-lab"  # fill in your GitHub username
+license: Apache-2.0
+keywords:
+  - quantum computing
+  - quantum algorithms
+  - data association
+  - multi-target tracking
+  - QUBO
