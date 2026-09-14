@@ -397,3 +397,68 @@ Stated limits:
 
 What changes for P1.5: readout correction is worth applying but will not rescue deep circuits. Circuit depth and device
 choice decide the outcome; QAOA on hardware should use the shallowest circuits and the best device of the day.
+
+## 2026-09-14 — P1.4: QAOA on a simulator
+
+Code: `src/p1_qaoa.py`. Tests: `tests/test_p1_qaoa.py`. Raw output with per-instance parameters and metrics:
+`results/p1_4-qaoa-20260914-131628.json`.
+
+Set-up: pure 2 × 2 (4 qubits, 50 new instances, seed 14) and pure 3 × 3 (9 qubits, **the same 50 instances as P1.2 and
+P1.3**). QUBO → Ising with x = (1 − z)/2, coefficients divided by max |h|, |J|. QAOA depth p = 1, 2, 3; COBYLA minimising
+⟨H⟩ (max 300 iterations), 6 random starts plus one start interpolated from depth p − 1. Two penalties: the computable
+A = max|c| and the P1.2 oracle A = 1.5 × A_crit. Noiseless statevector simulation; 1024 samples drawn per instance for the
+sample metrics.
+
+**Tests — 24 of 24 pass.** The central new check: the NumPy simulator matches Qiskit's `Statevector` of the circuit built
+from the Ising coefficients, on 2 × 2 and 3 × 3 — which verifies the Ising conversion, the angle conventions and the
+simulator together. The run itself also stops if the Ising energies ever differ from the QUBO energies.
+
+**2 × 2 (4 qubits).** Guessing: P(optimal) 0.0625, P(feasible) 0.125.
+
+| penalty | p | P(optimal) ± SEM | P(feasible) ± SEM | CZ gates (heavy-hex estimate) | depth |
+|---------|---|------------------|-------------------|-------------------------------|-------|
+| A = max\|c\| | 1 | 0.258 ± 0.014 | 0.440 ± 0.013 | 11 | 43 |
+| | 2 | 0.454 ± 0.025 | 0.710 ± 0.014 | 22 | 69 |
+| | 3 | 0.578 ± 0.025 | 0.866 ± 0.011 | 39 | 137 |
+| 1.5 × A_crit | 1 | 0.154 ± 0.006 | 0.227 ± 0.006 | | |
+| | 2 | 0.409 ± 0.027 | 0.582 ± 0.035 | | |
+| | 3 | 0.583 ± 0.028 | 0.755 ± 0.026 | | |
+
+**3 × 3 (9 qubits).** Guessing: P(optimal) 0.0020, P(feasible) 0.0117.
+
+| penalty | p | P(optimal) ± SEM | P(feasible) ± SEM | CZ gates (heavy-hex estimate) | depth |
+|---------|---|------------------|-------------------|-------------------------------|-------|
+| A = max\|c\| | 1 | 0.0176 ± 0.0008 | 0.102 ± 0.003 | 58 | 137 |
+| | 2 | 0.0529 ± 0.0017 | 0.269 ± 0.009 | 152 | 228 |
+| | 3 | 0.0771 ± 0.0027 | 0.409 ± 0.016 | 238 | 425 |
+| 1.5 × A_crit | 1 | 0.0128 ± 0.0003 | 0.052 ± 0.002 | | |
+| | 2 | 0.0155 ± 0.0007 | 0.049 ± 0.004 | | |
+| | 3 | 0.0294 ± 0.0019 | 0.074 ± 0.010 | | |
+
+What the simulator showed:
+1. **QAOA learns the problem.** Every setting is well above guessing and improves with depth — at p = 3, P(optimal) is
+   about 9× guessing on 2 × 2 and about 39× on 3 × 3.
+2. **The best penalty for annealing is not the best penalty for QAOA.** On 3 × 3 the computable A = max|c| beats the
+   P1.2 oracle 1.5 × A_crit by 1.4× (p = 1), 3.4× (p = 2) and 2.6× (p = 3), and the oracle leaves QAOA almost always
+   infeasible (P(feasible) 0.05–0.07). On 2 × 2 max|c| is better at p = 1–2 and equal at p = 3. The P1.2 recommendation of
+   1.5–2 × A_crit was an annealing result and does not transfer. A plausible reading, not tested here: shallow QAOA cannot
+   concentrate amplitude precisely, so it needs a penalty that separates feasible from infeasible strings more strongly.
+3. **Per sample, QAOA trails annealing on the same 3 × 3 instances.** With the same rule A = max|c|, one annealing restart
+   found the optimum 35.5% of the time (P1.3); one QAOA sample at p = 3 finds it 7.7% of the time. This compares one
+   sample with one restart — not equal computational cost — and it is noiseless QAOA.
+4. **Depth is expensive in two-qubit gates.** On the heavy-hex CZ model, 3 × 3 at p = 3 needs about 238 CZ gates and depth
+   425 — roughly six times the 39-CZ Grover circuit that already lost 16–32 percentage points on real devices in P0.5.
+5. **"Optimum appears in 1024 shots" saturates.** It is 1.00 in every setting because P(optimal) ≥ 0.013 gives more than a
+   dozen expected hits. At these sizes it does not separate anything; P(optimal) is the metric that does.
+
+Stated limits:
+- The optimiser minimises ⟨H⟩, the standard QAOA objective, not P(optimal) directly; objectives such as CVaR were not tried.
+- COBYLA with 7 starts can land in local optima, especially at p = 3 on 9 qubits. The ± values are spread across
+  instances, not optimiser uncertainty.
+- Gate counts and depth come from a heavy-hex CZ model (`GenericBackendV2`, optimisation level 3), not from a real device.
+- Noiseless simulation only.
+
+What this suggests for P1.5, to be decided before any QPU time is spent: use A = max|c|; run 2 × 2 at p = 1 and p = 2
+(11 and 22 CZ gates in the estimate) as the main hardware experiment, and at most 3 × 3 at p = 1 (58 CZ) as a stress point
+expected to be dominated by noise. Full assignment-matrix readout calibration needs 2⁹ = 512 circuits at 9 qubits, so the
+9-qubit case would need a per-qubit (tensored) readout correction instead of the P0.5 method.
