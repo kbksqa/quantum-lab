@@ -488,3 +488,46 @@ readout model and agreeing with the P0.5 full-matrix method).
    from the simulator's 0.0176 but **remains above guessing (0.0020)**.
 4. Readout correction raises P(optimal) by a few percentage points at most, as in P0.5; it does not change which of the
    comparisons above hold.
+
+## 2026-09-14 — P1.5 results: QAOA on `ibm_kingston`, checked against the predictions
+
+Job `dajp9gvi3e6s738qj4rg`, submitted 13:31:32, 17 seconds after the predictions were committed (`e2ff7e1`, 13:31:15).
+Raw data, counts and per-qubit readout errors: `results/p1_5-hardware-20260914-133130.json`.
+Readout calibration: per-qubit P(1|0) at most 0.6% and P(0|1) at most 1.4% on every qubit used.
+
+| circuits | CZ | depth | P(optimal) simulator | hardware raw | corrected | corrected / simulator | P(feasible) simulator → corrected |
+|----------|----|-------|----------------------|--------------|-----------|-----------------------|-----------------------------------|
+| 2 × 2, p = 1 (10 instances) | 11 | 47 | 0.2140 | 0.1913 | 0.1962 | 0.917 | 0.418 → 0.393 |
+| 2 × 2, p = 2 (10 instances) | 22 | 64 | 0.5445 | 0.4762 | 0.4847 | 0.890 | 0.722 → 0.639 |
+| 3 × 3, p = 1 (5 instances) | 58 | 132 | 0.0201 | 0.0174 | 0.0180 | 0.896 | 0.108 → 0.087 |
+
+Guessing: P(optimal) 0.0625 on 2 × 2 and 0.0020 on 3 × 3.
+
+**Prediction by prediction:**
+1. **2 × 2, p = 1 within 20% of the simulator — held.** Mean retention 0.917; every one of the 10 instances between 0.87 and 0.98.
+2. **p = 2 keeps a smaller share than p = 1 but still beats it — held.** Retention 0.890 against 0.917, and p = 2 beat p = 1
+   on **all 10 instances**, by 0.29 in P(optimal) on average. Doubling the CZ count cost less than 3 points of retention.
+3. **3 × 3, p = 1 clearly degraded but above guessing — half held.** It stayed far above guessing (0.0180 against 0.0020, 9×).
+   But it was **not** clearly degraded: it kept about 90% of the simulator's P(optimal), the same as the 4-qubit circuits.
+   The P1.4 expectation that 3 × 3 would be "dominated by noise" was wrong. With about 41 expected optimal hits per
+   circuit, shot noise alone is about ±15% per instance and about ±7% on the 5-instance mean, so the per-instance spread
+   (0.62–1.15) is consistent with sampling.
+4. **Readout correction adds a few points at most and changes no comparison — held.** Gains: +0.5, +0.9 and +0.1 points.
+
+**What else the numbers show — observations, not conclusions:**
+- **Feasibility degrades with depth more than P(optimal) does.** Retention in P(feasible) falls 0.94 → 0.89 → 0.80 across
+  11, 22 and 58 CZ gates, while retention in P(optimal) stays near 0.9 for all three.
+- **The calibration CZ error predicts the 3 × 3 loss but not the 2 × 2 loss.** With median CZ error 0.0019, 58 CZ gates predict
+  about 0.90 of the signal kept — close to what 3 × 3 kept. The same arithmetic predicts 0.98 for 11 CZ gates, but 2 × 2 at
+  p = 1 kept only about 0.92. Something besides two-qubit gate error costs the small circuits a similar few percent; which
+  effect it is was not tested here.
+- **The pre-registered plan worked as intended:** the simulator parameters transferred to hardware without retuning,
+  and the device chosen by calibration data delivered the best retention seen in this project so far.
+
+Stated limits:
+- One job, one device, one calibration window, 5 or 10 instances per setting, 2048 shots per circuit.
+- The 3 × 3 result rests on 5 instances; its mean has a sampling uncertainty of roughly ±7%.
+- Readout correction assumes independent errors between qubits.
+- QPU seconds were not read from the dashboard yet.
+
+Next: P1.6 — write-up of P1 as a whole, release and DOI.
