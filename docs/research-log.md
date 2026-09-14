@@ -1294,3 +1294,14 @@ caveats). Q1: the headline metric is not informative. Q2: P(optimal) near unifor
 effect. Q4: the 19-variable hardware values are indistinguishable from random.
 
 Next: P3.5 — the reproduction report (`docs/p3-report.md`), release and DOI.
+
+## 2026-09-14 — P3.5: reproduction report
+
+`docs/p3-report.md` summarises P3: the claims with grades and evidence, the added questions, the confirmed code defects, the limits
+of this reproduction, suggestions for reporting such results, and how to rerun everything. No new experiment was run; every
+number is taken from the entries above.
+
+Final grades: C1 reproduced (caveat), C2 reproduced, C3 not tested, C4 reproduced (caveat). Q1: the headline metric is not
+informative. QPU time for P3: 0 s.
+
+The release and DOI wait for the author's approval. Contacting the paper's authors has not been decided and has not been done.
