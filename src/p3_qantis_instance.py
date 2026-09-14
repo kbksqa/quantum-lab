@@ -220,16 +220,16 @@ def study(variant: str) -> dict:
     }
 
 
-def cross_check(repo: pathlib.Path, ours: dict) -> dict:
+def cross_check(repo: pathlib.Path, ours: dict, n_tracks: int = N_TRACKS, n_meas: int = N_MEAS) -> dict:
     """Build the same instance with the repository's own code (run from its clone) and compare."""
     src = repo / "packages" / "quantum-mht" / "src"
     sys.path.insert(0, str(src))
     from quantum_mht.formulation.mtda_qubo_builder import MTDAQuboBuilder  # noqa: E402
 
     rng = np.random.default_rng(SEED)
-    predicted = rng.standard_normal((N_TRACKS, 2)).astype(np.float64)
-    measurements = rng.standard_normal((N_MEAS, 2)).astype(np.float64)
-    covariances = np.stack([np.eye(2, dtype=np.float64) * COVARIANCE] * N_TRACKS)
+    predicted = rng.standard_normal((n_tracks, 2)).astype(np.float64)
+    measurements = rng.standard_normal((n_meas, 2)).astype(np.float64)
+    covariances = np.stack([np.eye(2, dtype=np.float64) * COVARIANCE] * n_tracks)
     theirs = MTDAQuboBuilder().build(predicted, measurements, covariances)
 
     def load(name, path):  # bypass classical_solvers/__init__.py, which imports optional heavy solvers

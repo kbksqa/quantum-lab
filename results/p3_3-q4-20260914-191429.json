@@ -1,0 +1,130 @@
+{
+  "timestamp": "2026-09-14T19:12:50.727518+07:00",
+  "experiment": "P3.3 Q4: 19-variable QANTIS instance on a simulator",
+  "variables": 19,
+  "quadratic_terms": 54,
+  "penalty": 15.48760999360444,
+  "optimum": -131.976663249044,
+  "optimum_unique": true,
+  "feasible_strings": 73,
+  "uniform_p_optimal": 1.9073486328125e-06,
+  "hungarian_as_coded": {
+    "association": [
+      0,
+      2,
+      1
+    ],
+    "objective": -131.976663249044
+  },
+  "gnn_as_coded": {
+    "association": [
+      1,
+      2,
+      0
+    ],
+    "objective_full": -125.96821825613158,
+    "objective_pairs_only": -113.48060826252714
+  },
+  "paper_optimum": -132.0,
+  "paper_hardware_quality": {
+    "1": 0.204,
+    "2": 0.115
+  },
+  "cross_check": {
+    "repository_commit": "c17c2b52cc001b09abbc06ea19ac9c4694ea429c",
+    "Q_max_abs_difference": 0.0,
+    "penalty_theirs": 15.48760999360444,
+    "penalty_ours": 15.48760999360444,
+    "hungarian_theirs": -131.976663249044,
+    "hungarian_ours": -131.976663249044,
+    "hungarian_assignments_theirs": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "hungarian_missed_theirs": [],
+    "hungarian_false_alarms_theirs": [
+      3
+    ],
+    "gnn_theirs": -113.48060826252714,
+    "gnn_assignments_theirs": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        0
+      ]
+    ]
+  },
+  "method_a": {
+    "p1": {
+      "p_optimal": 6.189896835205666e-07,
+      "p_feasible": 0.0017604847995823926,
+      "expectation_over_optimum": -0.22549688794830336,
+      "quality_top10_mean": 0.5339283944216472,
+      "quality_top10_sd": 0.0535132436814602,
+      "quality_top10_reversed_mean": -0.15747584687876093,
+      "quality_top10_reversed_sd": 0.05020223977015135,
+      "quality_best_of_all_samples_mean": 0.8266897036819206,
+      "quality_top10_exact_distribution": 0.4792252930586304,
+      "most_probable_state_is_optimal": false,
+      "coefficients": [
+        -0.3399263557112426,
+        2.3487001126231926,
+        -0.14386967385572919,
+        0.4161142610093773,
+        1.0550960199300068,
+        -0.17763122259210132
+      ],
+      "evaluations": 84,
+      "seconds": 30.69558739999775
+    },
+    "p2": {
+      "p_optimal": 6.912970926463707e-06,
+      "p_feasible": 0.0015383823515339378,
+      "expectation_over_optimum": -0.05793003953753922,
+      "quality_top10_mean": 0.7591072966777311,
+      "quality_top10_sd": 0.10684125204553252,
+      "quality_top10_reversed_mean": 0.5631354593538116,
+      "quality_top10_reversed_sd": 0.06373903788749939,
+      "quality_best_of_all_samples_mean": 0.9660964832530755,
+      "quality_top10_exact_distribution": 0.6787007811977144,
+      "most_probable_state_is_optimal": false,
+      "coefficients": [
+        0.25149861585517325,
+        3.062137484577157,
+        0.10221851005576314,
+        0.2465364825556074,
+        2.656131475802105,
+        -1.2827455572201922
+      ],
+      "evaluations": 100,
+      "seconds": 55.97365410000202
+    }
+  },
+  "random_baseline": {
+    "samples": 200,
+    "mean": 0.15016393536978467,
+    "sd": 0.3129721158000077,
+    "p5": -0.41864062382353845,
+    "p95": 0.6319777339011483,
+    "share_at_or_above_0.204": 0.44,
+    "best_of_all_mean": 0.8487910193514152
+  },
+  "seconds": 99.7956625999941
+}

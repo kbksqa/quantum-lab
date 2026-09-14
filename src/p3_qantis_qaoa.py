@@ -62,8 +62,8 @@ def bind_like_script(v: np.ndarray, p: int) -> tuple[np.ndarray, np.ndarray]:
     return np.asarray(v[p:]), np.asarray(v[:p])
 
 
-def make_problem(multiplier: float = 1.5) -> dict:
-    scene = generate()
+def make_problem(multiplier: float = 1.5, n_tracks: int = 2, n_meas: int = 3) -> dict:
+    scene = generate(n_tracks, n_meas)
     C, mask, _ = cost_matrix(scene, "code")
     qubo = build_qubo(C, mask, multiplier=multiplier)
     n = qubo["Q"].shape[0]

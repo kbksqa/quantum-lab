@@ -1244,3 +1244,53 @@ preference for the smaller rule is neither confirmed nor contradicted here.
   Before any submission that needs the author's decision: P3.4's success criterion is registered as the paper's metric (C3).
 
 Next: the author decides whether P3.4 goes ahead. P3.3 (the 19-qubit instance on the simulator) does not depend on that decision.
+
+## 2026-09-14 — Decision: P3.4 (hardware) is not run; C3 is "not tested"
+
+Decided by the author after reading P3.2.
+- **Reason:** C3 was registered to be judged on the paper's quality metric, and Q1 showed that uniformly random bitstrings reach the
+  headline value in 43% of samples. A hardware run judged that way could neither confirm nor refute the claim.
+- **Alternative considered and not taken:** amend the plan to judge hardware on P(optimal), P(feasible) and the energy distribution.
+  At p = 3 the circuit needs about 430 two-qubit gates, and P2.6 and the noiseless P(optimal) of 0.002 give little reason to
+  expect a signal above noise.
+- **Effect:** no QPU time is spent in P3; the plan's go rule is left as registered. Everything else in P3 continues.
+
+## 2026-09-14 — P3.3: Q4, the 19-variable instance on the simulator
+
+Code: `src/p3_qantis_q4.py`, reusing P3.1 and P3.2. Tests: `tests/test_p3_qantis_q4.py` (3; 92 in the project).
+Result: `results/p3_3-q4-20260914-191429.json`. No QPU.
+
+**The instance (N = 3, M = 4, seed 42, code cost variant).**
+- 19 variables, 54 quadratic terms, λ = 15.4876, 73 feasible strings of 524,288.
+- **Hungarian-as-coded value −131.9767; the paper states −132.0** (difference 0.023). It is also the unique brute-force minimum over
+  all 2^19 strings.
+- **Cross-check against the authors' code at `c17c2b5`:** identical Q (max |difference| 0) and identical Hungarian value.
+- Uniform P(optimal) is 1.9 × 10⁻⁶.
+- *Exploratory:* the code's greedy (GNN) is **not** optimal here (full QUBO value −125.97, 95.4% of the optimum), unlike the 2 × 3
+  instance.
+
+**Q4 — the paper's method without noise, and random sampling on the same metric.** Means over 100 samples (200 for random) of 4096
+shots:
+
+| | P(optimal) | P(feasible) | top-10 quality | top-10, reversed bits | best of all samples | paper, hardware |
+|---|---|---|---|---|---|---|
+| A paper FPC, p = 1 | 6.2 × 10⁻⁷ | 0.0018 | 0.534 | −0.157 | 0.827 | 20.4% |
+| A paper FPC, p = 2 | 6.9 × 10⁻⁶ | 0.0015 | 0.759 | 0.563 | 0.966 | 11.5% |
+| **uniformly random** | 1.9 × 10⁻⁶ | 0.0001 | **0.150** (sd 0.313, p95 0.632) | — | 0.849 | — |
+
+**Reading.**
+- **On this instance the metric does separate the trained circuit from noise better than on 2 × 3,** because with 524,288 states
+  random top-10 picks are mostly infeasible. Noiseless p = 2 reaches 0.759 against a random mean of 0.150.
+- **The paper's hardware values are at the level of random sampling.** 44% of random samples reach 20.4% or more, and the p = 2
+  hardware value of 11.5% is below the random *mean* of 15.0%. By the P3.2 rule, 0.204 does not exceed the random 95th
+  percentile of 0.632, so the paper's 19-variable hardware result shows no detectable signal. The paper itself calls this instance
+  marginal.
+- **P(optimal) stays at the uniform level:** below it at p = 1, and 3.6× it at p = 2. As on 2 × 3, the metric's apparent quality
+  comes from near-optimal feasible strings, not from concentration on the optimum.
+- **Reading bits in reverse** would drop the noiseless p = 1 score from 0.534 to −0.157.
+
+**Status of P3.** C1 reproduced (with caveats); C2 reproduced on the simulator; C3 not tested (decision above); C4 reproduced (with
+caveats). Q1: the headline metric is not informative. Q2: P(optimal) near uniform at the reported depths. Q3: no consistent penalty
+effect. Q4: the 19-variable hardware values are indistinguishable from random.
+
+Next: P3.5 — the reproduction report (`docs/p3-report.md`), release and DOI.
