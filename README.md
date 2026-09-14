@@ -20,7 +20,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 | P0.5 | Readout error versus gate error, on three devices | done — readout recovers only 1.5–3.3 pp; most loss is from gates |
 | P1 | Assignment / data association as QUBO — brute force vs simulated annealing vs QAOA ([plan](docs/p1-plan.md)) | done — [summary](docs/p1-summary.md): gate passed 588 / 588; penalty choice is solver-dependent; QAOA on `ibm_kingston` kept ~90% of the simulator |
 | P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | done — [summary](docs/p2-summary.md): [benchmark](benchmark/p2/README.md) of 1,620 instances with exact optima; Lagrangian relaxation optimal on 98.7%; H1 held, H2/H3/H5 partly held, H4 failed; 3D QAOA on `ibm_kingston` at 15.7× guessing |
-| P3 | **Reproduction study** of the QANTIS multi-target data association result (arXiv:2603.00785): instance, FPC-QAOA on a simulator, and hardware if the go rule allows ([plan](docs/p3-plan.md)) | planned — pre-registered |
+| P3 | **Reproduction study** of the QANTIS multi-target data association result (arXiv:2603.00785): instance, FPC-QAOA on a simulator, and hardware if the go rule allows ([plan](docs/p3-plan.md)) | in progress — P3.0 [source audit](docs/p3-sources.md) done |
 | P4 | Technical report, archived with a DOI | planned |
 
 ## Getting started

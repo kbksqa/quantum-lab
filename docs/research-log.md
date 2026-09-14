@@ -1094,3 +1094,37 @@ formulation of the problem for annealing". That accurately repeats QANTIS's clai
 reference [18] is an air-traffic trajectory paper (arXiv:1711.04889), and no data-association paper by Stollenwerk was found.
 The earliest traceable data-association QUBO found is Govaers, Stooß and Ulmke (IEEE MFI 2021). The P2 plan text is left as
 registered; this entry is the correction.
+
+## 2026-09-14 — P3.0: source audit of QANTIS
+
+Record: `docs/p3-sources.md`. Sources: the paper (arXiv:2603.00785v1, HTML), the public repository `neuraparse/qantis` at `c17c2b5`
+(cloned outside this repository, nothing copied in), and the FPC-QAOA source arXiv:2512.21181. No P3 code, no QPU.
+
+**Main findings, with what was confirmed and how:**
+- **The headline metric is confirmed.** The script takes the 10 most frequent bitstrings, evaluates xᵀQx and divides the best by
+  |Hungarian objective|. It is not P(optimal).
+- **Parameter binding bug — confirmed on Qiskit 2.5.2.** `QAOAAnsatz.parameters` lists all β before all γ, but the script binds
+  an interleaved [γ₁, β₁, …] list to it. This affects the analytical initial-schedule circuit, which the paper credits with 64.1%
+  at p = 3. COBYLA-optimised angles bind correctly. Whether the private code shares the bug is unknown.
+- **Bit order — partly confirmed.** Qiskit count keys are little-endian, and the script reads them left to right. Whether this
+  mirrors the variables depends on `to_ising`, to be confirmed in P3.2.
+- **The public solver optimises all 2p QAOA angles.** It uses the schedule only as a starting point, so it is not the fixed-
+  parameter-count method the paper and its source describe. Confirmed by reading the code.
+- **The code's association cost includes ln(clutter density = 1e-5)**, a shift of −11.51 missing from the paper's equation. Gating
+  sets cost 0 instead of removing a variable. The missed-detection and false-alarm costs (5.0, 3.0) exist only in code.
+- **"Hungarian optimal" in the code is a maximum-cardinality assignment** on the penalised diagonal, not necessarily the QUBO
+  minimum.
+- **"ISA" is defined as two-qubit depth but used as a gate count.** The script counts cx/ecr, which is 0 on CZ-native Heron.
+- **Provenance.** The repository attributes arXiv:2110.08346 to "Stollenwerk et al., *Adiabatic Quantum Computing for Multi Object
+  Tracking*, Fraunhofer FKIE". That merges McCormick et al. (the arXiv id), Zaech et al. (the title) and Govaers et al. (FKIE).
+  The λ = 1.5·max|c| rule was found in none of them.
+- **Materials.** The paper's ancillary bundle still returns 404. The repository says hardware data go to reviewers on request.
+
+**Consequences, without changing the plan:**
+- C1 will report both the code's "Hungarian" value and the brute-force QUBO minimum.
+- C2 will simulate the paper's method, the public code's method and the misbound initial circuit, and grade C2 on the paper's.
+- Q1 will evaluate the metric in both bit orders.
+
+These are findings about a published artefact, reported neutrally. Contacting the authors remains subject to the author's approval.
+
+Next: P3.1 — rebuild the instance, check −92.4 and greedy, brute force over 2^11.
