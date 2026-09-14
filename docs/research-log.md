@@ -608,3 +608,81 @@ Pure mode keeps exactly T³ tuples: 8, 27 and 64 for T = 2, 3, 4. In augmented m
 at 0.965 at T = 3, against the 0.822 measured in P1.0 at T = 3. H4 is tested in P2.1, once exact optima exist.
 
 Next: P2.1 — exact ILP baseline and the brute-force gate.
+
+## 2026-09-14 — P2.1: exact ILP baseline, brute-force gate, and H4
+
+Code: `src/p2_ilp.py`. Tests: `tests/test_p2_ilp.py` (7). Result: `results/p2_1-ilp-20260914-144533.json`. No QPU.
+One variable per kept tuple, one equality constraint per real measurement, solved with `scipy.optimize.milp` (HiGHS)
+with the relative MIP gap set to 0. The independent check enumerates every valid partition by exact-cover search, using no
+costs to prune.
+
+**H1 (ILP part) — held.**
+
+| mode | T | checked | skipped (over 200,000 partitions) | cost mismatch | same partition |
+|---|---|---|---|---|---|
+| augmented | 1 | 200 | 0 | 0 | 200 |
+| augmented | 2 | 200 | 0 | 0 | 200 |
+| augmented | 3 | 199 | 1 | 0 | 199 |
+| augmented | 4 | 189 | 11 | 0 | 189 |
+| pure | 2 | 50 | 0 | 0 | 50 |
+| pure | 3 | 50 | 0 | 0 | 50 |
+
+In total 888 instances were checked, with the largest cost difference 1.4 × 10⁻¹⁴. Every solver status was optimal, every ILP
+answer re-checked as a valid partition, and there were no near-ties. Enumeration reached 193,928 partitions on one instance.
+The 12 skipped instances are counted here, not dropped. The ILP took about 4 ms per scene, and at most 11 ms for 203 variables.
+
+**H4 — failed.** The prediction was that three fused sensors would make the optimum equal the truth *more* often than P1.0's
+0.822. It did so far less often:
+
+| T | scenes | optimum = truth | 95% interval | truth cut by gate | truth feasible but costlier |
+|---|---|---|---|---|---|
+| 2 | 200 | 0.415 | 0.349–0.484 | 7 | 110 |
+| **3** | **500** | **0.274** | **0.237–0.315** | 25 | 338 |
+| 4 | 200 | 0.190 | 0.142–0.250 | 19 | 143 |
+| 5 | 200 | 0.145 | 0.103–0.200 | 29 | 142 |
+| 6 | 200 | 0.100 | 0.066–0.149 | 25 | 155 |
+
+At every size, whenever the truth survived gating it never cost less than the ILP optimum (0 cases). The failure is therefore
+in what the model prefers, not in the solver.
+
+**Diagnosis, added after the result — exploratory, not pre-registered.**
+
+*How the optimum differs from the truth* — in the 363 T = 3 scenes where they differ (a scene can show several of these):
+- a clutter measurement joined to a target's tuple: 280
+- measurements of different targets joined into one tuple: 219
+- a target's measurement left on its own: 53
+- truth cut by the gate: 25
+
+*One factor at a time* — T = 3, 300 scenes, the same scene seed for every variant:
+
+| variant | optimum = truth | 95% interval |
+|---|---|---|
+| default | 0.303 | 0.254–0.358 |
+| no clutter | 0.630 | 0.574–0.683 |
+| P_D = 1 | 0.560 | 0.503–0.615 |
+| pure (P_D = 1, no clutter, no gate) | 0.737 | 0.684–0.783 |
+| spacing 100 m | 0.480 | 0.424–0.536 |
+| spacing 200 m | 0.587 | 0.530–0.641 |
+| bearing σ 0.005 rad (about 10 m round) | 0.833 | 0.787–0.871 |
+| bearing σ 0.005 rad and no clutter | 0.933 | 0.899–0.956 |
+
+Reading:
+- **The biggest single factor is the 40 m cross-range error.** Each sensor's ellipse covers a large area, so clutter often falls
+  inside a target's gate. When a sensor missed the target, joining that clutter really is the more likely explanation under the
+  model. With about 10 m round errors the share rises to 0.833.
+- **Even with no clutter, no missed detections and no gate, only 0.737 of scenes are solved to the truth.** Targets 50 m apart
+  with 40 m cross-range errors are ambiguous from the data alone.
+- **Why the hypothesis was wrong:** P1.0 associated measurements with *tracks whose predicted positions were known*. A
+  single-instant multi-sensor scene has no such anchor — the target positions must come from the measurements themselves.
+  "Comparable noise" was not comparable: 10 × 40 m ellipses per sensor against 23 m round innovations with a known prediction.
+- **Not tested:** whether the generalised likelihood ratio — which fits the target position to the very measurements it scores —
+  adds to the clutter joining, compared with a likelihood that integrates over the position. That is left as an open question;
+  the pre-registered cost is kept.
+
+**Consequences.**
+- The P2.3–P2.5 solver comparisons are scored against the ILP optimum, so they are unaffected.
+- Accuracy against the truth in the benchmark must be reported together with these limits.
+- The planned P2.4 sweep does not vary bearing error, which turned out to matter most. Adding it would change the
+  pre-registered plan and needs a separate, logged decision.
+
+Next: P2.2 — QUBO for multi-sensor assignment and its gate against the ILP.

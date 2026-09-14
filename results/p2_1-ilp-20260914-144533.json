@@ -1,0 +1,303 @@
+{
+  "timestamp": "2026-09-14T14:43:12.439139+07:00",
+  "experiment": "P2.1 exact ILP and brute-force gate",
+  "seed": 2027,
+  "params": {
+    "n_sensors": 3,
+    "sensor_radius": 2000.0,
+    "sigma_range": 10.0,
+    "sigma_bearing": 0.02,
+    "p_detect": 0.9,
+    "clutter_per_sensor": 1.0,
+    "window_pad": 200.0,
+    "gate": 9.21,
+    "spacing": 50.0
+  },
+  "brute_force_limit": 200000,
+  "gate": [
+    {
+      "mode": "augmented",
+      "sizes": {
+        "1": {
+          "checked": 200,
+          "skipped_over_limit": 0,
+          "mismatch": 0,
+          "max_abs_difference": 3.552713678800501e-15,
+          "same_partition": 200,
+          "near_ties": 0,
+          "invalid_ilp_partition": 0,
+          "solver_not_optimal": 0,
+          "partitions_max": 778
+        },
+        "2": {
+          "checked": 200,
+          "skipped_over_limit": 0,
+          "mismatch": 0,
+          "max_abs_difference": 3.552713678800501e-15,
+          "same_partition": 200,
+          "near_ties": 0,
+          "invalid_ilp_partition": 0,
+          "solver_not_optimal": 0,
+          "partitions_max": 6603
+        },
+        "3": {
+          "checked": 199,
+          "skipped_over_limit": 1,
+          "mismatch": 0,
+          "max_abs_difference": 7.105427357601002e-15,
+          "same_partition": 199,
+          "near_ties": 0,
+          "invalid_ilp_partition": 0,
+          "solver_not_optimal": 0,
+          "partitions_max": 162020
+        },
+        "4": {
+          "checked": 189,
+          "skipped_over_limit": 11,
+          "mismatch": 0,
+          "max_abs_difference": 1.4210854715202004e-14,
+          "same_partition": 189,
+          "near_ties": 0,
+          "invalid_ilp_partition": 0,
+          "solver_not_optimal": 0,
+          "partitions_max": 193928
+        }
+      }
+    },
+    {
+      "mode": "pure",
+      "sizes": {
+        "2": {
+          "checked": 50,
+          "skipped_over_limit": 0,
+          "mismatch": 0,
+          "max_abs_difference": 0.0,
+          "same_partition": 50,
+          "near_ties": 0,
+          "invalid_ilp_partition": 0,
+          "solver_not_optimal": 0,
+          "partitions_max": 4
+        },
+        "3": {
+          "checked": 50,
+          "skipped_over_limit": 0,
+          "mismatch": 0,
+          "max_abs_difference": 1.4210854715202004e-14,
+          "same_partition": 50,
+          "near_ties": 0,
+          "invalid_ilp_partition": 0,
+          "solver_not_optimal": 0,
+          "partitions_max": 36
+        }
+      }
+    }
+  ],
+  "truth": {
+    "3": {
+      "targets": 3,
+      "scenes": 500,
+      "share_optimum_equals_truth": 0.274,
+      "wilson95": [
+        0.2367399762569261,
+        0.31470635131904223
+      ],
+      "truth_cut_by_gate": 25,
+      "truth_feasible_but_costlier": 338,
+      "truth_cheaper_than_ilp_optimum": 0,
+      "difference_modes_scenes": {
+        "clutter joined to a target tuple": 280,
+        "measurements of different targets joined": 219,
+        "target measurement left as a singleton": 53,
+        "truth cut by gate": 25
+      },
+      "median_cost_excess_of_truth": 3.422046223214224,
+      "variables_mean": 46.682,
+      "variables_max": 101,
+      "ilp_seconds_median": 0.004350599992903881,
+      "ilp_seconds_max": 0.010036199993919581
+    },
+    "2": {
+      "targets": 2,
+      "scenes": 200,
+      "share_optimum_equals_truth": 0.415,
+      "wilson95": [
+        0.3489416917324964,
+        0.48426212927361817
+      ],
+      "truth_cut_by_gate": 7,
+      "truth_feasible_but_costlier": 110,
+      "truth_cheaper_than_ilp_optimum": 0,
+      "difference_modes_scenes": {
+        "clutter joined to a target tuple": 104,
+        "measurements of different targets joined": 41,
+        "target measurement left as a singleton": 17,
+        "truth cut by gate": 7
+      },
+      "median_cost_excess_of_truth": 4.658282394674863,
+      "variables_mean": 27.39,
+      "variables_max": 54,
+      "ilp_seconds_median": 0.004899449995718896,
+      "ilp_seconds_max": 0.009493000019574538
+    },
+    "4": {
+      "targets": 4,
+      "scenes": 200,
+      "share_optimum_equals_truth": 0.19,
+      "wilson95": [
+        0.14167093792456506,
+        0.250013585744794
+      ],
+      "truth_cut_by_gate": 19,
+      "truth_feasible_but_costlier": 143,
+      "truth_cheaper_than_ilp_optimum": 0,
+      "difference_modes_scenes": {
+        "clutter joined to a target tuple": 120,
+        "measurements of different targets joined": 127,
+        "target measurement left as a singleton": 29,
+        "truth cut by gate": 19
+      },
+      "median_cost_excess_of_truth": 3.9388446644996193,
+      "variables_mean": 70.075,
+      "variables_max": 133,
+      "ilp_seconds_median": 0.0037787499895785004,
+      "ilp_seconds_max": 0.007611500011989847
+    },
+    "5": {
+      "targets": 5,
+      "scenes": 200,
+      "share_optimum_equals_truth": 0.145,
+      "wilson95": [
+        0.1028928513530641,
+        0.20048781284894374
+      ],
+      "truth_cut_by_gate": 29,
+      "truth_feasible_but_costlier": 142,
+      "truth_cheaper_than_ilp_optimum": 0,
+      "difference_modes_scenes": {
+        "clutter joined to a target tuple": 115,
+        "measurements of different targets joined": 150,
+        "target measurement left as a singleton": 23,
+        "truth cut by gate": 29
+      },
+      "median_cost_excess_of_truth": 2.9215190219284146,
+      "variables_mean": 90.785,
+      "variables_max": 142,
+      "ilp_seconds_median": 0.0038751999964006245,
+      "ilp_seconds_max": 0.010097799997311085
+    },
+    "6": {
+      "targets": 6,
+      "scenes": 200,
+      "share_optimum_equals_truth": 0.1,
+      "wilson95": [
+        0.06566994117157123,
+        0.14940686356308552
+      ],
+      "truth_cut_by_gate": 25,
+      "truth_feasible_but_costlier": 155,
+      "truth_cheaper_than_ilp_optimum": 0,
+      "difference_modes_scenes": {
+        "clutter joined to a target tuple": 119,
+        "measurements of different targets joined": 158,
+        "target measurement left as a singleton": 17,
+        "truth cut by gate": 25
+      },
+      "median_cost_excess_of_truth": 3.546976504591477,
+      "variables_mean": 115.165,
+      "variables_max": 203,
+      "ilp_seconds_median": 0.004101049999007955,
+      "ilp_seconds_max": 0.011084800004027784
+    }
+  },
+  "factor_study": [
+    {
+      "variant": "default",
+      "change": {},
+      "share_optimum_equals_truth": 0.30333333333333334,
+      "wilson95": [
+        0.25407027929306525,
+        0.35756946983937743
+      ]
+    },
+    {
+      "variant": "no clutter",
+      "change": {
+        "clutter_per_sensor": 0.0
+      },
+      "share_optimum_equals_truth": 0.63,
+      "wilson95": [
+        0.574043509355098,
+        0.6826691988454907
+      ]
+    },
+    {
+      "variant": "P_D = 1",
+      "change": {
+        "p_detect": 1.0
+      },
+      "share_optimum_equals_truth": 0.56,
+      "wilson95": [
+        0.503420997979743,
+        0.6150617904205289
+      ]
+    },
+    {
+      "variant": "pure (P_D = 1, no clutter, no gate)",
+      "change": {
+        "p_detect": 1.0,
+        "clutter_per_sensor": 0.0,
+        "gate": null
+      },
+      "share_optimum_equals_truth": 0.7366666666666667,
+      "wilson95": [
+        0.6840594845533765,
+        0.7832892919143619
+      ]
+    },
+    {
+      "variant": "bearing 0.005 rad (about 10 m round)",
+      "change": {
+        "sigma_bearing": 0.005
+      },
+      "share_optimum_equals_truth": 0.8333333333333334,
+      "wilson95": [
+        0.7870024256968671,
+        0.8712352876379759
+      ]
+    },
+    {
+      "variant": "spacing 100 m",
+      "change": {
+        "spacing": 100.0
+      },
+      "share_optimum_equals_truth": 0.48,
+      "wilson95": [
+        0.4240757908015887,
+        0.5364299463983206
+      ]
+    },
+    {
+      "variant": "spacing 200 m",
+      "change": {
+        "spacing": 200.0
+      },
+      "share_optimum_equals_truth": 0.5866666666666667,
+      "wilson95": [
+        0.5301895702243481,
+        0.6409522352427112
+      ]
+    },
+    {
+      "variant": "bearing 0.005 rad and no clutter",
+      "change": {
+        "sigma_bearing": 0.005,
+        "clutter_per_sensor": 0.0
+      },
+      "share_optimum_equals_truth": 0.9333333333333333,
+      "wilson95": [
+        0.8992762041322797,
+        0.9564328232030161
+      ]
+    }
+  ]
+}
