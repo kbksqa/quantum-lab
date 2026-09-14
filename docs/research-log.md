@@ -1066,3 +1066,31 @@ The v0.5.0 release and DOI wait for the author's approval.
 
 Approved by the author. P2.5–P2.7 are released together with everything since v0.4.0 as `v0.5.0`, archived on Zenodo under the
 project's concept DOI. `CITATION.cff` now names v0.5.0. P2 is complete.
+
+Zenodo DOI for v0.5.0: 10.5281/zenodo.22748338. The concept DOI resolves to it.
+
+## 2026-09-14 — P3 plan pre-registered: a reproduction study of QANTIS
+
+Plan: `docs/p3-plan.md`, written before any P3 code or result.
+
+**Literature search.** Two independent searches looked for quantum approaches to data association in tracking. Findings, each
+from the paper's own text:
+- **QANTIS** (arXiv:2603.00785, 2026) is the only gate-model result found. It has an 11-qubit hardware instance and a public
+  repository. It is **chosen**.
+- McCormick et al. (arXiv:2110.08346), Ihara (*Sci. Rep.* 2025) and Zaech et al. (CVPR 2022) are D-Wave annealing studies.
+  Their results are figures only, or their data are no longer public, or their instances are far beyond 12 qubits.
+- Cloud annealing access was checked the same day. D-Wave Leap offers a trial of 1 minute of QPU time valid for one month.
+  D-Wave has not been on Amazon Braket since November 2022.
+
+**The plan registers:**
+- four claims of the paper (C1 instance, C2 noiseless method, C3 hardware, C4 greedy), each with its grading rule
+- four added questions, including a random-sampling baseline for the paper's "best of top-10 bitstrings" quality metric,
+  with its decision rule fixed in advance
+- a hardware go rule and a QPU budget of 3 minutes
+- how the authors' MIT-licensed code may and may not be used
+
+**Correction to earlier entries.** The P2 plan's related-work list says QANTIS "credits Stollenwerk et al. with the first QUBO
+formulation of the problem for annealing". That accurately repeats QANTIS's claim, but the claim does not hold up. QANTIS's
+reference [18] is an air-traffic trajectory paper (arXiv:1711.04889), and no data-association paper by Stollenwerk was found.
+The earliest traceable data-association QUBO found is Govaers, Stooß and Ulmke (IEEE MFI 2021). The P2 plan text is left as
+registered; this entry is the correction.
