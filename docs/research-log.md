@@ -96,3 +96,28 @@ Open questions for the next step:
 - The whole sweep (6 circuits × 4096 shots = 24,576 shots) therefore cost about **9 QPU seconds**.
 - At that rate the remaining allowance covers about 65 more sweeps of the same size — enough for a
   readout-error measurement and repeats on `ibm_fez` and `ibm_marrakesh` without running out.
+
+## 2026-09-14 — P0.5 plan and method check on a simulator
+
+Question: how much of the k = 2 loss on hardware is readout error, and is the "one bit away" bias from P0
+caused by readout or by the gates?
+
+Method (`src/p0_5_readout.py`): in one job per device, run Grover k = 2 and eight calibration circuits that
+prepare each basis state on **the same physical qubits Grover is measured on**. The eight measured
+distributions form the assignment matrix A[j][s] = P(read j | prepared s). Correct the Grover result by
+solving A·p = p_measured, clipping negatives and renormalising. Test: if the one-bit-away bias disappears
+after correction, it came from readout; if it survives, it came from the gates.
+
+Before spending any QPU time, the method was checked on a simulator with ideal gates and a **known**
+symmetric readout error (seed 1234, 4096 shots):
+
+| injected readout error | raw success | corrected | theory | gap after correction | distance-1 per state raw → corrected |
+|------------------------|-------------|-----------|--------|----------------------|--------------------------------------|
+| 3% | 0.8579 | 0.9390 | 0.9453 | 0.0063 | 0.0353 → 0.0092 |
+| 8% | 0.7217 | 0.9234 | 0.9453 | 0.0219 | 0.0756 → 0.0143 |
+
+- The estimated per-bit readout errors come out at 2.7–3.1% and 7.7–8.0%, matching what was injected.
+- The correction recovers theory well at 3% and less precisely at 8% — calibration shot noise is amplified
+  by the matrix inversion. That residual is the method's own error bar and must be kept in mind on hardware.
+- **Readout error alone reproduces the P0 signature.** A 3% readout error gives 0.035 per state at
+  distance 1 — close to the 0.037 seen on `ibm_kingston`. The hypothesis is plausible; hardware decides.
