@@ -19,7 +19,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 | P0 | Grover search: amplitude amplification on a simulator and on real hardware | done — simulator matches theory; run on `ibm_kingston` |
 | P0.5 | Readout error versus gate error, on three devices | done — readout recovers only 1.5–3.3 pp; most loss is from gates |
 | P1 | Assignment / data association as QUBO — brute force vs simulated annealing vs QAOA ([plan](docs/p1-plan.md)) | done — [summary](docs/p1-summary.md): gate passed 588 / 588; penalty choice is solver-dependent; QAOA on `ibm_kingston` kept ~90% of the simulator |
-| P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | in progress — P2.0–P2.6 done: [benchmark](benchmark/p2/README.md) of 1,620 instances with exact optima, a checker and baselines (v0.4.0); QUBO gate 517 / 517; H2, H3, H5 partly held; H4 failed; 3D QAOA on `ibm_kingston` reached 15.7× guessing, and the P1.5 circuits on `ibm_fez` kept 0.892 of the simulator (P1.5: 0.890) |
+| P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | done — [summary](docs/p2-summary.md): [benchmark](benchmark/p2/README.md) of 1,620 instances with exact optima; Lagrangian relaxation optimal on 98.7%; H1 held, H2/H3/H5 partly held, H4 failed; 3D QAOA on `ibm_kingston` at 15.7× guessing |
 | P3 | Reproduction study of a published quantum tracking / planning result | planned |
 | P4 | Technical report, archived with a DOI | planned |
 

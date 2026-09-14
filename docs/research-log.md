@@ -1051,3 +1051,13 @@ Guessing is 0.0011, so hardware reached **15.7× guessing**. The shot-noise stan
 8 m 39 s remain in the current allowance; the dashboard was not read.
 
 Next: P2.7 — summary of P2, release and DOI.
+
+## 2026-09-14 — P2.7: summary of P2
+
+P2 as a whole is written up in `docs/p2-summary.md`: the question, the steps, the five hypotheses with their outcomes, the
+results, every correction and deviation, the limits, QPU time, and where it points. No new experiment was run; every number
+there is taken from the entries above.
+
+Hypotheses: H1 held, H2 partly held, H3 partly held, H4 failed, H5 partly held (device half only). QPU time: P2 18 s, project 81 s.
+
+The v0.5.0 release and DOI wait for the author's approval.
