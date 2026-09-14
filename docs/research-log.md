@@ -273,3 +273,80 @@ Stated limits and one unexplained point:
 
 Next: P1.3 — simulated annealing baseline with computable penalty rules (A = max|c| versus the 1.5 × A_crit oracle),
 saving per-instance results.
+
+## 2026-09-14 — P1.3: simulated annealing baseline, and a correction to P1.2
+
+Code: `src/p1_annealing.py`. Tests: `tests/test_p1_annealing.py`. Raw output with per-instance results:
+`results/p1_3-annealing-20260914-125703.json`. Annealing: same routine and schedule as P1.2, 64 restarts, seed 13.
+
+**Tests — 20 of 20 pass.** The key new check: the P1.2 instance sets were rebuilt from the same seed and order of random
+draws, and their median safe/critical penalty ratios match the committed P1.2 result file to 9 decimal places in all
+three settings. Part 1 below therefore analyses exactly the instances P1.2 used.
+
+### Part 1 — the P1.2 anomaly was a flaw in my study code
+
+P1.2 set A = s × base with base = A_crit, but fell back to base = 10⁻⁶ whenever A_crit = 0.
+
+| augmented 2-target scenes | instances | feasible share, P1.2 rule at 50× | feasible share, safe penalty |
+|---------------------------|-----------|----------------------------------|------------------------------|
+| A_crit = 0 | 6 | 0.023 | 1.000 |
+| A_crit > 0 | 44 | 1.000 | 1.000 |
+| all | 50 | 0.883 | 1.000 |
+
+**Correction to the P1.2 entry.** The flat feasible share of about 0.88 across 1.1–50 × A_crit on augmented scenes came
+from 6 instances that effectively had no penalty at all — 6 of 50 at ~2% plus 44 at 100% gives 0.883, matching P1.2's
+0.884. The trapping hypothesis written in P1.2 is not needed and is withdrawn. The augmented multiplier rows in the
+P1.2 table understate feasibility and success for that reason. The pure 3 × 3 and 4 × 4 rows are unaffected — none of
+those instances has A_crit = 0 — so the P1.2 conclusions about the sweet spot and the cost of the safe penalty stand.
+
+A_crit = 0 is a genuine case, not a bug in the formula: it happens when no infeasible string can undercut the optimum
+(test instance C = [[−5, ∞], [∞, −5]]). Any positive A then works, and "multiples of A_crit" mean nothing.
+
+### Part 2 — a penalty rule a real solver can compute
+
+Same instances as P1.2. Per-restart success, best of 64 restarts, and share of restarts ending feasible:
+
+| setting | max\|c\| / A_crit, median (min–max) | rule | success | best-of-64 optimal | feasible |
+|---------|-------------------------------------|------|---------|--------------------|----------|
+| pure 3 × 3 | 4.38 (2.49–7.36) | oracle 1.5 × A_crit | 0.641 | 1.000 | 0.962 |
+| | | **A = max\|c\|** | **0.355** | 1.000 | 1.000 |
+| | | safe | 0.190 | 1.000 | 1.000 |
+| pure 4 × 4 | 7.38 (4.80–11.26) | oracle 1.5 × A_crit | 0.549 | 1.000 | 0.834 |
+| | | **A = max\|c\|** | **0.147** | 1.000 | 1.000 |
+| | | safe | 0.051 | 0.980 | 1.000 |
+| augmented, 2 targets | 2.67 (1.17–42.62) | oracle 1.5 × A_crit (44 instances) | 0.739 | 1.000 | 0.878 |
+| | | **A = max\|c\|** | **0.775** | 1.000 | 0.969 |
+| | | safe | 0.328 | 1.000 | 1.000 |
+
+- **A = max|c| was above A_crit in every instance** (smallest ratio 1.17). Still an observation, not a proof.
+- **It sits between the oracle and the safe penalty.** Per restart it beats the safe penalty by 1.9× (3 × 3), 2.9× (4 × 4)
+  and 2.4× (augmented). On pure instances it trails the oracle by 1.8× and 3.7×. On augmented scenes it slightly beats
+  the oracle (0.775 vs 0.739), because 1.5 × A_crit is near the too-small regime there (feasible only 0.878).
+- **Its overshoot grows with size** on pure instances (median 4.4× → 7.4× A_crit), so it drifts away from the sweet spot.
+- **Best-of-64 hides the difference.** On these small instances the best restart finds the optimum for almost every rule
+  (one exception: safe on 4 × 4, 0.98). Per-restart success is what separates them — and QAOA samples are closer to
+  single restarts than to a best-of-64 search.
+
+### Part 3 — beyond brute force, with A = max|c|
+
+30 instances per setting, scored against the Hungarian optimum:
+
+| setting | variables mean (max) | sweeps | success | best-of-64 optimal | feasible | median best gap / cost spread |
+|---------|----------------------|--------|---------|--------------------|----------|-------------------------------|
+| pure 5 × 5 | 25 (25) | 100 | 0.051 | 0.967 | 1.000 | 0.0000 |
+| | | 400 | 0.077 | 0.967 | 1.000 | 0.0000 |
+| pure 6 × 6 | 36 (36) | 100 | 0.009 | 0.467 | 1.000 | 0.0117 |
+| | | 400 | 0.012 | 0.667 | 1.000 | 0.0000 |
+| augmented, 3 targets | 17 (25) | 100 | 0.701 | 1.000 | 0.965 | 0.0000 |
+| | | 400 | 0.799 | 1.000 | 0.989 | 0.0000 |
+
+- **Dense instances get hard fast.** At 36 variables one restart finds the optimum about 1% of the time, and even the best
+  of 64 restarts at 400 sweeps finds it in only two thirds of instances — for a problem Hungarian solves exactly in
+  polynomial time.
+- **Realistic tracking scenes are easy here.** Gating and pruning leave a sparse structure (17 variables on average for
+  3 targets), and annealing succeeds 70–80% per restart.
+- **More sweeps help, modestly** (6 × 6 best-of-64: 0.47 → 0.67).
+- This is the classical heuristic reference for QAOA. It is not a claim that annealing on a QUBO is a sensible way to
+  solve two-dimensional assignment — it is not.
+
+Next: P1.4 — QAOA on a simulator for pure 2 × 2 and 3 × 3, with the penalty chosen from these results.
