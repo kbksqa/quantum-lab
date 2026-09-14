@@ -1061,3 +1061,8 @@ there is taken from the entries above.
 Hypotheses: H1 held, H2 partly held, H3 partly held, H4 failed, H5 partly held (device half only). QPU time: P2 18 s, project 81 s.
 
 The v0.5.0 release and DOI wait for the author's approval.
+
+## 2026-09-14 — Release v0.5.0
+
+Approved by the author. P2.5–P2.7 are released together with everything since v0.4.0 as `v0.5.0`, archived on Zenodo under the
+project's concept DOI. `CITATION.cff` now names v0.5.0. P2 is complete.
