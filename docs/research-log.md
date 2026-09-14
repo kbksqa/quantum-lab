@@ -1311,3 +1311,20 @@ The release and DOI wait for the author's approval. Contacting the paper's autho
 Approved by the author. P3 — the plan, the source audit, P3.1–P3.3, the decision not to run P3.4, and the reproduction report — is
 released as `v0.6.0`, archived on Zenodo under the project's concept DOI. `CITATION.cff` now names v0.6.0. The paper's authors have
 not been contacted.
+
+Zenodo DOI for v0.6.0: 10.5281/zenodo.22749549. The concept DOI resolves to it.
+
+## 2026-09-14 — P4 plan written: technical report on P0–P3
+
+Plan: `docs/p4-plan.md`, written before any manuscript text. P4 runs no new experiment.
+
+The plan fixes:
+- **Rules for the report:** no new results; every number read by a script from committed result files and checked by a test;
+  failures and corrections reported with the same weight as successes; no claim stronger than its logged grade; references verified
+  before citing.
+- **A section structure** and a first list of script-generated figures.
+- **Six decisions that belong to the author before drafting:** affiliation line, AI-assistance disclosure wording, whether and how to
+  contact the QANTIS authors before archiving, publication route, toolchain, and licence of the text.
+
+Checked while planning: no LaTeX, pandoc or plotting library is installed in the environment, so the toolchain is one of the
+decisions.
