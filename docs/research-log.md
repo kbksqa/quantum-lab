@@ -543,3 +543,18 @@ the 10-minute allowance.
 `docs/p1-summary.md`.
 
 **Release.** P0.5 and P1.0–P1.5 are released together as `v0.3.0`, archived on Zenodo.
+
+## 2026-09-14 — P2 plan pre-registered
+
+Plan: `docs/p2-plan.md`, written and committed before any P2 code or result. Subject: multi-sensor data association as
+three-dimensional assignment, which is NP-hard — the problem P1's two-dimensional case deliberately avoided.
+
+Checked before writing it:
+- `scipy.optimize.milp` (SciPy 1.18.1, HiGHS) is available in the project environment. On a random 3 × 3 × 3 axial assignment it
+  returned 4.029437, identical to brute force over all permutation pairs — so an exact baseline exists without a new dependency.
+- The core reference (Deb, Yeddanapudi, Pattipati, Bar-Shalom 1997, IEEE TAES 33(2)) and the related quantum work cited in the plan
+  were looked up and confirmed to exist.
+
+Five hypotheses are fixed in the plan (H1 gates, H2 where Lagrangian relaxation fails, H3 solver-dependent penalties, H4 higher
+optimum-vs-truth ceiling with three sensors, H5 hardware repeatability), plus a QPU budget of 3 minutes for P2 and a go/no-go
+rule for putting three-dimensional QAOA on hardware.
