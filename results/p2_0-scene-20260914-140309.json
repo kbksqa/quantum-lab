@@ -1,0 +1,156 @@
+{
+  "timestamp": "2026-09-14T14:03:06.074519+07:00",
+  "experiment": "P2.0 multi-sensor scene and tuple costs",
+  "seed": 2026,
+  "params": {
+    "n_sensors": 3,
+    "sensor_radius": 2000.0,
+    "sigma_range": 10.0,
+    "sigma_bearing": 0.02,
+    "p_detect": 0.9,
+    "clutter_per_sensor": 1.0,
+    "window_pad": 200.0,
+    "gate": 9.21,
+    "spacing": 50.0
+  },
+  "augmented": {
+    "2": {
+      "scenes": 200,
+      "mean_measurements_per_sensor": 2.828333333333333,
+      "tuples_mean": 26.105,
+      "tuples_median": 25.0,
+      "tuples_max": 53,
+      "share_truth_survives_gating": 0.96,
+      "truth_tuples_cut_total": 9,
+      "targets_unseen_total": 0,
+      "counts_total": {
+        "enumerated": 11075,
+        "removed_by_gate": 5854,
+        "removed_infinite_cost": 0,
+        "singleton_as_target": 0,
+        "singleton_as_false_alarm": 1697
+      }
+    },
+    "3": {
+      "scenes": 200,
+      "mean_measurements_per_sensor": 3.62,
+      "tuples_mean": 47.67,
+      "tuples_median": 49.0,
+      "tuples_max": 92,
+      "share_truth_survives_gating": 0.965,
+      "truth_tuples_cut_total": 7,
+      "targets_unseen_total": 1,
+      "counts_total": {
+        "enumerated": 19593,
+        "removed_by_gate": 10059,
+        "removed_infinite_cost": 0,
+        "singleton_as_target": 1,
+        "singleton_as_false_alarm": 2171
+      }
+    },
+    "4": {
+      "scenes": 200,
+      "mean_measurements_per_sensor": 4.575,
+      "tuples_mean": 71.185,
+      "tuples_median": 68.0,
+      "tuples_max": 165,
+      "share_truth_survives_gating": 0.96,
+      "truth_tuples_cut_total": 8,
+      "targets_unseen_total": 1,
+      "counts_total": {
+        "enumerated": 34578,
+        "removed_by_gate": 20341,
+        "removed_infinite_cost": 0,
+        "singleton_as_target": 91,
+        "singleton_as_false_alarm": 2654
+      }
+    },
+    "5": {
+      "scenes": 200,
+      "mean_measurements_per_sensor": 5.593333333333334,
+      "tuples_mean": 93.42,
+      "tuples_median": 91.0,
+      "tuples_max": 164,
+      "share_truth_survives_gating": 0.885,
+      "truth_tuples_cut_total": 23,
+      "targets_unseen_total": 2,
+      "counts_total": {
+        "enumerated": 57128,
+        "removed_by_gate": 38444,
+        "removed_infinite_cost": 0,
+        "singleton_as_target": 1301,
+        "singleton_as_false_alarm": 2055
+      }
+    },
+    "6": {
+      "scenes": 200,
+      "mean_measurements_per_sensor": 6.49,
+      "tuples_mean": 114.38,
+      "tuples_median": 115.0,
+      "tuples_max": 179,
+      "share_truth_survives_gating": 0.865,
+      "truth_tuples_cut_total": 32,
+      "targets_unseen_total": 1,
+      "counts_total": {
+        "enumerated": 84117,
+        "removed_by_gate": 61241,
+        "removed_infinite_cost": 0,
+        "singleton_as_target": 3521,
+        "singleton_as_false_alarm": 373
+      }
+    }
+  },
+  "pure": {
+    "2": {
+      "scenes": 20,
+      "mean_measurements_per_sensor": 2.0,
+      "tuples_mean": 8.0,
+      "tuples_median": 8.0,
+      "tuples_max": 8,
+      "share_truth_survives_gating": 1.0,
+      "truth_tuples_cut_total": 0,
+      "targets_unseen_total": 0,
+      "counts_total": {
+        "enumerated": 520,
+        "removed_by_gate": 0,
+        "removed_infinite_cost": 360,
+        "singleton_as_target": 0,
+        "singleton_as_false_alarm": 0
+      }
+    },
+    "3": {
+      "scenes": 20,
+      "mean_measurements_per_sensor": 3.0,
+      "tuples_mean": 27.0,
+      "tuples_median": 27.0,
+      "tuples_max": 27,
+      "share_truth_survives_gating": 1.0,
+      "truth_tuples_cut_total": 0,
+      "targets_unseen_total": 0,
+      "counts_total": {
+        "enumerated": 1260,
+        "removed_by_gate": 0,
+        "removed_infinite_cost": 720,
+        "singleton_as_target": 0,
+        "singleton_as_false_alarm": 0
+      }
+    },
+    "4": {
+      "scenes": 20,
+      "mean_measurements_per_sensor": 4.0,
+      "tuples_mean": 64.0,
+      "tuples_median": 64.0,
+      "tuples_max": 64,
+      "share_truth_survives_gating": 1.0,
+      "truth_tuples_cut_total": 0,
+      "targets_unseen_total": 0,
+      "counts_total": {
+        "enumerated": 2480,
+        "removed_by_gate": 0,
+        "removed_infinite_cost": 1200,
+        "singleton_as_target": 0,
+        "singleton_as_false_alarm": 0
+      }
+    }
+  }
+}

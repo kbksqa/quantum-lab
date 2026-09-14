@@ -558,3 +558,53 @@ Checked before writing it:
 Five hypotheses are fixed in the plan (H1 gates, H2 where Lagrangian relaxation fails, H3 solver-dependent penalties, H4 higher
 optimum-vs-truth ceiling with three sensors, H5 hardware repeatability), plus a QPU budget of 3 minutes for P2 and a go/no-go
 rule for putting three-dimensional QAOA on hardware.
+
+## 2026-09-14 — P2.0: multi-sensor scene, tuple hypotheses and costs
+
+Code: `src/p2_scene.py`. Tests: `tests/test_p2_scene.py` (12). Result: `results/p2_0-scene-20260914-140309.json`. No QPU.
+
+**Set-up as implemented.** Three sensors sit on a 2 km circle around the scene, at 90°, 210° and 330°. Each reports a position.
+The error comes from range (σ = 10 m) and bearing (σ = 0.02 rad, which is 40 m across the line of sight at 2 km). The covariance
+attached to each measurement is evaluated at its reported position, not the true one. Other settings: P_D = 0.9, one expected
+false alarm per sensor, 200 m clutter margin, 50 m target spacing, pairwise gate 9.21. For comparison, P1.0's innovation was
+circular with about 23 m per axis; here each sensor's error ellipse is 10 × 40 m and points in a different direction.
+
+**Choices the plan left open, made here:**
+- A single-measurement tuple takes the cheaper of two readings — "target seen by one sensor" or "false alarm" (cost 0) — and
+  records which one it took. Comparisons with the truth are made on the partition, so this label does not affect them.
+- Without clutter the ln λ term is dropped and false alarms are forbidden. Every valid partition shifts by the same constant.
+- All sensors share one clutter window, so λ is the same for each.
+
+**Verification (independent routes):**
+- Measurement covariance equals J · diag(σ_r², σ_θ²) · Jᵀ, with J from finite differences of the polar-to-Cartesian map.
+- The fused position and the tuple cost match a numerical BFGS minimisation of scipy's Gaussian log-density — the cost to 6
+  decimals. This held on more than 300 random tuples (with and without missed detections and clutter) and on every pure-mode tuple.
+- Every enumerated tuple is accounted for: kept + removed by gate + removed as impossible = ∏(M_s + 1) − 1.
+- On low-noise pure scenes the truth has the lowest cost of all 36 partitions.
+- The gate rejects **378 of 38,683 true pairs = 0.98%**, against the 1.00% expected for a 99% chi-square gate. The same check is
+  kept as a test with a separate seed. Evaluating the covariance at the reported position does not visibly bias the gate.
+
+**Results (200 augmented scenes per size, seed 2026):**
+
+| T | measurements / sensor | tuples mean | median | max | truth survives gating | truth tuples cut | targets unseen | singletons as target / false alarm |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 2.83 | 26.1 | 25 | 53 | 0.960 | 9 | 0 | 0 / 1697 |
+| 3 | 3.62 | 47.7 | 49 | 92 | 0.965 | 7 | 1 | 1 / 2171 |
+| 4 | 4.58 | 71.2 | 68 | 165 | 0.960 | 8 | 1 | 91 / 2654 |
+| 5 | 5.59 | 93.4 | 91 | 164 | 0.885 | 23 | 2 | 1301 / 2055 |
+| 6 | 6.49 | 114.4 | 115 | 179 | 0.865 | 32 | 1 | 3521 / 373 |
+
+Pure mode keeps exactly T³ tuples: 8, 27 and 64 for T = 2, 3, 4. In augmented mode no tuple was removed as impossible.
+
+**Special cases, counted:**
+- **Gating cuts the truth in 3.5–13.5% of scenes.** Each true pair is rejected about 1% of the time, and a full tuple has three
+  pairs, so larger scenes lose the truth more often. In those scenes no solver can return the true association.
+- **The singleton label flips with scene size.** "Target seen by one sensor" costs +0.40 at T = 2 but −0.07 at T = 6. The clutter
+  window grows with the target spread, so λ falls. The label sits on a knife edge, but the cost is small either way and partitions
+  are unaffected. Any later result that uses the label must say so.
+- Targets missed by all three sensors: 5 of 4,000, as expected for (1 − 0.9)³.
+
+**Consequence for H4 (not yet a result):** the optimum can equal the truth only where the truth survives gating. That caps it
+at 0.965 at T = 3, against the 0.822 measured in P1.0 at T = 3. H4 is tested in P2.1, once exact optima exist.
+
+Next: P2.1 — exact ILP baseline and the brute-force gate.
