@@ -39,18 +39,23 @@ def measurement_index(scene) -> dict:
     return index
 
 
-def solve_ilp(scene, tuple_set) -> dict:
+def cover_matrix(scene, tuple_set):
+    """Measurements x tuples, 1 where the tuple contains the measurement."""
     index = measurement_index(scene)
-    K = len(tuple_set.tuples)
-    if not index:
-        return {"status": "empty", "partition": [], "cost": 0.0, "seconds": 0.0}
     rows, cols = [], []
     for k, tup in enumerate(tuple_set.tuples):
         for s, i in enumerate(tup):
             if i > 0:
                 rows.append(index[s, i])
                 cols.append(k)
-    A = coo_matrix((np.ones(len(rows)), (rows, cols)), shape=(len(index), K)).tocsr()
+    return coo_matrix((np.ones(len(rows)), (rows, cols)), shape=(len(index), len(tuple_set.tuples))).tocsr()
+
+
+def solve_ilp(scene, tuple_set) -> dict:
+    K = len(tuple_set.tuples)
+    if not measurement_index(scene):
+        return {"status": "empty", "partition": [], "cost": 0.0, "seconds": 0.0}
+    A = cover_matrix(scene, tuple_set)
     start = time.perf_counter()
     result = milp(c=tuple_set.costs, constraints=LinearConstraint(A, 1, 1), integrality=np.ones(K),
                   bounds=Bounds(0, 1), options={"mip_rel_gap": 0})
@@ -61,6 +66,20 @@ def solve_ilp(scene, tuple_set) -> dict:
     chosen = [tuple_set.tuples[k] for k in range(K) if result.x[k] > 0.5]
     return {"status": "optimal", "partition": sorted(chosen), "cost": float(result.fun), "seconds": seconds,
             "max_integrality_error": float(np.max(np.minimum(result.x, 1 - result.x)))}
+
+
+def lp_relaxation(scene, tuple_set) -> dict:
+    """The same problem with 0 <= x <= 1 instead of x in {0, 1}: a lower bound on the optimum (added in P2.3)."""
+    if not measurement_index(scene):
+        return {"status": "empty", "bound": 0.0, "fractional_variables": 0}
+    K = len(tuple_set.tuples)
+    result = milp(c=tuple_set.costs, constraints=LinearConstraint(cover_matrix(scene, tuple_set), 1, 1),
+                  integrality=np.zeros(K), bounds=Bounds(0, 1))
+    if result.status != 0:
+        return {"status": "solver status %d: %s" % (result.status, result.message), "bound": math.inf,
+                "fractional_variables": None}
+    return {"status": "optimal", "bound": float(result.fun),
+            "fractional_variables": int(np.sum((result.x > 1e-6) & (result.x < 1 - 1e-6)))}
 
 
 def enumerate_partitions(scene, tuple_set, limit: int) -> dict | None:

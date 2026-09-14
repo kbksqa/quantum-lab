@@ -736,3 +736,71 @@ beyond this project's simulator budget. The sparse "P_D = 1, no clutter, gated, 
 variables on average and are close to trivial.
 
 Next: P2.3 — greedy, Lagrangian relaxation with duality gap, simulated annealing.
+
+## 2026-09-14 — P2.3: classical baselines against the exact optimum, and H2
+
+Code: `src/p2_heuristics.py`, plus `lp_relaxation` added to `src/p2_ilp.py`. Tests: `tests/test_p2_heuristics.py` (6).
+Result: `results/p2_3-heuristics-20260914-151102.json`. No QPU.
+
+**Methods.**
+- **Greedy:** take tuples cheapest first, skipping any that reuse a measurement.
+- **Lagrangian relaxation (LR):** relax the sensor-3 constraints, which leaves a 2D assignment with dummies. Multipliers follow
+  subgradient steps; every iteration recovers a feasible answer with a second 2D assignment.
+- **Simulated annealing (SA):** the P1 routine and schedule — 64 restarts, 100 sweeps — on the P2.2 QUBO with A = max(max|c|, 1).
+
+The LR inner problem has integral solutions, so the best possible Lagrangian bound equals the LP relaxation. The **duality gap is
+therefore measured exactly, as ILP optimum − LP bound**, independently of how well the subgradient converges.
+
+**Verification:**
+- L(u) matches a separately built and solved integer program on 60 random multiplier vectors.
+- LP bound ≤ optimum ≤ LR upper bound, and LR lower bound ≤ LP bound, on every test scene and every experiment scene.
+  The run counted 0 violations of any of these.
+- Every LR answer is a valid partition.
+
+**How H2 was made operational** — written into the code header before the first run:
+- "most" means LR equals the optimum in more than half the scenes, at clutter 0 and at clutter 0.5.
+- "rises" means a higher gap share at clutter 2 than at clutter 0, and at spacing 25 m than at 100 m, with non-overlapping 95%
+  Wilson intervals. The right direction with overlapping intervals counts as partly held.
+- Overall: held if all three parts hold, failed if all three fail, partly held otherwise.
+
+The first run computed every number but crashed while writing the JSON (numpy integers). After a one-line serialisation fix, the
+rerun reproduced every printed number exactly, and that rerun is the saved file.
+
+**Results (T = 4, 200 scenes per setting; SA on the first 40):**
+
+| setting | share with gap [95%] | LR = optimum [95%] | LR certified | greedy optimal | SA best-of-64 optimal | SA feasible share |
+|---|---|---|---|---|---|---|
+| clutter 0 | 0.065 [0.038, 0.108] | 0.995 [0.972, 0.999] | 0.935 | 0.000 | 0.075 | 0.998 |
+| clutter 0.5 | 0.080 [0.050, 0.126] | 0.995 [0.972, 0.999] | 0.915 | 0.380 | 0.200 | 0.694 |
+| clutter 1 (default) | 0.140 [0.099, 0.195] | 0.985 [0.957, 0.995] | 0.860 | 0.300 | 0.100 | 0.709 |
+| clutter 2 | 0.080 [0.050, 0.126] | 0.990 [0.964, 0.997] | 0.920 | 0.370 | 0.150 | 0.766 |
+| spacing 25 m | 0.130 [0.090, 0.184] | 0.990 [0.964, 0.997] | 0.865 | 0.155 | 0.000 | 0.610 |
+| spacing 100 m | 0.085 [0.054, 0.132] | 0.995 [0.972, 0.999] | 0.915 | 0.660 | 0.700 | 0.855 |
+| *T = 2, default (100 scenes)* | 0.020 | 1.000 | 0.980 | 0.660 | 0.900 | 0.840 |
+| *T = 6, default (100 scenes)* | 0.210 | 0.970 | 0.790 | 0.140 | 0.000 | 0.539 |
+
+**H2 — partly held.**
+- "Most" held, and strongly: LR returned the exact optimum in 99.5% of scenes at clutter 0 and at clutter 0.5.
+- "Rises with clutter" held only as a direction: 0.080 at clutter 2 against 0.065 at clutter 0, with overlapping intervals. The
+  shares are not monotone either — 0.140 at clutter 1 is the highest.
+- "Rises with closer spacing" also held only as a direction: 0.130 against 0.085, with overlapping intervals.
+- Outside the verdict, the gap share grows with the number of targets: 0.02 at T = 2, 0.21 at T = 6.
+
+**Other findings:**
+- **A duality gap rarely stops LR.** In scenes with a gap, LR still returned the optimum in 86–100% of cases; recovering a
+  feasible answer from the relaxed pairs usually lands on it. The benchmark's "hard" subset (scenes with a gap) is therefore
+  hard for the LP bound, not necessarily for LR.
+- **The subgradient reached the LP bound closely.** The median shortfall was 0 in every setting; the largest were 0.29 and 0.57
+  (clutter 0.5, spacing 25 m). The median number of iterations was 3–13.
+- **SA is weak at this budget:** mostly feasible, rarely optimal — it gets stuck in feasible local minima. No penalty or
+  schedule study was run for P2.
+
+**Special cases, counted:**
+- **Greedy fails completely without clutter, because of the cost convention.** With λ = 0 the ln λ term is dropped, so every cost
+  is positive: single-measurement tuples cost about 12.5, pairs about 19.6 and triples about 28.1. Cheapest-first therefore picks
+  only singletons — 100 / 100 all-singleton partitions in a separate check. The partition optimum is unchanged by the convention,
+  but greedy's ordering is not. Any cheapest-first method must normalise per measurement before it is compared without clutter.
+  The same shift also changes the QUBO's infeasible energies, and may affect SA at clutter 0; that was not tested.
+- Infeasible scenes: 0. Bound violations: 0.
+
+Next: P2.4 — the benchmark package (instance files, checker, baseline table, the sweep including bearing error), release and DOI.

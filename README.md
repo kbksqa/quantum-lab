@@ -19,7 +19,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 | P0 | Grover search: amplitude amplification on a simulator and on real hardware | done — simulator matches theory; run on `ibm_kingston` |
 | P0.5 | Readout error versus gate error, on three devices | done — readout recovers only 1.5–3.3 pp; most loss is from gates |
 | P1 | Assignment / data association as QUBO — brute force vs simulated annealing vs QAOA ([plan](docs/p1-plan.md)) | done — [summary](docs/p1-summary.md): gate passed 588 / 588; penalty choice is solver-dependent; QAOA on `ibm_kingston` kept ~90% of the simulator |
-| P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | in progress — P2.0–P2.2 done: exact ILP equals brute force on 888 / 888; QUBO minimum equals the ILP optimum on 517 / 517; H4 failed (optimum = truth only 27% at T = 3), diagnosed in the log |
+| P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | in progress — P2.0–P2.2 done: exact ILP equals brute force on 888 / 888; QUBO minimum equals the ILP optimum on 517 / 517; Lagrangian relaxation reaches the optimum in 97–100% of scenes; H2 partly held; H4 failed (optimum = truth only 27% at T = 3), diagnosed in the log |
 | P3 | Reproduction study of a published quantum tracking / planning result | planned |
 | P4 | Technical report, archived with a DOI | planned |
 
