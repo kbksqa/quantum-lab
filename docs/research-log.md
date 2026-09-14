@@ -1167,3 +1167,80 @@ QUBO minimum over all 2,048 strings, not just the maximum-cardinality value.
 That matters for how "quality" is scored (Q1) and for what QAOA must resolve.
 
 Next: P3.2 — the method on a noiseless simulator (C2) and the metric baseline (Q1).
+
+## 2026-09-14 — P3.2: QANTIS QAOA on a noiseless simulator; C2 and the metric baseline
+
+Code: `src/p3_qantis_qaoa.py`. Tests: `tests/test_p3_qantis_qaoa.py`. Cross-check tool: `tools/p3_repo_crosscheck.py`, run in a
+separate environment (qiskit 2.5.2, qiskit-optimization 0.7.0) against the clone at `c17c2b5`.
+Results: `results/p3_2-qaoa-20260914-190507.json`, `results/p3_2-repo-crosscheck-20260914-190507.json`. No QPU.
+
+**Set-up.**
+- Instance: P3.1's instance (optimum −92.3549; 13 feasible strings of 2,048; uniform P(optimal) 0.00049).
+- Circuit: the QAOA layer as in `QAOAAnsatz`, with the unscaled Ising Hamiltonian.
+- Four methods: A, the paper's FPC-QAOA (6 trainable coefficients); B, the public code (all 2p angles trained, from the start
+  point as the code binds it); C, the analytical initial schedule, bound correctly; D, the same schedule bound the way the public
+  hardware script binds it.
+- Training: COBYLA, 100 iterations, minimising ⟨H⟩.
+- The paper's quality metric (best of the 10 most frequent of 4096 shots, divided by the optimum), repeated over 200 samples, with
+  correct and reversed bit order.
+
+**Cross-check against the authors' environment.**
+- **`to_ising` maps variable i to qubit i** (maximum difference 4.5 × 10⁻¹³; reversed order 148). This confirms audit finding 2.2:
+  the public hardware script evaluates every bitstring in mirror order.
+- **`QAOAAnsatz` lists β before γ** in qiskit 2.5.2, confirming audit finding 2.1 in the authors' toolchain.
+- The repository's own `FPCQAOASolver`, which reports its best sample, returned 0.882, 0.909 and 0.869 of the optimum at
+  p = 1, 2, 3. The paper's simulator quality is 51.3%, 100% and 90.9%.
+- The tests also confirm that our simulator equals `QAOAAnsatz` + `Statevector`, both bound by name and bound as the script binds.
+
+**Results (mean over 200 samples of 4096 shots):**
+
+| method | p | P(optimal) | P(feasible) | top-10 quality | top-10, reversed bits | best of all samples |
+|---|---|---|---|---|---|---|
+| A paper FPC | 1 | 0.0000 | 0.004 | 0.610 | 0.237 | 0.977 |
+| A paper FPC | 2 | 0.0003 | 0.024 | 0.813 | 0.691 | 0.972 |
+| **A paper FPC** | **3** | **0.0020** | **0.006** | **0.836** | 0.430 | 1.000 |
+| A paper FPC | 4 | 0.0156 | 0.033 | 1.000 | 0.669 | 1.000 |
+| B public code | 3 | 0.0001 | 0.030 | 0.641 | 0.447 | 0.977 |
+| C initial, correct | 3 | 0.0002 | 0.005 | 0.575 | 0.585 | 0.985 |
+| D initial, as bound | 3 | 0.0001 | 0.004 | 0.820 | 0.602 | 0.948 |
+| **uniformly random bitstrings** | — | 0.0005 | 0.006 | **0.582** (p95 0.866) | 0.584 | **0.995** |
+
+All four depths for every method are in the result file.
+
+**C2 — reproduced, as registered.** Method A at p = 3 reaches a mean quality of 0.836, above the 0.608 threshold.
+
+**Q1 — the headline metric is not informative, by the registered rule.**
+- Uniformly random bitstrings reach a mean quality of 0.582, with a 95th percentile of **0.866**. The paper's 64.1% is below that.
+- **43% of random 4096-shot samples score 0.641 or more.**
+- Why: only 5.2% of the 2,048 strings reach 0.641, but among 10 strings drawn almost at random, at least one does about 41% of the
+  time (1 − 0.948¹⁰).
+- The paper's simulator measure (best sample) is weaker still. In 4096 uniform shots over 2,048 states the optimum itself appears
+  in 85.5% of samples (86.5% in theory). Random sampling scores 0.995 on average, higher than the repository solver's
+  0.87–0.91.
+
+**Q2 — standard metrics.** P(optimal) stays near the uniform level at p ≤ 3 for every method: at most 0.0020, against uniform
+0.0005. Only A at p = 4 is clearly concentrated (0.016, 32× uniform, and top-10 quality 1.000). ⟨E⟩/optimum stays at 0.28 or
+below and is negative for the untrained schedules. On this instance a noiseless 11-qubit QAOA at these depths is barely
+distinguishable from random sampling except at p = 4.
+
+**Q3 — penalty rule.** λ = 1.0 · max|c| (10.23) keeps the same optimal string. P(optimal) for method A: 0.0013 / 0.0007 / 0.0009 at
+p = 1, 2, 3, against 0.0000 / 0.0003 / 0.0020 with the paper's 1.5. There is no consistent difference at these tiny values, so P1's
+preference for the smaller rule is neither confirmed nor contradicted here.
+
+**Exploratory, after the results.**
+- **The misbound circuit D scores 0.820 at p = 3,** higher than the correctly bound schedule C (0.575). With a metric this close to
+  random, a wrong circuit can outscore the right one.
+- **Reading the bits in reverse,** as the public script does, changes the score substantially — A at p = 3 drops from 0.836 to
+  0.430 — without any change to the quantum state.
+- **The repository solver's reported qualities, 0.869, 0.882 and 0.909, are exactly the energy levels 7, 6 and 3 of this instance**
+  divided by the optimum. The lowest ten levels / optimum are 1.000, 0.976, 0.909, 0.905, 0.889, 0.882, 0.869, 0.866, 0.866, 0.866.
+  The paper's "90.9%" at p = 3 is one of these levels.
+
+**Consequence for P3.4 (hardware).**
+- The go rule is met formally: C1 was reproduced, C2 was reproduced, and the budget question is still open.
+- But Q1 shows that the hardware headline cannot distinguish a working circuit from noise. A hardware run judged by the same
+  metric could not confirm or refute anything.
+- If hardware is used, it should be judged on P(optimal), P(feasible) and the energy distribution against the uniform baseline.
+  Before any submission that needs the author's decision: P3.4's success criterion is registered as the paper's metric (C3).
+
+Next: the author decides whether P3.4 goes ahead. P3.3 (the 19-qubit instance on the simulator) does not depend on that decision.

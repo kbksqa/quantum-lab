@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-09-14T19:05:21.953341+07:00",
+  "experiment": "P3.2 cross-check against the QANTIS public repository",
+  "repository_commit": "c17c2b52cc001b09abbc06ea19ac9c4694ea429c",
+  "environment": {
+    "python": "3.12.10",
+    "qiskit": "2.5.2",
+    "qiskit_optimization": "0.7.0"
+  },
+  "hungarian": -92.35492402928313,
+  "to_ising_mapping": {
+    "max_abs_diff_identity": 4.547473508864641e-13,
+    "max_abs_diff_reversed": 147.97982859374665,
+    "variable_i_is_qubit_i": true
+  },
+  "qaoa_ansatz_parameter_order": [
+    "\u03b2[0]",
+    "\u03b2[1]",
+    "\u03b2[2]",
+    "\u03b3[0]",
+    "\u03b3[1]",
+    "\u03b3[2]"
+  ],
+  "repository_solver_runs": [
+    {
+      "p": 1,
+      "objective": -81.42223324427852,
+      "ratio_to_hungarian": -0.8816230872374692,
+      "optimal_params": [
+        2.8851515931475107,
+        1.171561360909228
+      ],
+      "seconds": 4.510510799998883
+    },
+    {
+      "p": 2,
+      "objective": -83.95393726056228,
+      "ratio_to_hungarian": -0.9090358542652569,
+      "optimal_params": [
+        1.7638577771753077,
+        1.8548492727998074,
+        3.2768372916362623,
+        0.9090324782369444
+      ],
+      "seconds": 0.9211456000048202
+    },
+    {
+      "p": 3,
+      "objective": -80.28654972648614,
+      "ratio_to_hungarian": -0.8693261411923153,
+      "optimal_params": [
+        0.5552924479559885,
+        1.8588928630934507,
+        1.5534619418263644,
+        0.8073678529452734,
+        2.617335811002362,
+        0.7912867622140372
+      ],
+      "seconds": 1.0446365999814589
+    }
+  ],
+  "note": "The repository solver samples with StatevectorSampler without a fixed seed, so its objective can vary run to run."
+}

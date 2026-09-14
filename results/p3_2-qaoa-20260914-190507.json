@@ -1,0 +1,475 @@
+{
+  "timestamp": "2026-09-14T19:05:04.064950+07:00",
+  "experiment": "P3.2 QANTIS QAOA on a noiseless simulator",
+  "settings": {
+    "k": 3,
+    "maxiter": 100,
+    "shots": 4096,
+    "reps": 200,
+    "random_reps": 1000,
+    "gamma0": [
+      0.0,
+      3.141592653589793,
+      0.0
+    ],
+    "beta0": [
+      0.7853981633974483,
+      0.0,
+      0.0
+    ],
+    "digitisation": "t = (l + 0.5) / p",
+    "seed": 2033
+  },
+  "optimum": -92.35492402928313,
+  "methods": {
+    "A paper FPC": {
+      "p1": {
+        "p_optimal": 4.780789752726945e-05,
+        "p_feasible": 0.0038644928008398586,
+        "expectation_over_optimum": 0.17498360825144482,
+        "quality_top10_mean": 0.6095322624532848,
+        "quality_top10_sd": 0.023247325332782887,
+        "quality_top10_reversed_mean": 0.23653826554799978,
+        "quality_top10_reversed_sd": 0.10495907676847469,
+        "quality_best_of_all_samples_mean": 0.9769236013104227,
+        "quality_top10_exact_distribution": 0.6039768554410772,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          1.8172459276727349
+        ],
+        "betas": [
+          0.6885096283818963
+        ],
+        "coefficients": [
+          -0.020487915249062016,
+          3.160189394679814,
+          1.0305565823275589,
+          0.7405346531793063,
+          -0.03767092300327928,
+          -0.13275825318308146
+        ],
+        "evaluations": 100
+      },
+      "p2": {
+        "p_optimal": 0.00025170110397962917,
+        "p_feasible": 0.023974609387273183,
+        "expectation_over_optimum": -0.03238126037675494,
+        "quality_top10_mean": 0.8125004864512816,
+        "quality_top10_sd": 0.045666904902972226,
+        "quality_top10_reversed_mean": 0.6905366305280378,
+        "quality_top10_reversed_sd": 0.026660221652213385,
+        "quality_best_of_all_samples_mean": 0.9721483761163412,
+        "quality_top10_exact_distribution": 0.8224135102583101,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.8525923428566572,
+          2.9057772140616764
+        ],
+        "betas": [
+          0.7941684950470189,
+          1.2376295584020327
+        ],
+        "coefficients": [
+          0.008150309683628839,
+          3.1349009294528045,
+          0.9714688129572349,
+          0.7493322015275121,
+          -0.05651381013263999,
+          0.9434359368426676
+        ],
+        "evaluations": 100
+      },
+      "p3": {
+        "p_optimal": 0.0020132617056200825,
+        "p_feasible": 0.005529626059120096,
+        "expectation_over_optimum": 0.17507135645546523,
+        "quality_top10_mean": 0.8356216017724267,
+        "quality_top10_sd": 0.09142555856354165,
+        "quality_top10_reversed_mean": 0.43035539023036995,
+        "quality_top10_reversed_sd": 0.07361889116437434,
+        "quality_best_of_all_samples_mean": 1.0,
+        "quality_top10_exact_distribution": 0.8663329260729824,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.5993040468545335,
+          1.6198378088851466,
+          2.632617641231267
+        ],
+        "betas": [
+          0.8590281901464193,
+          0.8711137692015408,
+          0.8995351434083033
+        ],
+        "coefficients": [
+          0.08612944220754236,
+          3.084863075145317,
+          -0.03489268358021693,
+          0.859111323800724,
+          -0.012750648289558767,
+          0.07351107818238489
+        ],
+        "evaluations": 100
+      },
+      "p4": {
+        "p_optimal": 0.015571794549749312,
+        "p_feasible": 0.033040445947763473,
+        "expectation_over_optimum": 0.28074474886449013,
+        "quality_top10_mean": 1.0,
+        "quality_top10_sd": 0.0,
+        "quality_top10_reversed_mean": 0.6689436134462872,
+        "quality_top10_reversed_sd": 0.0,
+        "quality_best_of_all_samples_mean": 1.0,
+        "quality_top10_exact_distribution": 1.0,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          2.0351164009584943,
+          2.81208853027887,
+          3.670870539176665,
+          4.611462427651879
+        ],
+        "betas": [
+          2.243094417971181,
+          1.9422878820782867,
+          1.587043590846691,
+          1.1773615442763947
+        ],
+        "coefficients": [
+          1.6773090411398386,
+          2.780648998971827,
+          0.6544790366193524,
+          2.3730835276656155,
+          -0.9854751222167746,
+          -0.4355020427096072
+        ],
+        "evaluations": 100
+      }
+    },
+    "B public code": {
+      "p1": {
+        "p_optimal": 0.0001242576724773411,
+        "p_feasible": 0.012953131555863842,
+        "expectation_over_optimum": 0.135769228843069,
+        "quality_top10_mean": 0.584256588961965,
+        "quality_top10_sd": 0.0018568824574616116,
+        "quality_top10_reversed_mean": 0.381583063096971,
+        "quality_top10_reversed_sd": 0.14205340217396256,
+        "quality_best_of_all_samples_mean": 0.985137643645338,
+        "quality_top10_exact_distribution": 0.5840699652531409,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          1.2497249367274608
+        ],
+        "betas": [
+          2.728350609192644
+        ],
+        "evaluations": 100
+      },
+      "p2": {
+        "p_optimal": 0.000128706706977055,
+        "p_feasible": 0.019516271764589255,
+        "expectation_over_optimum": 0.13496263219262772,
+        "quality_top10_mean": 0.6065833885412756,
+        "quality_top10_sd": 0.02016893646754307,
+        "quality_top10_reversed_mean": 0.2719968450766703,
+        "quality_top10_reversed_sd": 0.08064373698163381,
+        "quality_best_of_all_samples_mean": 0.9250609901768952,
+        "quality_top10_exact_distribution": 0.6250241976316148,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          1.4278998044194937,
+          0.793673294469257
+        ],
+        "betas": [
+          0.6866207417473411,
+          0.4526160296550599
+        ],
+        "evaluations": 100
+      },
+      "p3": {
+        "p_optimal": 8.384431170270029e-05,
+        "p_feasible": 0.03030243834150852,
+        "expectation_over_optimum": 0.28003449469113284,
+        "quality_top10_mean": 0.6411998583210264,
+        "quality_top10_sd": 0.06296973413537557,
+        "quality_top10_reversed_mean": 0.44724821063857256,
+        "quality_top10_reversed_sd": 0.17075550981157722,
+        "quality_best_of_all_samples_mean": 0.9767432894747975,
+        "quality_top10_exact_distribution": 0.5840699652531409,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.8080776927438974,
+          2.6096125605257336,
+          1.7557796622507682
+        ],
+        "betas": [
+          0.5511054232911236,
+          1.790486600976154,
+          1.6435313412537202
+        ],
+        "evaluations": 100
+      },
+      "p4": {
+        "p_optimal": 0.00032177507381708195,
+        "p_feasible": 0.010104120632591244,
+        "expectation_over_optimum": 0.10581848049358761,
+        "quality_top10_mean": 0.6857890810764693,
+        "quality_top10_sd": 0.04202072603498892,
+        "quality_top10_reversed_mean": 0.6427145568007291,
+        "quality_top10_reversed_sd": 0.02346185137040816,
+        "quality_best_of_all_samples_mean": 0.9926741344274634,
+        "quality_top10_exact_distribution": 0.6689436134462872,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          1.850594684096287,
+          1.6570750706914497,
+          2.725439134072785,
+          0.7670881825953133
+        ],
+        "betas": [
+          0.4788308013681333,
+          0.6645857789694443,
+          1.1537587469189126,
+          0.6595519201773873
+        ],
+        "evaluations": 100
+      }
+    },
+    "C initial, correct": {
+      "p1": {
+        "p_optimal": 4.196270301738648e-06,
+        "p_feasible": 0.0038795468949208564,
+        "expectation_over_optimum": -0.17575050356976182,
+        "quality_top10_mean": 0.5839478214103841,
+        "quality_top10_sd": 0.12461896348949891,
+        "quality_top10_reversed_mean": 0.5916240803934265,
+        "quality_top10_reversed_sd": 0.15551316946153154,
+        "quality_best_of_all_samples_mean": 0.9317242816631426,
+        "quality_top10_exact_distribution": 0.684233774610774,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          1.5707963267948966
+        ],
+        "betas": [
+          0.7853981633974483
+        ]
+      },
+      "p2": {
+        "p_optimal": 0.00011697839382528813,
+        "p_feasible": 0.006395898245427763,
+        "expectation_over_optimum": -0.13285359801346686,
+        "quality_top10_mean": 0.42589626887908877,
+        "quality_top10_sd": 0.17608340002282338,
+        "quality_top10_reversed_mean": 0.4695164624980101,
+        "quality_top10_reversed_sd": 0.1633713838109459,
+        "quality_best_of_all_samples_mean": 0.9735357405585792,
+        "quality_top10_exact_distribution": 0.24877584427456256,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.7853981633974483,
+          2.356194490192345
+        ],
+        "betas": [
+          0.7853981633974483,
+          0.7853981633974483
+        ]
+      },
+      "p3": {
+        "p_optimal": 0.0001518410087520895,
+        "p_feasible": 0.005299618907642503,
+        "expectation_over_optimum": -0.2086236433460042,
+        "quality_top10_mean": 0.5751921469347722,
+        "quality_top10_sd": 0.12821120722114715,
+        "quality_top10_reversed_mean": 0.5846376302301439,
+        "quality_top10_reversed_sd": 0.09759482074610058,
+        "quality_best_of_all_samples_mean": 0.9849941590547395,
+        "quality_top10_exact_distribution": 0.43855521275847537,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.5235987755982988,
+          1.5707963267948966,
+          2.6179938779914944
+        ],
+        "betas": [
+          0.7853981633974483,
+          0.7853981633974483,
+          0.7853981633974483
+        ]
+      },
+      "p4": {
+        "p_optimal": 0.0007015020692234521,
+        "p_feasible": 0.00582798705048513,
+        "expectation_over_optimum": -0.24653139551696485,
+        "quality_top10_mean": 0.5740812534857797,
+        "quality_top10_sd": 0.1120389307182463,
+        "quality_top10_reversed_mean": 0.5726341675033234,
+        "quality_top10_reversed_sd": 0.10354045034158432,
+        "quality_best_of_all_samples_mean": 0.9982906313664082,
+        "quality_top10_exact_distribution": 0.577979467711544,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.39269908169872414,
+          1.1780972450961724,
+          1.9634954084936207,
+          2.748893571891069
+        ],
+        "betas": [
+          0.7853981633974483,
+          0.7853981633974483,
+          0.7853981633974483,
+          0.7853981633974483
+        ]
+      }
+    },
+    "D initial, as bound": {
+      "p1": {
+        "p_optimal": 0.0004882812499999999,
+        "p_feasible": 0.006347656249999999,
+        "expectation_over_optimum": -0.24564360096723026,
+        "quality_top10_mean": 0.5801660934544944,
+        "quality_top10_sd": 0.14860687794671668,
+        "quality_top10_reversed_mean": 0.58303189362832,
+        "quality_top10_reversed_sd": 0.16929137391393603,
+        "quality_best_of_all_samples_mean": 0.9965812627328162,
+        "quality_top10_exact_distribution": 0.7387563496875619,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.7853981633974483
+        ],
+        "betas": [
+          1.5707963267948966
+        ]
+      },
+      "p2": {
+        "p_optimal": 0.00028848746894841686,
+        "p_feasible": 0.010504985620459073,
+        "expectation_over_optimum": -0.22051511974742552,
+        "quality_top10_mean": 0.5773278135881796,
+        "quality_top10_sd": 0.1522871451828524,
+        "quality_top10_reversed_mean": 0.6150453513600734,
+        "quality_top10_reversed_sd": 0.08707760126664307,
+        "quality_best_of_all_samples_mean": 0.9806075800886848,
+        "quality_top10_exact_distribution": 0.6432795422323001,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          2.356194490192345,
+          0.7853981633974483
+        ],
+        "betas": [
+          0.7853981633974483,
+          0.7853981633974483
+        ]
+      },
+      "p3": {
+        "p_optimal": 8.702878943293434e-05,
+        "p_feasible": 0.0034657683984621345,
+        "expectation_over_optimum": -0.20013426804983867,
+        "quality_top10_mean": 0.8204761711360036,
+        "quality_top10_sd": 0.10032167728633903,
+        "quality_top10_reversed_mean": 0.602132431306619,
+        "quality_top10_reversed_sd": 0.08039388465845276,
+        "quality_best_of_all_samples_mean": 0.948401482847805,
+        "quality_top10_exact_distribution": 0.8663329260729824,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          0.7853981633974483,
+          2.6179938779914944,
+          0.7853981633974483
+        ],
+        "betas": [
+          0.5235987755982988,
+          0.7853981633974483,
+          1.5707963267948966
+        ]
+      },
+      "p4": {
+        "p_optimal": 0.0002987879276875774,
+        "p_feasible": 0.006574485343327822,
+        "expectation_over_optimum": -0.2299062986669793,
+        "quality_top10_mean": 0.5827886883864616,
+        "quality_top10_sd": 0.06686634071378161,
+        "quality_top10_reversed_mean": 0.6646561249320135,
+        "quality_top10_reversed_sd": 0.06970418875729487,
+        "quality_best_of_all_samples_mean": 0.9871063714022759,
+        "quality_top10_exact_distribution": 0.5767349484060115,
+        "most_probable_state_is_optimal": false,
+        "gammas": [
+          1.9634954084936207,
+          0.7853981633974483,
+          2.748893571891069,
+          0.7853981633974483
+        ],
+        "betas": [
+          0.39269908169872414,
+          0.7853981633974483,
+          1.1780972450961724,
+          0.7853981633974483
+        ]
+      }
+    }
+  },
+  "Q1_random_baseline": {
+    "samples": 1000,
+    "shots": 4096,
+    "mean": 0.5822528898975201,
+    "sd": 0.1711723890890329,
+    "p5": 0.28696611074631845,
+    "p50": 0.6005766140400257,
+    "p95": 0.8663329260729824,
+    "max": 1.0,
+    "share_at_or_above_headline": 0.434,
+    "share_at_or_above_1": 0.007
+  },
+  "Q3_penalty_rule": {
+    "1.0": {
+      "penalty": 10.229874971830856,
+      "optimum": -66.78023659970599,
+      "same_optimal_string": true,
+      "by_depth": {
+        "p1": {
+          "p_optimal": 0.0013387142968184693,
+          "p_feasible": 0.008761647811846053,
+          "quality_top10_mean": 0.7032684022325586
+        },
+        "p2": {
+          "p_optimal": 0.0007002435024711657,
+          "p_feasible": 0.02142567334778371,
+          "quality_top10_mean": 0.530253986195074
+        },
+        "p3": {
+          "p_optimal": 0.0009286580149333046,
+          "p_feasible": 0.008270495845758834,
+          "quality_top10_mean": 0.8395649120948104
+        }
+      }
+    },
+    "1.5": {
+      "penalty": 15.344812457746285,
+      "optimum": -92.35492402928313,
+      "same_optimal_string": true,
+      "by_depth": {
+        "p1": {
+          "p_optimal": 4.780789752726945e-05,
+          "p_feasible": 0.0038644928008398586,
+          "quality_top10_mean": 0.6069720046309436
+        },
+        "p2": {
+          "p_optimal": 0.00025170110397962917,
+          "p_feasible": 0.023974609387273183,
+          "quality_top10_mean": 0.8158048277202913
+        },
+        "p3": {
+          "p_optimal": 0.0020132617056200825,
+          "p_feasible": 0.005529626059120096,
+          "quality_top10_mean": 0.8195858196626434
+        }
+      }
+    }
+  },
+  "grades": {
+    "C2": "reproduced",
+    "C2_method_A_p3_quality": 0.8356216017724267,
+    "C2_threshold": 0.608,
+    "Q1_headline_informative": false,
+    "Q1_p95": 0.8663329260729824
+  }
+}
