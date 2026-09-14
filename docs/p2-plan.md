@@ -116,3 +116,17 @@ Each hypothesis is reported as held, partly held or failed.
 - *Enhancing multiple object tracking accuracy via quantum annealing*, Scientific Reports (2025) — multi-dimensional assignment with
   dynamically adjusted penalty weights, directly relevant to H3.
 - A. Lucas, *Ising formulations of many NP problems*, Frontiers in Physics 2 (2014).
+
+## Amendments
+
+Changes made after the plan was registered. Each one records when it was made, what triggered it, and who decided.
+Everything above this section stays as originally registered.
+
+### Amendment 1 — 2026-09-14, after P2.1, decided by the author
+
+- **Change:** the P2.4 sweep also varies **bearing error σ_θ = 0.005, 0.01, 0.02 rad**. Range error stays at 10 m.
+- **Trigger:** H4 failed in P2.1. An exploratory one-factor study then showed that bearing error was the factor with the largest
+  effect on whether the optimum equals the truth (0.303 at 0.02 rad, 0.833 at 0.005 rad, T = 3).
+- **Scope:** this adds a sweep dimension only. Hypotheses H1–H5, the cost function, the other sweep values, the hardware budget and
+  the go/no-go rule are unchanged. H4 stays recorded as failed, and the new dimension is not used to re-test it as if it had been
+  planned.

@@ -686,3 +686,53 @@ Reading:
   pre-registered plan and needs a separate, logged decision.
 
 Next: P2.2 — QUBO for multi-sensor assignment and its gate against the ILP.
+
+## 2026-09-14 — P2 plan, amendment 1: bearing error added to the P2.4 sweep
+
+Decision by the author after reading the P2.1 diagnosis. The P2.4 sweep also varies bearing error, over 0.005, 0.01 and 0.02 rad.
+It is recorded in `docs/p2-plan.md` under "Amendments"; the original text is left unchanged. The amendment changes nothing else:
+H4 stays failed and is not re-tested under the new dimension as if that had been planned.
+
+## 2026-09-14 — P2.2: QUBO for multi-sensor assignment, and its gate
+
+Code: `src/p2_qubo.py`. Tests: `tests/test_p2_qubo.py` (6). Result: `results/p2_2-qubo-gate-20260914-145351.json`. No QPU.
+
+**Formulation.** There is one variable per kept tuple, and each real measurement must be covered exactly once. The penalty is
+A · Σ_m (cover_m − 1)². Expanded: Q_kk = c_k − A·n_k, where n_k is the number of measurements in tuple k; Q_kl = 2A × (the number
+of measurements tuples k and l share); offset = A × (number of measurements). With two sensors this reduces to the P1 form, and a
+test checks that. The default penalty is A = 2Σ|c| + 1, by the same argument as P1.1.
+
+**Verification (independent routes):**
+- On valid partitions (the ILP answer, and the truth when it survives gating), energy equals the partition cost.
+- On 150 random bit strings, energy − cost equals A × squared cover violation, with the cover counted directly from the tuples.
+- The brute-force argmin decodes to a partition whose cost equals the ILP optimum.
+
+**H1 (QUBO part) — held.** Brute force over all 2^K states for K ≤ 20 variables, 100 scenes per setting:
+
+| setting | T | tested | passed | skipped (K > 20) | infeasible | variables mean / max | quadratic terms mean (tested) |
+|---|---|---|---|---|---|---|---|
+| default | 1 | 94 | 94 | 6 | 0 | 10.9 / 34 | 19.6 |
+| default | 2 | 32 | 32 | 68 | 0 | 25.6 / 54 | 50.1 |
+| bearing 0.005 rad | 2 | 85 | 85 | 15 | 0 | 16.4 / 39 | 26.6 |
+| bearing 0.005 rad | 3 | 38 | 38 | 62 | 0 | 22.0 / 37 | 27.8 |
+| pure | 2 | 100 | 100 | 0 | 0 | 8.0 / 8 | 24.0 |
+| P_D = 1, no clutter, gated | 3 | 77 | 77 | 15 | 8 | 16.0 / 27 | 79.5 |
+| P_D = 1, no clutter, gated, bearing 0.005 rad | 3 | 91 | 91 | 0 | 9 | 3.6 / 8 | 1.8 |
+
+**GATE PASSED: 517 / 517.** The skipped and infeasible scenes are counted, not dropped.
+
+**Special cases, counted:**
+- **Infeasible scenes (17).** With P_D = 1 and no clutter, a single-measurement tuple is impossible. When the gate cuts a true
+  tuple, some measurement is left in no kept tuple, so neither the ILP nor the QUBO has any valid answer. `build_qubo` refuses
+  such scenes; the gate checks the ILP status first and counts them.
+- **The brute-force limit bites early.** At the default settings only 32 of 100 T = 2 scenes have 20 variables or fewer. The
+  gate mostly covers T ≤ 2, plus the sparser T = 3 settings.
+- **Small-penalty check (recorded, not part of the gate).** A = max|c| still leaves the optimum as the minimum in 514 of the
+  517 tested instances. The 3 exceptions are degenerate T = 1 scenes where every kept tuple is a false alarm costing 0, so
+  max|c| = 0 and the penalty vanishes. Any rule of the form A = max|c| needs a positive floor.
+
+**For P2.5 (QAOA):** the smallest instances are pure T = 2, with 8 variables and 24 quadratic terms. Pure T = 3 has 27 variables,
+beyond this project's simulator budget. The sparse "P_D = 1, no clutter, gated, bearing 0.005 rad" scenes at T = 3 have 3.6
+variables on average and are close to trivial.
+
+Next: P2.3 — greedy, Lagrangian relaxation with duality gap, simulated annealing.
