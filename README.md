@@ -1,5 +1,7 @@
 # quantum-lab
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22741037.svg)](https://doi.org/10.5281/zenodo.22741037)
+
 Hands-on experiments in quantum algorithms, focused on **combinatorial problems that appear in multi-sensor tracking and planning** — multi-target data association (MTDA), assignment, and decision making under uncertainty.
 
 Every experiment is run twice: on a classical simulator and, where it fits, on **real quantum hardware** (IBM Quantum, Open Plan). Results — including the failures — are recorded in `results/` and in the research log.
