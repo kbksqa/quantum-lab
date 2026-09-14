@@ -1128,3 +1128,42 @@ Record: `docs/p3-sources.md`. Sources: the paper (arXiv:2603.00785v1, HTML), the
 These are findings about a published artefact, reported neutrally. Contacting the authors remains subject to the author's approval.
 
 Next: P3.1 — rebuild the instance, check −92.4 and greedy, brute force over 2^11.
+
+## 2026-09-14 — P3.1: the QANTIS instance rebuilt; C1 and C4
+
+Code: `src/p3_qantis_instance.py`, re-implemented from the paper and the audit, with no code copied. Tests:
+`tests/test_p3_qantis_instance.py` (8; 81 in the project). Result: `results/p3_1-instance-20260914-184805.json`. No QPU.
+
+**Verification.**
+- Costs match scipy's Gaussian log-density, plus the clutter term in the "code" variant.
+- On 2,000 random bit strings E(x) = cost(x) + λ·V(x) − λ(N + M), with cost and V counted directly.
+- The Hungarian-as-coded value equals the best maximum-cardinality association, found by enumeration.
+- Brute force matches the enumeration of all valid associations.
+- **Cross-check against the authors' own code**, run from the clone at `c17c2b5`: identical Q (max |difference| 0), identical
+  λ = 15.344812, identical Hungarian objective −92.354924.
+
+**The instance.**
+- Measurement 0 fails the gate for both tracks, so its two x variables carry cost 0.
+- 11 variables and 21 quadratic terms; λ = 15.3448.
+- The costs (code variant) are −9.813 and −10.230 for track 0, and −8.401 and −6.562 for track 1.
+
+| cost variant | Hungarian as coded | brute-force minimum | optimal association | next energy level |
+|---|---|---|---|---|
+| **code** (with ln clutter) | **−92.3549** | −92.3549, unique | track 0 → meas 2, track 1 → meas 1, meas 0 false alarm | −90.0997 |
+| paper's Eq. (no clutter term) | −32.8452 | −32.8452, unique | track 0 → meas 2, track 1 → meas 0 (ungated, cost 0), meas 1 false alarm | −32.4285 |
+
+**C1 — reproduced.** −92.3549 rounds to the paper's −92.4 (difference 0.045, inside the registered ±0.05). It is also the true
+QUBO minimum over all 2,048 strings, not just the maximum-cardinality value.
+- **Caveat:** the value comes out only with the repository's cost, which includes ln(clutter density). The paper's own cost
+  equation gives −32.85 and a *different* optimal association, one that uses an ungated pair at cost 0. The paper's number
+  therefore depends on code details the paper does not state.
+
+**C4 — reproduced.** The code's greedy (GNN) picks the optimal association.
+- **Caveat:** the objective the code reports for GNN counts only the chosen pairs (−80.01); the full QUBO energy of the same
+  association is −92.35. "GNN 100%" in Table 14 is right about the association, not about the reported number. Under the paper's
+  cost equation GNN would not be optimal (−31.02 against −32.85).
+
+**For the next steps.** The ground state is unique, but the next level sits only 2.26 above it on an energy scale of about 90.
+That matters for how "quality" is scored (Q1) and for what QAOA must resolve.
+
+Next: P3.2 — the method on a noiseless simulator (C2) and the metric baseline (Q1).
