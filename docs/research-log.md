@@ -867,3 +867,75 @@ Annealing falls from 0.960 at T = 2 to 0.345 at T = 6. Lagrangian relaxation sta
 
 Approved by the author. P2.0–P2.4 and the benchmark are released together as `v0.4.0` and archived on Zenodo under the
 project's concept DOI. `CITATION.cff` now names v0.4.0. P2.5 (QAOA on a simulator, H3, and the hardware go/no-go) is next.
+
+Zenodo DOI for v0.4.0: 10.5281/zenodo.22745727. The concept DOI 10.5281/zenodo.22741037 resolves to it.
+
+## 2026-09-14 — P2.5: QAOA on a simulator, H3, and the hardware go/no-go
+
+Code: `src/p2_qaoa.py`. Tests: `tests/test_p2_qaoa.py` (5; 70 in the project). Result: `results/p2_5-qaoa-20260914-160839.json`.
+No QPU.
+
+**Set-up.** The instance sets and the operational form of H3 were written into the code header before the first run.
+- **pure T = 2:** 30 instances, always 8 variables.
+- **sparse T = 2:** 30 instances with bearing error 0.005 rad and 6–12 variables. Getting 30 took 104 generated scenes; 74 were
+  rejected for having more than 12 variables.
+
+Each instance was enumerated over all 2^K strings to get the exact A_crit. Every instance had A_crit > 0, and the max|c| floor of
+1 was never needed.
+- **Annealing:** the P1 routine at A = s × A_crit, at max|c| and at the safe penalty.
+- **QAOA:** depths 1–3, at A = max|c| and A = 1.5 × A_crit, using the P1.4 simulator and optimiser.
+
+**Verification:**
+- The enumerated violation matches the QUBO energy: E − cost = A·V on every string.
+- A_crit is confirmed by brute force: at A just above it the minimum is the optimum, and at 0.9 × A_crit the minimum is below it.
+- The Ising conversion reproduces every enumerated energy.
+- The simulator matches Qiskit's `Statevector` on three-dimensional circuits.
+
+**Annealing, mean success per restart:**
+
+| penalty | pure T = 2 | sparse T = 2 |
+|---|---|---|
+| 1.1 × A_crit | **0.654** | 0.481 |
+| 1.5 × A_crit | 0.469 | **0.640** |
+| 2 × A_crit | 0.410 | 0.567 |
+| 5 × A_crit | 0.309 | 0.410 |
+| 50 × A_crit | 0.240 | 0.184 |
+| max\|c\| | 0.304 | 0.475 |
+| safe | 0.246 | 0.202 |
+
+**QAOA, mean P(optimal) per sample** (uniform guessing: 0.0039 for pure, 0.0010 for sparse):
+
+| set | depth | A = max\|c\| | A = 1.5 × A_crit | paired difference (mean ± SE) | median difference | max\|c\| better in |
+|---|---|---|---|---|---|---|
+| pure | 1 | 0.0288 | 0.0246 | 0.0042 ± 0.0014 | 0.0054 | 87% |
+| pure | 2 | 0.0595 | 0.0285 | 0.0310 ± 0.0028 | 0.0234 | 100% |
+| pure | 3 | 0.0687 | 0.0304 | 0.0383 ± 0.0042 | 0.0395 | 97% |
+| sparse | 1 | 0.0126 | 0.0112 | 0.0014 ± 0.0019 | 0.0002 | 57% |
+| sparse | 2 | 0.0780 | 0.0546 | 0.0234 ± 0.0144 | 0.0026 | 60% |
+| sparse | 3 | 0.1561 | 0.1210 | 0.0351 ± 0.0286 | **−0.0235** | 33% |
+
+**H3 — partly held.**
+- **Annealing part: held.** The best multiplier was 1.1 (pure) and 1.5 (sparse); both are ≤ 2.
+- **QAOA part: partly held.** In the pure set the P1 result replicates clearly: the larger penalty wins at every depth, by more
+  than 9 standard errors at p = 3. In the sparse set the mean difference is positive at every depth, but at p = 3 it is within
+  2 standard errors. **Three instances carry it** (+0.58, +0.42, +0.33). Without them the mean is −0.010, the median is −0.024,
+  and 1.5 × A_crit is better on two thirds of the instances. On the typical sparse instance, the P1 preference for max|c| does
+  not replicate.
+
+**Hardware go/no-go — GO by the registered rule, and a fragile one.**
+- The rule is met by the sparse set at depth 1: mean P(opt) is 12.7× guessing (max|c|; 11.3× with 1.5 × A_crit), and the median
+  estimated CZ count is 29. Every sparse instance is at least 6.7× guessing at p = 1.
+- No other combination passes. Pure T = 2 needs 85 CZ even at p = 1 (24 ZZ terms), and sparse p = 2 needs a median of 67.
+- **Fragility 1:** the CZ median comes from the first 5 instances, and their counts were 8, 20, 29, 79 and 85 — the estimate
+  depends on each instance's number of ZZ terms (4–23).
+- **Fragility 2:** the absolute signal is small. Median P(opt) at p = 1 is 0.008, which is about 17 optimal samples in 2,048 shots
+  against about 2 from guessing.
+- Consequence for P2.6: a three-dimensional hardware run is permitted, but only on instances whose own estimated CZ count is
+  ≤ 60. The instance selection and the numeric predictions have to be registered before any submission, and the QPU use needs
+  the author's approval.
+
+**Stated limits:** 30 instances per set, noiseless simulation, one optimiser configuration, and a transpiled CZ count that is an
+estimate for a generic heavy-hex model rather than a specific device.
+
+Next: P2.6 — hardware. The P1.5 repeat for H5, and a small three-dimensional QAOA run on instances with ≤ 60 estimated CZ, with
+predictions registered first.
