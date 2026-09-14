@@ -16,7 +16,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 
 | ID | Experiment | Status |
 |----|------------|--------|
-| P0 | Grover search: amplitude amplification on a simulator and on real hardware | in progress |
+| P0 | Grover search: amplitude amplification on a simulator and on real hardware | simulator verified against theory · hardware pending |
 | P1 | Assignment / data association as QUBO — brute force vs simulated annealing vs QAOA | planned |
 | P2 | **Reproducible MTDA benchmark**: synthetic scenario generator (clutter, missed detections) plus classical and quantum baselines | planned |
 | P3 | Reproduction study of a published quantum tracking / planning result | planned |
