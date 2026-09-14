@@ -862,3 +862,8 @@ Annealing falls from 0.960 at T = 2 to 0.345 at T = 6. Lagrangian relaxation sta
 - 14 instances have no valid answer at all (P_D = 1, no clutter, a true tuple cut by the gate). They are kept and listed.
 
 **Ready for release** as the benchmark named in the roadmap. The release and DOI need the author's approval before publishing.
+
+## 2026-09-14 — Release v0.4.0
+
+Approved by the author. P2.0–P2.4 and the benchmark are released together as `v0.4.0` and archived on Zenodo under the
+project's concept DOI. `CITATION.cff` now names v0.4.0. P2.5 (QAOA on a simulator, H3, and the hardware go/no-go) is next.
