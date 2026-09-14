@@ -939,3 +939,48 @@ estimate for a generic heavy-hex model rather than a specific device.
 
 Next: P2.6 — hardware. The P1.5 repeat for H5, and a small three-dimensional QAOA run on instances with ≤ 60 estimated CZ, with
 predictions registered first.
+
+## 2026-09-14 — P2.6 pre-registration: plan and predictions before any submission
+
+The author chose to run both hardware experiments. Code: `src/p2_6_hardware.py`. Tests: `tests/test_p2_6_hardware.py` (3,
+offline; 73 in the project). Plan: `results/p2_6-plan-20260914-162820.json`. **No job has been submitted.** The script refuses
+to submit without a registered plan file, and when given one it re-transpiles and stops if any registered 3D circuit would
+exceed 60 CZ.
+
+**Rebuild checks, passed.** The 10 P1.5 2 × 2 instances reproduce P1.4's P(optimal) exactly with the stored p = 2
+parameters. All 30 P2.5 sparse instances reproduce their optimum, variable count and P(optimal) to 1e-9.
+
+**Device ranking from today's calibration data** (median CZ error / median readout error):
+`ibm_kingston` 0.0020 / 0.0088, `ibm_fez` 0.0029 / 0.0101, `ibm_marrakesh` 0.0032 / 0.0109.
+
+**Experiment A — H5 repeat.**
+- On `ibm_fez`, the best device other than `ibm_kingston`, the device used in P1.5.
+- The same 10 pure 2 × 2 instances at p = 2 as P1.5, 22 CZ each, simulator mean P(optimal) 0.5445.
+- **Deviation from the plan, stated now:** H5 was registered as "another day and another device". This run is on the same
+  calendar day as P1.5 (several hours later, a separate calibration window), so it tests the *device* half only. The
+  *day* half stays untested unless the run is repeated on a later date.
+
+**Experiment B — three-dimensional QAOA, p = 1.**
+- On `ibm_kingston`.
+- Selection by the registered rule — the first 10 P2.5 sparse instances whose transpiled circuit has at most 60 CZ — gave
+  instances 0, 2, 4, 5, 6, 8, 10, 11, 12, 13. Instances 1, 3, 7 and 9 exceeded 60.
+- CZ counts: 32, 22, 8, 57, 57, 8, 15, 53, 49, 17. Simulator mean P(optimal) 0.0164; uniform guessing 0.0011.
+- The selection keeps the sparser instances, so its simulator mean is above the full set's 0.0126.
+
+One job per device, 12 circuits each (10 QAOA + 2 readout calibration), 2048 shots: 49,152 shots in total, an estimated 16 s
+of QPU time at P1.5's rate. The P2 budget is 3 minutes.
+
+**Predictions, fixed before any result exists.** Retention = corrected hardware mean P(optimal) / simulator mean.
+1. **A1 (H5):** retention between 0.84 and 0.94; point estimate 0.87. The reasoning: P1.5 kept 0.890 on a device with a median CZ
+   error of 0.0019, and `ibm_fez`'s higher error (0.0029) over 22 CZ costs about 2 points. Graded: held inside 0.84–0.94,
+   partly held inside 0.79–0.99, failed otherwise.
+2. **A2:** corrected mean P(optimal) on `ibm_fez` is below P1.5's 0.4847 on `ibm_kingston`.
+3. **B1 (go rule on hardware):** corrected mean P(optimal) is at least 5 × guessing, that is ≥ 0.0055.
+4. **B2:** retention between 0.75 and 1.05; point estimate 0.88. P1.5 kept 0.90 at 58 CZ on the same device, and these circuits
+   have 8–57.
+5. **B3:** readout correction changes the mean P(optimal) by less than 15% of its raw value.
+
+Sampling noise, stated in advance: at P(optimal) ≈ 0.016 with 2048 shots on each of 10 circuits, the standard error of the mean
+is about 0.0009, so B2's retention carries roughly ±0.06 from shots alone.
+
+The submission waits for the author's explicit approval to use QPU time.
