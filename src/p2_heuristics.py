@@ -55,9 +55,10 @@ def tol(value: float) -> float:
     return TOL * max(1.0, abs(value))
 
 
-def greedy(scene, tuple_set) -> dict:
+def greedy(scene, tuple_set, keys: np.ndarray | None = None) -> dict:
+    """Cheapest first by `keys` (default: the tuple costs), skipping tuples that reuse a measurement."""
     used, chosen = set(), []
-    for k in np.argsort(tuple_set.costs, kind="stable"):
+    for k in np.argsort(tuple_set.costs if keys is None else keys, kind="stable"):
         ms = members(tuple_set.tuples[k])
         if any(m in used for m in ms):
             continue
@@ -67,6 +68,24 @@ def greedy(scene, tuple_set) -> dict:
     feasible = is_partition(scene, partition)
     return {"feasible": feasible, "partition": partition,
             "cost": partition_cost(tuple_set, partition) if feasible else math.inf}
+
+
+def measurement_reference(scene, p_detect: float) -> dict:
+    """The part of a target tuple's cost that each measurement brings whatever tuple it is in (added in P2.4).
+
+    ref_m = -ln P_D + ln lambda + 1/2 ln|2 pi R_m|. Every valid partition contains every measurement once, so subtracting
+    sum_m ref_m shifts all partitions by the same constant and leaves the optimum unchanged - but it changes the order
+    in which a cheapest-first method sees tuples. Without clutter P2.3 found plain greedy picking only singletons.
+    """
+    log_lambda = math.log(scene.clutter_density) if scene.clutter_density > 0 else 0.0
+    return {(s, j + 1): -math.log(p_detect) + log_lambda + 0.5 * float(np.linalg.slogdet(2 * math.pi * R)[1])
+            for s, covs in enumerate(scene.covariances) for j, R in enumerate(covs)}
+
+
+def greedy_normalised(scene, tuple_set, p_detect: float) -> dict:
+    ref = measurement_reference(scene, p_detect)
+    keys = np.array([c - sum(ref[m] for m in members(t)) for t, c in zip(tuple_set.tuples, tuple_set.costs)])
+    return greedy(scene, tuple_set, keys)
 
 
 def lr_structure(tuple_set) -> tuple[dict, dict]:

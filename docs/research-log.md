@@ -804,3 +804,61 @@ rerun reproduced every printed number exactly, and that rerun is the saved file.
 - Infeasible scenes: 0. Bound violations: 0.
 
 Next: P2.4 — the benchmark package (instance files, checker, baseline table, the sweep including bearing error), release and DOI.
+
+## 2026-09-14 — P2.4: the benchmark package
+
+Code: `src/p2_benchmark.py`, plus `greedy_normalised` and `measurement_reference` in `src/p2_heuristics.py`.
+Tests: `tests/test_p2_benchmark.py` (5; 65 in the project). Output: `benchmark/p2/` — `instances.jsonl.gz` (2.1 MB),
+`baselines.csv`, `summary.md`, `manifest.json`, and a hand-written `README.md` describing the format. No QPU.
+
+**Contents.**
+- **Sweep:** 540 settings (plan plus amendment 1) × 3 replicates = 1,620 instances. Each instance has its own seed
+  [2031, setting index, replicate].
+- **Each instance** carries: generator seed and parameters, sensors, measurements with covariances, the truth, every allowed
+  tuple with its cost, the exact optimum, the LP bound and a gap flag.
+- **The checker** needs only an instance and an answer. It uses nothing beyond the Python standard library and reports
+  validity, cost, gap to the optimum and agreement with the truth. The baselines are scored through the same checker.
+
+**Verification:**
+- The ILP partition scores as valid and optimal with zero gap; the truth scores as equal to the truth.
+- Reused, missing, unknown, malformed and empty answers are all rejected.
+- Instances survive a write and read round trip unchanged, and each regenerates from its own seed alone.
+- The per-measurement normalisation shifts every partition by the same constant.
+- The command-line checker, run on trial instances with one deliberately broken answer and one unknown id, reported both.
+- **Reproducibility:** a second full build produced a byte-identical decompressed instance file (SHA-256 `5d494e42962420dc…`)
+  and identical baseline results, ignoring timing columns.
+
+**Results (full table in `benchmark/p2/summary.md`):**
+
+| | value |
+|---|---|
+| instances / infeasible | 1,620 / 14 |
+| instances with an LP gap | 43 (2.7%) — 0.0% at σ_θ 0.005, 7.4% at σ_θ 0.02 |
+| optimum = truth | 0.560 overall; 0.748 at σ_θ 0.005 down to 0.349 at 0.02; 0.349 at 25 m spacing |
+| tuples per instance | mean 41, max 278 |
+
+| method | valid | optimal | median gap when not optimal | median seconds |
+|---|---|---|---|---|
+| greedy | 0.987 | 0.527 | 3.86 | < 0.001 |
+| greedy_normalised | 0.987 | 0.415 | 3.92 | < 0.001 |
+| lagrangian | 0.990 | 0.987 | 0.26 | < 0.001 |
+| annealing (64 × 100 sweeps) | 1.000 | 0.633 | 3.78 | 0.035 |
+
+Annealing falls from 0.960 at T = 2 to 0.345 at T = 6. Lagrangian relaxation stays at 0.98 or above at every size.
+
+**Special cases, counted:**
+- **Greedy has no valid answer on 21 instances,** all with no clutter and P_D = 1. Without single-measurement tuples, a
+  cheapest-first choice can leave a measurement with no tuple still available.
+- **Lagrangian relaxation has no valid answer on 16 instances,** all with P_D = 1 *and* clutter. Recovery keeps the relaxed
+  (i1, i2) pairs, and with P_D = 1 a pair of two real measurements must be completed by a sensor-3 measurement — (i1, i2, 0) is
+  impossible. When the gate leaves too few, no iteration recovers a valid answer. This was not seen in P2.3, which used P_D = 0.9.
+  With 5 more valid-but-not-optimal answers, these are the 21 instances of `hard_subset_lagrangian_not_optimal`.
+- **The normalisation helps greedy only without clutter.** At clutter 0 it lifts greedy from 0.000 to 0.267 (P_D 0.8) and 0.385
+  (P_D 0.9). With clutter it is worse: for example 0.281 against 0.607 at clutter 1, P_D 0.9. Plain costs reward joining
+  measurements, which is right when clutter exists; the normalised keys order tuples by fit alone. Both variants stay in the
+  table.
+- Among the 43 LP-gap instances, Lagrangian relaxation still found the optimum in 38 (0.884). The LP-gap subset is hard for the
+  bound more than for the method.
+- 14 instances have no valid answer at all (P_D = 1, no clutter, a true tuple cut by the gate). They are kept and listed.
+
+**Ready for release** as the benchmark named in the roadmap. The release and DOI need the author's approval before publishing.
