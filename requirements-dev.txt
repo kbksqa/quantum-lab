@@ -1,0 +1,3 @@
+# Needed only to build the P4 technical report (figures); the experiments need requirements.txt only.
+-r requirements.txt
+matplotlib>=3.8

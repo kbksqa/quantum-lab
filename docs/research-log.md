@@ -1328,3 +1328,20 @@ The plan fixes:
 
 Checked while planning: no LaTeX, pandoc or plotting library is installed in the environment, so the toolchain is one of the
 decisions.
+
+## 2026-09-14 — P4.0: the author's decisions for the report
+
+The author accepted all six recommendations in `docs/p4-plan.md`:
+1. **Affiliation:** "Independent researcher". The report does not name any employer or organisation.
+2. **AI-assistance disclosure,** used verbatim: *"Code, analysis and drafting were carried out with the assistance of an AI system
+   (Claude, Anthropic). The author directed the work, reviewed every result and takes full responsibility for the content."*
+3. **The QANTIS authors are to be told before the report is archived.** A short factual message is drafted for the author to
+   read first; nothing has been sent.
+4. **Publication route:** a Zenodo record of type "report", uploaded by the author and linked to the software concept DOI.
+   arXiv and journals are later, separate decisions.
+5. **Toolchain:** LaTeX compiled with Tectonic, figures with matplotlib.
+   - Tectonic 0.17.0, the official release `tectonic-0.17.0-x86_64-pc-windows-msvc.zip` (21.1 MB) from
+     github.com/tectonic-typesetting/tectonic, installed outside the repository. SHA-256 of the zip:
+     `f61ce51f0b0ade1015b7de7ef368541c5424e9756ecbd0d7af97d6d48030845f`.
+   - matplotlib 3.11.2, added to the project environment and listed in `requirements-dev.txt`.
+6. **Licence of the report text:** CC BY 4.0 (`paper/`); the code stays Apache-2.0.

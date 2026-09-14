@@ -1,0 +1,6 @@
+# Build outputs; the PDF is attached to the release instead of committed while drafting.
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
