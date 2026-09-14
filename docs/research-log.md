@@ -88,3 +88,11 @@ Caveats — stated so they are not mistaken for conclusions:
 Open questions for the next step:
 - How much of the k = 2 loss is readout error? Measure it directly and apply readout mitigation.
 - Does repeating the job on another day or device (`ibm_fez`, `ibm_marrakesh`) give the same curve?
+
+## 2026-09-14 — QPU time used by the hardware sweep
+
+- The runtime metrics call returned nothing, so usage was read from the IBM Quantum dashboard instead:
+  **9 m 51 s remaining** of the 10-minute Open Plan allowance after job `dajnoini3e6s738qgf8g`.
+- The whole sweep (6 circuits × 4096 shots = 24,576 shots) therefore cost about **9 QPU seconds**.
+- At that rate the remaining allowance covers about 65 more sweeps of the same size — enough for a
+  readout-error measurement and repeats on `ibm_fez` and `ibm_marrakesh` without running out.
