@@ -1305,3 +1305,9 @@ Final grades: C1 reproduced (caveat), C2 reproduced, C3 not tested, C4 reproduce
 informative. QPU time for P3: 0 s.
 
 The release and DOI wait for the author's approval. Contacting the paper's authors has not been decided and has not been done.
+
+## 2026-09-14 — Release v0.6.0
+
+Approved by the author. P3 — the plan, the source audit, P3.1–P3.3, the decision not to run P3.4, and the reproduction report — is
+released as `v0.6.0`, archived on Zenodo under the project's concept DOI. `CITATION.cff` now names v0.6.0. The paper's authors have
+not been contacted.
