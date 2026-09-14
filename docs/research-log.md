@@ -984,3 +984,70 @@ Sampling noise, stated in advance: at P(optimal) ≈ 0.016 with 2048 shots on ea
 is about 0.0009, so B2's retention carries roughly ±0.06 from shots alone.
 
 The submission waits for the author's explicit approval to use QPU time.
+
+## 2026-09-14 — P2.6 results: hardware, checked against the predictions
+
+Approved by the author after the pre-registration commit `4ea93d0` was on GitHub. Submitted with the registered plan file.
+Re-transpiling gave the same CZ counts as the plan for every circuit.
+- Job `dajrv77i3e6s738qm8dg` on `ibm_fez`; job `dajrv7omhr3c73e9c6r0` on `ibm_kingston`.
+- Result: `results/p2_6-hardware-20260914-163413.json`. **QPU usage reported by the jobs: 9 s + 9 s = 18 s.**
+
+**Experiment A — the P1.5 2 × 2 p = 2 circuits on `ibm_fez`:**
+
+| | simulator | hardware raw | hardware corrected | retention (corrected) |
+|---|---|---|---|---|
+| P2.6, `ibm_fez` | 0.5445 | 0.4730 | **0.4856** | **0.892** |
+| P1.5, `ibm_kingston` | 0.5445 | 0.4762 | 0.4847 | 0.890 |
+
+Per instance, retention ran from 0.81 to 1.01. The shot-noise standard error of the corrected mean is about 0.003
+(retention ±0.006).
+
+**Experiment B — three-dimensional QAOA, p = 1, on `ibm_kingston`:**
+
+| instance | CZ | simulator P(opt) | hardware corrected | ratio |
+|---|---|---|---|---|
+| 0 | 32 | 0.0078 | 0.0065 | 0.84 |
+| 2 | 22 | 0.0212 | 0.0275 | 1.30 |
+| 4 | 8 | 0.0230 | 0.0160 | 0.69 |
+| 5 | 57 | 0.0032 | 0.0081 | 2.48 |
+| 6 | 57 | 0.0032 | 0.0045 | 1.39 |
+| 8 | 8 | 0.0586 | 0.0585 | 1.00 |
+| 10 | 15 | 0.0289 | 0.0361 | 1.25 |
+| 11 | 53 | 0.0032 | 0.0040 | 1.23 |
+| 12 | 49 | 0.0027 | 0.0017 | 0.65 |
+| 13 | 17 | 0.0121 | 0.0096 | 0.80 |
+| **mean** | | **0.0164** | **0.0173** (raw 0.0166) | **1.052** |
+
+Guessing is 0.0011, so hardware reached **15.7× guessing**. The shot-noise standard error of the mean is about 0.0009
+(retention ±0.054). P(feasible): simulator 0.114, hardware corrected 0.105.
+
+**Predictions:**
+1. **A1 — held.** Retention 0.892, inside 0.84–0.94; the point estimate was 0.87.
+2. **A2 — failed.** `ibm_fez` gave 0.4856, not below `ibm_kingston`'s 0.4847. The difference, 0.0009, is well inside the shot
+   noise (about 0.003); the higher median CZ error did not show up in these 22-CZ circuits.
+3. **B1 — held.** Corrected mean 0.0173 ≥ 0.0055, and 15.7× guessing.
+4. **B2 — failed, by 0.0015.** Retention 1.052, just above the registered upper bound of 1.05. With about ±0.05 from shot noise
+   alone, it is consistent with "no measurable loss" — but the registered range was missed.
+5. **B3 — held.** Readout correction raised the mean by 4.2% (2.7% in A), under 15%.
+
+**H5 — partly held.**
+- **Device half: held, strikingly.** On a different device, with a 50% higher median CZ error, retention was 0.892 against P1.5's
+  0.890.
+- **Day half: not tested.** Same calendar day, as stated in the pre-registration.
+
+**Exploratory, after the results — not pre-registered.**
+- **In B, retention per instance rises with CZ count** (Spearman +0.52). The instances above 1 are mostly those whose simulator
+  P(opt) is tiny (0.003, about 3× guessing). There, a handful of extra optimal shots — 16 against an expected 6.5 in 2048 —
+  doubles the ratio.
+- **Checked one explanation offline, using the stored counts.** Relaxation (T1) pushes qubits towards 0. Every optimal
+  partition here selects fewer tuples (4–6 ones) than the simulator's average string (4.8–8.4), so a bias towards 0 would favour
+  the optimum. Hardware strings did carry fewer ones than the simulator on **all 10 instances** (mean −0.11). However, that shift
+  does not correlate with CZ count (+0.05) and only weakly with retention (+0.32), so it does not explain the CZ pattern. Shot
+  noise on tiny probabilities is the simpler reading.
+- **Consequence:** retention is a poor metric when the simulator's P(opt) is near guessing. For such instances, the ratio to
+  guessing and the absolute counts are the numbers to report.
+
+**QPU time.** P2 used 18 s against its 3-minute budget. The project total is 81 s. The job-reported usage suggests about
+8 m 39 s remain in the current allowance; the dashboard was not read.
+
+Next: P2.7 — summary of P2, release and DOI.
