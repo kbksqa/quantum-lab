@@ -350,3 +350,50 @@ Same instances as P1.2. Per-restart success, best of 64 restarts, and share of r
   solve two-dimensional assignment — it is not.
 
 Next: P1.4 — QAOA on a simulator for pure 2 × 2 and 3 × 3, with the penalty chosen from these results.
+
+## 2026-09-14 — P0.5 on real hardware: readout is not the main loss, and the hypothesis is rejected
+
+Plan and method check: see the P0.5 entries above. Submitted 12:11, collected 13:01. Raw data:
+`results/p0_5-readout-20260914-121144.json` (job ids and physical qubits in the `-submitted` file).
+Grover k = 2 plus 8 calibration circuits, one job per device, 4096 shots each; on all three devices the Grover circuit
+transpiled to the same 39 two-qubit gates and depth 139.
+
+| device | physical qubits | per-bit readout error range | success raw | readout-corrected | gain |
+|--------|-----------------|-----------------------------|-------------|-------------------|------|
+| `ibm_kingston` | 94, 93, 79 | 0.05% – 1.56% | 0.7856 | 0.8078 | +2.2 pp |
+| `ibm_fez` | 8, 9, 10 | 0.10% – 0.84% | 0.7395 | 0.7547 | +1.5 pp |
+| `ibm_marrakesh` | 13, 14, 15 | 0.03% – 2.37% | 0.6235 | 0.6567 | +3.3 pp |
+
+Theory: 0.9453.
+
+Error anatomy, probability per wrong state by Hamming distance from the marked state, raw → corrected:
+
+| device | distance 1 | distance 2 | distance 3 | distance-1 / distance-3, raw → corrected |
+|--------|------------|------------|------------|------------------------------------------|
+| `ibm_kingston` | 0.0369 → 0.0297 | 0.0265 → 0.0263 | 0.0239 → 0.0241 | 1.54 → 1.23 |
+| `ibm_fez` | 0.0444 → 0.0395 | 0.0344 → 0.0344 | 0.0242 → 0.0237 | 1.83 → 1.67 |
+| `ibm_marrakesh` | 0.0545 → 0.0437 | 0.0554 → 0.0556 | 0.0466 → 0.0454 | 1.17 → 0.96 |
+
+What the devices said:
+1. **Readout error is small on these qubits** — at most 2.4% per bit and mostly below 1.6%, smaller than the 3% case
+   used in the simulator check.
+2. **Most of the loss comes from the gates.** Against theory the devices lose 14–32 percentage points; correcting the
+   readout recovers only 1.5–3.3 of them.
+3. **The hypothesis is rejected.** Correction removes part of the bias toward states one bit away, but on `ibm_kingston`
+   and `ibm_fez` the bias survives (distance-1 still 1.2–1.7× distance-3). Gate errors must also push results toward
+   nearby states. On `ibm_marrakesh` the bias disappears after correction, but that device is noisier overall and its
+   wrong outcomes are closer to evenly spread.
+4. **The P0 result reproduced.** `ibm_kingston` gave 0.7856 raw this afternoon against 0.7881 this morning — within
+   0.25 percentage points, a few hours apart. (P0 did not record which physical qubits it used, so the layouts may differ.)
+5. **Same circuit, different devices, very different results:** raw success from 0.62 to 0.79 with identical gate count
+   and depth. Device choice matters as much as circuit design at this size.
+
+Stated limits:
+- One job per device, one calibration window each; the calibration circuits share the Grover job, which is the point,
+  but also means no repetition.
+- The correction has its own error bar (0.6 pp in the 3% simulator check, smaller at the ~1% readout seen here). The
+  gains above are larger than that, but the distance-1 changes on `ibm_fez` are close to it.
+- QPU seconds for this run were not read from the dashboard yet.
+
+What changes for P1.5: readout correction is worth applying but will not rescue deep circuits. Circuit depth and device
+choice decide the outcome; QAOA on hardware should use the shallowest circuits and the best device of the day.

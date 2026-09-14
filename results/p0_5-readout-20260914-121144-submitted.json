@@ -1,0 +1,45 @@
+{
+  "stamp": "20260914-121144",
+  "experiment": "P0.5 readout error and correction",
+  "status": "submitted",
+  "qubits": 3,
+  "marked": "101",
+  "iterations": 2,
+  "shots": 4096,
+  "runs": [
+    {
+      "backend": "ibm_kingston",
+      "job_id": "dajo44phvn6c73culm10",
+      "measured_physical_qubits": [
+        94,
+        93,
+        79
+      ],
+      "grover_depth": 139,
+      "grover_two_qubit_gates": 39
+    },
+    {
+      "backend": "ibm_fez",
+      "job_id": "dajo45j9k43c73ahf9ng",
+      "measured_physical_qubits": [
+        8,
+        9,
+        10
+      ],
+      "grover_depth": 139,
+      "grover_two_qubit_gates": 39
+    },
+    {
+      "backend": "ibm_marrakesh",
+      "job_id": "dajo46j9k43c73ahf9qg",
+      "measured_physical_qubits": [
+        13,
+        14,
+        15
+      ],
+      "grover_depth": 139,
+      "grover_two_qubit_gates": 39
+    }
+  ],
+  "submitted_at": "2026-09-14T12:11:55.243470+07:00"
+}
