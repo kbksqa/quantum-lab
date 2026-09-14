@@ -7,7 +7,7 @@ authors:
     given-names: "Kiettisak"
     email: "kiettisak.suthsilp@gmail.com"
     orcid: "https://orcid.org/0009-0003-3249-990X"
-repository-code: "https://github.com/USERNAME/quantum-lab"  # fill in your GitHub username
+repository-code: "https://github.com/kbksqa/quantum-lab"
 license: Apache-2.0
 keywords:
   - quantum computing
