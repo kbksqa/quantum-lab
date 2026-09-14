@@ -1,0 +1,43 @@
+{
+  "stamp": "20260914-114702",
+  "experiment": "P0 Grover iteration sweep - hardware",
+  "status": "submitted",
+  "backend": "ibm_kingston",
+  "job_id": "dajnoini3e6s738qgf8g",
+  "qubits": 3,
+  "marked": "101",
+  "shots": 4096,
+  "circuits": [
+    {
+      "iterations": 0,
+      "transpiled_depth": 4,
+      "two_qubit_gates": 0
+    },
+    {
+      "iterations": 1,
+      "transpiled_depth": 72,
+      "two_qubit_gates": 19
+    },
+    {
+      "iterations": 2,
+      "transpiled_depth": 139,
+      "two_qubit_gates": 39
+    },
+    {
+      "iterations": 3,
+      "transpiled_depth": 206,
+      "two_qubit_gates": 59
+    },
+    {
+      "iterations": 4,
+      "transpiled_depth": 273,
+      "two_qubit_gates": 79
+    },
+    {
+      "iterations": 5,
+      "transpiled_depth": 340,
+      "two_qubit_gates": 99
+    }
+  ],
+  "submitted_at": "2026-09-14T11:47:06.814038+07:00"
+}

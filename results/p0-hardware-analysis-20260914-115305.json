@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-09-14T11:53:05.906057+07:00",
+  "experiment": "P0 hardware analysis",
+  "source": "p0-hardware-sweep-20260914-114702.json",
+  "backend": "ibm_kingston",
+  "job_id": "dajnoini3e6s738qgf8g",
+  "model": "global depolarizing: p_hw = f * p_theory + (1 - f) / 2^n",
+  "reliability_threshold": 0.25,
+  "fits": [
+    {
+      "iterations": 0,
+      "two_qubit_gates": 0,
+      "theory": 0.12500000000000003,
+      "hardware": 0.121826171875,
+      "effective_fidelity": null,
+      "per_two_qubit_gate_fidelity": null,
+      "reliable": false
+    },
+    {
+      "iterations": 1,
+      "two_qubit_gates": 19,
+      "theory": 0.7812500000000001,
+      "hardware": 0.7041015625,
+      "effective_fidelity": 0.882440476190476,
+      "per_two_qubit_gate_fidelity": 0.993439303254766,
+      "reliable": true
+    },
+    {
+      "iterations": 2,
+      "two_qubit_gates": 39,
+      "theory": 0.9453124999999999,
+      "hardware": 0.7880859375,
+      "effective_fidelity": 0.8083333333333335,
+      "per_two_qubit_gate_fidelity": 0.994558939451686,
+      "reliable": true
+    },
+    {
+      "iterations": 3,
+      "two_qubit_gates": 59,
+      "theory": 0.330078125,
+      "hardware": 0.234130859375,
+      "effective_fidelity": 0.5321428571428571,
+      "per_two_qubit_gate_fidelity": 0.9893646997416099,
+      "reliable": false
+    },
+    {
+      "iterations": 4,
+      "two_qubit_gates": 79,
+      "theory": 0.01220703125000009,
+      "hardware": 0.050048828125,
+      "effective_fidelity": 0.664502164502165,
+      "per_two_qubit_gate_fidelity": 0.9948397254701778,
+      "reliable": false
+    },
+    {
+      "iterations": 5,
+      "two_qubit_gates": 99,
+      "theory": 0.5479736328125003,
+      "hardware": 0.44921875,
+      "effective_fidelity": 0.7665223665223659,
+      "per_two_qubit_gate_fidelity": 0.9973178317305901,
+      "reliable": true
+    }
+  ],
+  "per_two_qubit_gate_fidelity_range_reliable": [
+    0.993439303254766,
+    0.9973178317305901
+  ],
+  "error_anatomy_iteration": 2,
+  "uniform_error_per_wrong_state": 0.023958333333333318,
+  "error_anatomy": [
+    {
+      "hamming_distance": 0,
+      "states": 1,
+      "shots": 3228,
+      "probability": 0.7880859375,
+      "probability_per_state": 0.7880859375
+    },
+    {
+      "hamming_distance": 1,
+      "states": 3,
+      "shots": 449,
+      "probability": 0.109619140625,
+      "probability_per_state": 0.036539713541666664
+    },
+    {
+      "hamming_distance": 2,
+      "states": 3,
+      "shots": 333,
+      "probability": 0.081298828125,
+      "probability_per_state": 0.027099609375
+    },
+    {
+      "hamming_distance": 3,
+      "states": 1,
+      "shots": 86,
+      "probability": 0.02099609375,
+      "probability_per_state": 0.02099609375
+    }
+  ]
+}
