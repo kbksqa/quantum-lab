@@ -531,3 +531,15 @@ Stated limits:
 - QPU seconds were not read from the dashboard yet.
 
 Next: P1.6 — write-up of P1 as a whole, release and DOI.
+
+## 2026-09-14 — P1.6: QPU time, summary and release
+
+**QPU time.** The IBM Quantum dashboard showed **8 m 57 s remaining** after P1.5, against 9 m 51 s after the P0 sweep.
+P0.5 (three jobs, 110,592 shots) and P1.5 (one job, 59,392 shots) therefore used **54 seconds together** — about 0.32 ms per
+shot. The dashboard was not read between the two, so they are not split here. Total for the project so far: 63 seconds of
+the 10-minute allowance.
+
+**Summary.** P1 as a whole — question, steps, results, the corrections made along the way, limits — is written up in
+`docs/p1-summary.md`.
+
+**Release.** P0.5 and P1.0–P1.5 are released together as `v0.3.0`, archived on Zenodo.
