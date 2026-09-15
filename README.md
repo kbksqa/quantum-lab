@@ -23,6 +23,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 | P3 | **Reproduction study** of the QANTIS multi-target data association result (arXiv:2603.00785): instance, FPC-QAOA on a simulator, and hardware if the go rule allows ([plan](docs/p3-plan.md)) | done — [report](docs/p3-report.md): instances reproduce exactly (with an unstated cost term); method reproduces on a simulator; the headline metric does not distinguish QAOA from random sampling; three defects confirmed in the public code; hardware not re-run |
 | P4 | Technical report on P0–P3, archived with a DOI ([plan](docs/p4-plan.md)) | done — [technical report](paper/) v1.0, archived as [10.5281/zenodo.22760770](https://doi.org/10.5281/zenodo.22760770) (CC BY 4.0): every number from a machine-checked table, all 18 references verified |
 | P5 | **QAOA without penalties**: constraint-preserving mixers (row XY, permutation) against the P1 penalty formulation on the same assignment instances ([plan](docs/p5-plan.md)) | done — [summary](docs/p5-summary.md): on 3 × 3, P(optimal) at depth 3 rises from 0.077 (penalty) to 0.173 (row XY) and 0.833 (permutation); H1–H3 held; H4 failed — no constraint-preserving circuit fits 60 CZ, so no hardware run |
+| P6 | **Reproduction study** of the QANTIS POMDP-planning results (arXiv:2603.00785): Grover belief amplification, exact belief updates, closed-loop Tiger, simulated planning table ([plan](docs/p6-plan.md)) | in progress — pre-registered |
 
 ## Getting started
 

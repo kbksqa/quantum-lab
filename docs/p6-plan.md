@@ -1,7 +1,7 @@
 # P6 plan — reproduction study of QANTIS's POMDP-planning results
 
-**Status: draft for the author's approval, written on 2026-09-15.** It becomes the pre-registration when it is approved and
-pushed, before any P6 code is written or any P6 number is computed. Same rules as P3.
+**Status: pre-registered on 2026-09-15.** Approved by the author and pushed before any P6 code was written or any P6 number was
+computed. Same rules as P3.
 
 ## Why this study
 
