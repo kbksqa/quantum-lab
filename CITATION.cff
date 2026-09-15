@@ -9,8 +9,8 @@ authors:
     orcid: "https://orcid.org/0009-0003-3249-990X"
 repository-code: "https://github.com/kbksqa/quantum-lab"
 license: Apache-2.0
-version: "v0.6.0"
-date-released: "2026-09-14"
+version: "v1.0.0"
+date-released: "2026-09-15"
 doi: "10.5281/zenodo.22741037"
 keywords:
   - quantum computing

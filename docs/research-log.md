@@ -1470,3 +1470,12 @@ The email is drafted for the author to send from his own account. Any reply will
 published as a new version if one is needed.
 
 Next: P4.5 — final build, release, and the Zenodo report record.
+
+## 2026-09-15 — P4.5: email sent, report version 1.0, release v1.0.0
+
+- **Email.** The author sent the findings by email from his own account to research@neuraparse.com, the correspondence address in
+  arXiv:2603.00785, on 2026-09-15. The text is the reviewed draft. No reply has been received so far; any reply will be added here.
+- **Report.** The paragraph on the untested hardware claim now states that the authors were emailed before archiving and that
+  archiving did not wait for a reply. The report is dated as version 1.0.
+- **Release.** Approved by the author. `CITATION.cff` now names v1.0.0. The compiled report is attached to the GitHub release as
+  `quantum-lab-report-v1.0.pdf`. The author will create the separate Zenodo record of type "report", linked to the software concept DOI.
