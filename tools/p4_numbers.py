@@ -33,6 +33,18 @@ P31 = R + "p3_1-instance-20260914-184805.json"
 P32 = R + "p3_2-qaoa-20260914-190507.json"
 P33 = R + "p3_3-q4-20260914-191429.json"
 BENCH = "benchmark/p2/baselines.csv"
+# added for report version 1.1 (docs/p4-plan.md, amendment 1)
+P28B = R + "p2_8-benchmark-20260915-102524.json"
+P28C = R + "p2_8-cvar-20260915-102642.json"
+P28H = R + "p2_8-h5-hardware-20260915-110607.json"
+P50 = R + "p5_0-gates-20260915-140211.json"
+P51 = R + "p5_1-study-20260915-141313.json"
+P61 = R + "p6_1-tiger-20260915-150853.json"
+P62R = R + "p6_2-resources-20260915-152850.json"
+P62L = R + "p6_2-loops-20260915-152714.json"
+P63E = R + "p6_3-entrypoint-20260915-171109.json"
+P63 = R + "p6_3-table6-20260915-171313.json"
+P64 = R + "p6_4-hardware-20260915-172851.json"
 
 
 def supplementary() -> str:
@@ -67,7 +79,7 @@ def share(rows, column):
     return sum(r[column] == "True" for r in ok) / len(ok)
 
 
-F3, F4, PCT1, INT = "{:.3f}", "{:.4f}", "pct1", "{:d}"
+F3, F4, PCT1, INT, SCI = "{:.3f}", "{:.4f}", "pct1", "{:d}", "sci"
 
 
 def entries() -> list:
@@ -174,12 +186,88 @@ def entries() -> list:
         ("PthreeLargePaperPone", P33, lambda: get(P33, "paper_hardware_quality", "1"), PCT1),
         ("PthreeLargePaperPtwo", P33, lambda: get(P33, "paper_hardware_quality", "2"), PCT1),
     ]
+    e += [
+        # P2.8 (version 1.1)
+        ("PtwoEightLRValid", P28B, lambda: get(P28B, "h7_verdict", "dissolve", "valid"), PCT1),
+        ("PtwoEightLROptimal", P28B, lambda: get(P28B, "h7_verdict", "dissolve", "optimal"), PCT1),
+        ("PtwoEightLRFormerFailures", P28B, lambda: len(get(P28B, "h7_verdict", "former_failures")), INT),
+        ("PtwoEightLRFormerNowOptimal", P28B, lambda: get(P28B, "h7_verdict", "former_failures_now_optimal"), INT),
+        ("PtwoEightJoinedGLR", P28B, lambda: get(P28B, "h6_verdict", "joined_clutter_total", "glr"), INT),
+        ("PtwoEightJoinedMarginal", P28B, lambda: get(P28B, "h6_verdict", "joined_clutter_total", "marginal"), INT),
+        ("PtwoEightClutterMeasurements", P28B, lambda: get(P28B, "h6_verdict", "joined_clutter_total", "clutter_measurements"), "{:,d}"),
+        ("PtwoEightJoinedBetter", P28B, lambda: get(P28B, "h6_verdict", "H6a_less_clutter_joined", "better"), INT),
+        ("PtwoEightJoinedWorse", P28B, lambda: get(P28B, "h6_verdict", "H6a_less_clutter_joined", "worse"), INT),
+        ("PtwoEightTruthGain", P28B, lambda: get(P28B, "h6_verdict", "H6b_truth_more_often", "better"), INT),
+        ("PtwoEightTruthLoss", P28B, lambda: get(P28B, "h6_verdict", "H6b_truth_more_often", "worse"), INT),
+        ("PtwoEightCvarPone", P28C, lambda: get(P28C, "h8_verdict", "depths", "p1", "cvar_p_optimal_mean"), F4),
+        ("PtwoEightExpPone", P28C, lambda: get(P28C, "h8_verdict", "depths", "p1", "expectation_p_optimal_mean"), F4),
+        ("PtwoEightCvarPthree", P28C, lambda: get(P28C, "h8_verdict", "depths", "p3", "cvar_p_optimal_mean"), F3),
+        ("PtwoEightExpPthree", P28C, lambda: get(P28C, "h8_verdict", "depths", "p3", "expectation_p_optimal_mean"), F3),
+        ("PtwoEightHfiveKept", P28H, lambda: get(P28H, "h5_day_verdict", "retention_corrected"), PCT1),
+        ("PtwoEightHfiveRawKept", P28H, lambda: get(P28H, "experiments", "A", "summary", "retention_raw"), PCT1),
+        ("PtwoEightBadQubit", P28H, lambda: get(P28H, "experiments", "A", "per_qubit_errors", "16")[0], PCT1),
+        ("PtwoEightUsage", P28H, lambda: get(P28H, "experiments", "A", "usage_seconds"), INT),
+        # P5 (version 1.1)
+        ("PfiveGateMaxDiff", P50, lambda: get(P50, "G1", "pure 3x3", "max_amplitude_difference"), SCI),
+        ("PfiveXpenPone", P51, lambda: get(P51, "pure 3x3", "summary", "xpen p1", "p_optimal_mean"), F3),
+        ("PfiveXpenPthree", P51, lambda: get(P51, "pure 3x3", "summary", "xpen p3", "p_optimal_mean"), F3),
+        ("PfiveRxyPone", P51, lambda: get(P51, "pure 3x3", "summary", "rxy p1", "p_optimal_mean"), F3),
+        ("PfiveRxyPthree", P51, lambda: get(P51, "pure 3x3", "summary", "rxy p3", "p_optimal_mean"), F3),
+        ("PfivePermPone", P51, lambda: get(P51, "pure 3x3", "summary", "perm p1", "p_optimal_mean"), F3),
+        ("PfivePermPthree", P51, lambda: get(P51, "pure 3x3", "summary", "perm p3", "p_optimal_mean"), F3),
+        ("PfiveXpenCZ", P51, lambda: int(get(P51, "pure 3x3", "summary", "xpen p1", "median_cz_first_instances")), INT),
+        ("PfiveRxyCZ", P51, lambda: int(get(P51, "pure 3x3", "summary", "rxy p1", "median_cz_first_instances")), INT),
+        ("PfivePermCZ", P51, lambda: int(get(P51, "pure 3x3", "summary", "perm p1", "median_cz_first_instances")), "{:,d}"),
+        ("PfiveXpenLiftPone", P51, lambda: get(P51, "pure 3x3", "summary", "xpen p1", "lift_mean"), "{:.1f}"),
+        ("PfiveRxyLiftPone", P51, lambda: get(P51, "pure 3x3", "summary", "rxy p1", "lift_mean"), "{:.1f}"),
+        ("PfivePermLiftPone", P51, lambda: get(P51, "pure 3x3", "summary", "perm p1", "lift_mean"), "{:.1f}"),
+        ("PfivePermLift", P51, lambda: get(P51, "verdicts_pure_3x3", "H3_perm_lift_p3", "mean"), "{:.2f}"),
+        ("PfivePermLiftSE", P51, lambda: get(P51, "verdicts_pure_3x3", "H3_perm_lift_p3", "sem"), "{:.2f}"),
+        # P6 (version 1.1)
+        ("PsixCOneBase", P61, lambda: get(P61, "C1", "ours", "p_obs1_baseline"), F4),
+        ("PsixCOneGrover", P61, lambda: get(P61, "C1", "ours", "p_obs1_grover"), F4),
+        ("PsixCOnePostLeft", P61, lambda: get(P61, "C1", "ours", "posterior")[0], F4),
+        ("PsixCOneAmp", P61, lambda: get(P61, "C1", "ours", "amplification"), "{:.2f}"),
+        ("PsixCTwoMax", P61, lambda: max(get(P61, "C2", "max_hellinger_2_state", "listen"),
+                                         get(P61, "C2", "max_hellinger_4_state")), SCI),
+        ("PsixCSixFormulaOne", P61, lambda: get(P61, "C6", "formula")[1], F3),
+        ("PsixCSixFormulaThree", P61, lambda: get(P61, "C6", "formula")[3], F3),
+        ("PsixCSixSectionIterations", P61, lambda: get(P61, "C6", "iteration_formulas", "section_5_2_floor(pi/(4 theta) - 1/2)"), INT),
+        ("PsixCSevenH", P61, lambda: get(P61, "C7", "example", "hellinger"), F4),
+        ("PsixCSevenTV", P61, lambda: get(P61, "C7", "example", "total_variation"), PCT1),
+        ("PsixQOneTheory", P61, lambda: get(P61, "Q1", "theory", "grover_over_direct_per_call"), "{:.2f}"),
+        ("PsixCThreeListenCZ", P62R, lambda: get(P62R, "circuits", "minimal_listen", "theirs", "cz_range")[0], INT),
+        ("PsixCThreeListenDepth", P62R, lambda: get(P62R, "circuits", "minimal_listen", "theirs", "depth_range")[0], INT),
+        ("PsixCThreeGroverCZ", P62R, lambda: get(P62R, "circuits", "grover1", "theirs", "cz_range")[0], INT),
+        ("PsixCThreeGroverDepth", P62R, lambda: get(P62R, "circuits", "grover1", "theirs", "depth_range")[0], INT),
+        ("PsixCThreeFourCZ", P62R, lambda: get(P62R, "circuits", "four_state", "theirs", "cz_range")[0], INT),
+        ("PsixCThreeFourDepth", P62R, lambda: get(P62R, "circuits", "four_state", "theirs", "depth_range")[0], INT),
+        ("PsixCThreeFullCZMin", P62R, lambda: get(P62R, "circuits", "framework", "theirs", "cz_range")[0], "{:,d}"),
+        ("PsixCThreeFullCZMax", P62R, lambda: get(P62R, "circuits", "framework", "theirs", "cz_range")[1], "{:,d}"),
+        ("PsixCThreeFullDepthMin", P62R, lambda: get(P62R, "circuits", "framework", "theirs", "depth_range")[0], "{:,d}"),
+        ("PsixCThreeFullDepthMax", P62R, lambda: get(P62R, "circuits", "framework", "theirs", "depth_range")[1], "{:,d}"),
+        ("PsixQTwoValue", P62L, lambda: get(P62L, "Q2", "value_iteration", "value_at_0.5"), "{:.2f}"),
+        ("PsixQTwoThreshold", P62L, lambda: get(P62L, "Q2", "value_iteration", "open_right_when_p_tiger_right_below"), F4),
+        ("PsixQTwoGreedyThreshold", P62L, lambda: get(P62L, "Q2", "greedy_thresholds", "open_right_when_p_tiger_right_below"), "{:.1f}"),
+        ("PsixCFiveEntryReward", P63E, lambda: float(re.search(r"avg reward: (-?\d+\.\d+)", get(P63E, "log")[-3]).group(1)), "{:.2f}"),
+        ("PsixCFiveHorizonMean", P63, lambda: get(P63, "exploratory_protocols", 2, "mean"), "{:.1f}"),
+        ("PsixCFiveHorizonSD", P63, lambda: get(P63, "exploratory_protocols", 2, "sd"), "{:.1f}"),
+        ("PsixCFiveOptimalMean", P63, lambda: get(P63, "exploratory_protocols", 3, "mean"), "{:.1f}"),
+        ("PsixCFiveOptimalSD", P63, lambda: get(P63, "exploratory_protocols", 3, "sd"), "{:.1f}"),
+        ("PsixHwBase", P64, lambda: get(P64, "mean_raw", "p_obs1_baseline"), F3),
+        ("PsixHwGrover", P64, lambda: get(P64, "mean_raw", "p_obs1_grover"), F3),
+        ("PsixHwAmp", P64, lambda: get(P64, "mean_raw", "amplification"), "{:.2f}"),
+        ("PsixHwHellinger", P64, lambda: get(P64, "mean_raw", "posterior_hellinger"), F4),
+        ("PsixHwPerOracle", P64, lambda: get(P64, "mean_raw", "grover_over_direct_per_oracle_application"), "{:.2f}"),
+        ("PsixHwUsage", P64, lambda: get(P64, "usage_seconds"), INT),
+    ]
     return e
 
 
 LOG_CONSTANTS = [
     ("QPUSecondsPzero", 9, "research log, P0 hardware sweep: IBM dashboard reading"),
-    ("QPUSecondsTotal", 81, "research log, P2.6: 63 s from dashboard readings plus 18 s reported by the P2.6 jobs"),
+    ("QPUSecondsTotal", 110, "research log, P6.4: 63 s from dashboard readings plus 18 s (P2.6), 9 s (P2.8) and 20 s (P6.4) "
+                             "reported by the jobs"),
 ]
 
 # Numbers reported by the paper under study, quoted (not our results). Only those not already stored in a result file.
@@ -188,12 +276,36 @@ QUOTED_CONSTANTS = [
     ("PthreePaperHeadlineSD", "3.3", "quoted from arXiv:2603.00785, Sec. 8.6 (percentage points, three runs)"),
     ("PthreePaperTwoQubitGates", "433--435", "quoted from arXiv:2603.00785, Sec. 8.6 and Table 4 (p = 3)"),
     ("PthreePaperSimPthree", "90.9", "quoted from arXiv:2603.00785, Sec. 8.6 (simulator quality, p = 3, percent)"),
+    # version 1.1: the POMDP half of the same paper
+    ("PsixPaperBase", "0.179", "quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (hardware baseline P(obs = 1))"),
+    ("PsixPaperGrover", "0.907", "quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (hardware P(obs = 1) after one Grover iterate)"),
+    ("PsixPaperAmp", "5.1", "quoted from arXiv:2603.00785, Sec. 8.6 (hardware amplification)"),
+    ("PsixPaperTheoryBase", "0.171", "quoted from arXiv:2603.00785, Sec. 8.6 (theory baseline)"),
+    ("PsixPaperTheoryGrover", "0.917", "quoted from arXiv:2603.00785, Sec. 8.6 (theory after one iterate)"),
+    ("PsixPaperPass", "0.15", "quoted from arXiv:2603.00785, Sec. 2.4 and 8.6 (Hellinger pass threshold)"),
+    ("PsixPaperTV", "1.1", "quoted from arXiv:2603.00785, Sec. 2.4 and 8.6 (stated total-variation equivalent, percent)"),
+    ("PsixCodePass", "0.05", "quoted from github.com/neuraparse/qantis at 7c6509c, scripts/hardware (pass threshold in code)"),
+    ("PsixPaperFourObsZero", "0.128", "quoted from arXiv:2603.00785, Table 15 (4-state obs 0 Hellinger)"),
+    ("PsixPaperTableOne", "0.192", "quoted from arXiv:2603.00785, Table 21 (amplified P(e), G = 1)"),
+    ("PsixPaperTableThree", "0.912", "quoted from arXiv:2603.00785, Table 21 (amplified P(e), G = 3)"),
+    ("PsixPaperTableIterations", "3", "quoted from arXiv:2603.00785, Table 21 (stated optimal G)"),
+    ("PsixPaperISAListen", "12", "quoted from arXiv:2603.00785, Sec. 8.6 (Tiger minimal circuit)"),
+    ("PsixPaperISAGrover", "18", "quoted from arXiv:2603.00785, Sec. 8.6 (Grover circuit)"),
+    ("PsixPaperISAFour", "162", "quoted from arXiv:2603.00785, Sec. 8.6 (4-state circuit)"),
+    ("PsixPaperISAFull", "4{,}237", "quoted from arXiv:2603.00785, Sec. 5.3 and 8.6 (full 11-qubit circuit)"),
+    ("PsixPaperTableSixQBRL", "18.7", "quoted from arXiv:2603.00785, Table 6 (QBRL reward)"),
+    ("PsixPaperTableSixSD", "12.1", "quoted from arXiv:2603.00785, Table 6 (QBRL standard deviation)"),
+    ("PsixPaperListen", "0.85", "quoted from arXiv:2603.00785, Sec. 8.6 (listening accuracy)"),
+    ("PsixPaperGamma", "0.95", "quoted from arXiv:2603.00785, Sec. 8.2.1 (discount factor)"),
 ]
 
 
 def fmt(value, spec: str) -> str:
     if spec == PCT1:
         return "%.1f\\%%" % (100 * value)
+    if spec == SCI:
+        mantissa, exponent = ("%.1e" % value).split("e")
+        return "%s\\times10^{%d}" % (mantissa, int(exponent))              # use inside math mode
     return spec.format(value)
 
 

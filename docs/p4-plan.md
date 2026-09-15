@@ -108,3 +108,19 @@ These are not defaults; each is asked before drafting starts.
 - Rewriting any registered plan or past log entry
 - Submission to arXiv, a journal or a conference — each a separate later decision
 - Any contact with third parties without the author's approval
+
+## Amendments
+
+### Amendment 1 — 2026-09-15, report version 1.1, decided by the author
+
+- **Change:** version 1.1 of the report adds the work completed after version 1.0 was archived:
+  - P2.8 — the open items of P2 closed
+  - P5 — constraint-preserving mixers
+  - P6 — the reproduction of the QANTIS POMDP-planning results, including one hardware run
+- **Rules:** the rules above apply unchanged. Every new number is a macro read by `tools/p4_numbers.py` from a committed result
+  file, and every new reference is checked before it is cited.
+- **What gets updated:** the title, abstract, contributions, outcome table, lessons, limits and quantum-processor total. Text
+  from version 1.0 is kept unless a later result supersedes it, and any such change is stated in the log.
+- **Publication:** the author uploads the PDF as a new version of the existing Zenodo report record (10.5281/zenodo.22760770).
+  No repository release is required.
+- **Emails:** statements about emails to the QANTIS authors are written only after the author confirms they were sent.

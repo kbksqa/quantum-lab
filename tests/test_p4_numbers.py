@@ -57,7 +57,7 @@ class TestNumbers(unittest.TestCase):
 
     def test_every_macro_used_is_defined(self):
         text = (ROOT / "paper" / "main.tex").read_text(encoding="utf-8")
-        used = set(re.findall(r"\\(P(?:zero|one|two|three)[A-Za-z]+|QPU[A-Za-z]+)", text))
+        used = set(re.findall(r"\\(P(?:zero|one|two|three|five|six)[A-Za-z]+|QPU[A-Za-z]+)", text))
         self.assertEqual(used - set(self.table), set())
 
 

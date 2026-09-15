@@ -2210,3 +2210,39 @@ Next: P6.5 — the reproduction report `docs/p6-report.md`, release and DOI.
 second email to the paper's authors; it is prepared outside the repository and sent by the author.
 
 Zenodo DOI for v1.3.0: 10.5281/zenodo.22767339. The concept DOI 10.5281/zenodo.22741037 resolves to it.
+
+## 2026-09-15 — Technical report version 1.1: draft built
+
+The author asked for version 1.1 of the report. The rules are those of `docs/p4-plan.md`; **amendment 1** there records the
+added scope and states that the second email may be mentioned only after the author confirms it was sent.
+
+**What changed:**
+- *Numbers:* `tools/p4_numbers.py` reads **189 numbers** (was 100) from committed result files. The new ones come from P2.8,
+  P5 and P6, plus quoted values from the planning half of arXiv:2603.00785, each labelled as quoted.
+  - The research-log constant for the project's quantum processor time changed from 81 s to 110 s: 63 s from dashboard
+    readings plus 18 s, 9 s and 20 s reported by the P2.6, P2.8 and P6.4 jobs.
+  - A scientific-notation format was added for two very small differences.
+- *Test:* `tests/test_p4_numbers.py` now also checks that every `\Pfive…` and `\Psix…` macro used is defined. The
+  hand-typed-decimal check is unchanged.
+- *References:* seven added to `paper/refs.bib` — Hadfield et al. 2019, Wang et al. 2020, Fuchs et al. 2022, Barkoutsos et al.
+  2020, Brassard et al. 2002, Kaelbling et al. 1998 and Barry et al. 2014. All were verified against Crossref today.
+- *`paper/main.tex`:*
+  - The title becomes "…for multi-target data association and planning: … and two reproduction studies", dated version 1.1.
+  - The abstract gains findings (iv) and (v), and the contributions gain items 5 and 6.
+  - A second outcome table covers P5 and P6, and the first gains the P2.8 rows.
+  - The P2 section gains the P2.8 results, and the benchmark table the extended Lagrangian relaxation.
+  - New sections cover P5 (constraint-preserving mixers) and P6 (reproducing the planning results).
+  - The lessons and limits are updated.
+  - Version 1.0 text is kept, except where a later result superseded it: the untested day half of H5 is now "tested later", and
+    the Lagrangian-relaxation text points to the extended recovery.
+
+**Build:**
+- *Tectonic 0.17.0:* 15 pages (version 1.0: 11). No undefined references or citations.
+- *Layout:* two overfull lines were fixed — a narrower table header, and `\emergencystretch` in the preamble. Two underfull
+  table cells remain.
+- *Tests:* all 134 pass.
+
+**Still open before the upload:**
+- The author's review.
+- The sentence about the second email, once its sending is confirmed.
+- The Zenodo upload as a new version of record 10.5281/zenodo.22760770, done by the author.

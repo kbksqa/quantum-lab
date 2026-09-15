@@ -375,13 +375,289 @@
     "value": "11.5\\%",
     "source": "results/p3_3-q4-20260914-191429.json"
   },
+  "PtwoEightLRValid": {
+    "value": "100.0\\%",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightLROptimal": {
+    "value": "99.7\\%",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightLRFormerFailures": {
+    "value": "16",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightLRFormerNowOptimal": {
+    "value": "16",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightJoinedGLR": {
+    "value": "670",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightJoinedMarginal": {
+    "value": "303",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightClutterMeasurements": {
+    "value": "4,258",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightJoinedBetter": {
+    "value": "173",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightJoinedWorse": {
+    "value": "2",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightTruthGain": {
+    "value": "63",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightTruthLoss": {
+    "value": "62",
+    "source": "results/p2_8-benchmark-20260915-102524.json"
+  },
+  "PtwoEightCvarPone": {
+    "value": "0.0301",
+    "source": "results/p2_8-cvar-20260915-102642.json"
+  },
+  "PtwoEightExpPone": {
+    "value": "0.0126",
+    "source": "results/p2_8-cvar-20260915-102642.json"
+  },
+  "PtwoEightCvarPthree": {
+    "value": "0.104",
+    "source": "results/p2_8-cvar-20260915-102642.json"
+  },
+  "PtwoEightExpPthree": {
+    "value": "0.156",
+    "source": "results/p2_8-cvar-20260915-102642.json"
+  },
+  "PtwoEightHfiveKept": {
+    "value": "87.5\\%",
+    "source": "results/p2_8-h5-hardware-20260915-110607.json"
+  },
+  "PtwoEightHfiveRawKept": {
+    "value": "62.5\\%",
+    "source": "results/p2_8-h5-hardware-20260915-110607.json"
+  },
+  "PtwoEightBadQubit": {
+    "value": "74.5\\%",
+    "source": "results/p2_8-h5-hardware-20260915-110607.json"
+  },
+  "PtwoEightUsage": {
+    "value": "9",
+    "source": "results/p2_8-h5-hardware-20260915-110607.json"
+  },
+  "PfiveGateMaxDiff": {
+    "value": "1.5\\times10^{-13}",
+    "source": "results/p5_0-gates-20260915-140211.json"
+  },
+  "PfiveXpenPone": {
+    "value": "0.018",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveXpenPthree": {
+    "value": "0.077",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveRxyPone": {
+    "value": "0.124",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveRxyPthree": {
+    "value": "0.173",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfivePermPone": {
+    "value": "0.536",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfivePermPthree": {
+    "value": "0.833",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveXpenCZ": {
+    "value": "58",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveRxyCZ": {
+    "value": "105",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfivePermCZ": {
+    "value": "1,217",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveXpenLiftPone": {
+    "value": "9.0",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfiveRxyLiftPone": {
+    "value": "3.3",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfivePermLiftPone": {
+    "value": "3.2",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfivePermLift": {
+    "value": "5.00",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PfivePermLiftSE": {
+    "value": "0.12",
+    "source": "results/p5_1-study-20260915-141313.json"
+  },
+  "PsixCOneBase": {
+    "value": "0.1710",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCOneGrover": {
+    "value": "0.9172",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCOnePostLeft": {
+    "value": "0.8509",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCOneAmp": {
+    "value": "5.36",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCTwoMax": {
+    "value": "3.3\\times10^{-16}",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCSixFormulaOne": {
+    "value": "0.392",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCSixFormulaThree": {
+    "value": "1.000",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCSixSectionIterations": {
+    "value": "2",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCSevenH": {
+    "value": "0.1499",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCSevenTV": {
+    "value": "20.6\\%",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixQOneTheory": {
+    "value": "1.79",
+    "source": "results/p6_1-tiger-20260915-150853.json"
+  },
+  "PsixCThreeListenCZ": {
+    "value": "2",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeListenDepth": {
+    "value": "12",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeGroverCZ": {
+    "value": "3",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeGroverDepth": {
+    "value": "18",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeFourCZ": {
+    "value": "45",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeFourDepth": {
+    "value": "141",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeFullCZMin": {
+    "value": "1,420",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeFullCZMax": {
+    "value": "1,496",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeFullDepthMin": {
+    "value": "3,602",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixCThreeFullDepthMax": {
+    "value": "4,035",
+    "source": "results/p6_2-resources-20260915-152850.json"
+  },
+  "PsixQTwoValue": {
+    "value": "19.37",
+    "source": "results/p6_2-loops-20260915-152714.json"
+  },
+  "PsixQTwoThreshold": {
+    "value": "0.0397",
+    "source": "results/p6_2-loops-20260915-152714.json"
+  },
+  "PsixQTwoGreedyThreshold": {
+    "value": "0.1",
+    "source": "results/p6_2-loops-20260915-152714.json"
+  },
+  "PsixCFiveEntryReward": {
+    "value": "-20.00",
+    "source": "results/p6_3-entrypoint-20260915-171109.json"
+  },
+  "PsixCFiveHorizonMean": {
+    "value": "15.7",
+    "source": "results/p6_3-table6-20260915-171313.json"
+  },
+  "PsixCFiveHorizonSD": {
+    "value": "7.0",
+    "source": "results/p6_3-table6-20260915-171313.json"
+  },
+  "PsixCFiveOptimalMean": {
+    "value": "21.9",
+    "source": "results/p6_3-table6-20260915-171313.json"
+  },
+  "PsixCFiveOptimalSD": {
+    "value": "24.2",
+    "source": "results/p6_3-table6-20260915-171313.json"
+  },
+  "PsixHwBase": {
+    "value": "0.179",
+    "source": "results/p6_4-hardware-20260915-172851.json"
+  },
+  "PsixHwGrover": {
+    "value": "0.906",
+    "source": "results/p6_4-hardware-20260915-172851.json"
+  },
+  "PsixHwAmp": {
+    "value": "5.05",
+    "source": "results/p6_4-hardware-20260915-172851.json"
+  },
+  "PsixHwHellinger": {
+    "value": "0.0065",
+    "source": "results/p6_4-hardware-20260915-172851.json"
+  },
+  "PsixHwPerOracle": {
+    "value": "1.68",
+    "source": "results/p6_4-hardware-20260915-172851.json"
+  },
+  "PsixHwUsage": {
+    "value": "20",
+    "source": "results/p6_4-hardware-20260915-172851.json"
+  },
   "QPUSecondsPzero": {
     "value": "9",
     "source": "research log, P0 hardware sweep: IBM dashboard reading"
   },
   "QPUSecondsTotal": {
-    "value": "81",
-    "source": "research log, P2.6: 63 s from dashboard readings plus 18 s reported by the P2.6 jobs"
+    "value": "110",
+    "source": "research log, P6.4: 63 s from dashboard readings plus 18 s (P2.6), 9 s (P2.8) and 20 s (P6.4) reported by the jobs"
   },
   "PthreePaperHeadline": {
     "value": "64.1",
@@ -398,5 +674,85 @@
   "PthreePaperSimPthree": {
     "value": "90.9",
     "source": "quoted from arXiv:2603.00785, Sec. 8.6 (simulator quality, p = 3, percent)"
+  },
+  "PsixPaperBase": {
+    "value": "0.179",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (hardware baseline P(obs = 1))"
+  },
+  "PsixPaperGrover": {
+    "value": "0.907",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (hardware P(obs = 1) after one Grover iterate)"
+  },
+  "PsixPaperAmp": {
+    "value": "5.1",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (hardware amplification)"
+  },
+  "PsixPaperTheoryBase": {
+    "value": "0.171",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (theory baseline)"
+  },
+  "PsixPaperTheoryGrover": {
+    "value": "0.917",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (theory after one iterate)"
+  },
+  "PsixPaperPass": {
+    "value": "0.15",
+    "source": "quoted from arXiv:2603.00785, Sec. 2.4 and 8.6 (Hellinger pass threshold)"
+  },
+  "PsixPaperTV": {
+    "value": "1.1",
+    "source": "quoted from arXiv:2603.00785, Sec. 2.4 and 8.6 (stated total-variation equivalent, percent)"
+  },
+  "PsixCodePass": {
+    "value": "0.05",
+    "source": "quoted from github.com/neuraparse/qantis at 7c6509c, scripts/hardware (pass threshold in code)"
+  },
+  "PsixPaperFourObsZero": {
+    "value": "0.128",
+    "source": "quoted from arXiv:2603.00785, Table 15 (4-state obs 0 Hellinger)"
+  },
+  "PsixPaperTableOne": {
+    "value": "0.192",
+    "source": "quoted from arXiv:2603.00785, Table 21 (amplified P(e), G = 1)"
+  },
+  "PsixPaperTableThree": {
+    "value": "0.912",
+    "source": "quoted from arXiv:2603.00785, Table 21 (amplified P(e), G = 3)"
+  },
+  "PsixPaperTableIterations": {
+    "value": "3",
+    "source": "quoted from arXiv:2603.00785, Table 21 (stated optimal G)"
+  },
+  "PsixPaperISAListen": {
+    "value": "12",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (Tiger minimal circuit)"
+  },
+  "PsixPaperISAGrover": {
+    "value": "18",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (Grover circuit)"
+  },
+  "PsixPaperISAFour": {
+    "value": "162",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (4-state circuit)"
+  },
+  "PsixPaperISAFull": {
+    "value": "4{,}237",
+    "source": "quoted from arXiv:2603.00785, Sec. 5.3 and 8.6 (full 11-qubit circuit)"
+  },
+  "PsixPaperTableSixQBRL": {
+    "value": "18.7",
+    "source": "quoted from arXiv:2603.00785, Table 6 (QBRL reward)"
+  },
+  "PsixPaperTableSixSD": {
+    "value": "12.1",
+    "source": "quoted from arXiv:2603.00785, Table 6 (QBRL standard deviation)"
+  },
+  "PsixPaperListen": {
+    "value": "0.85",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (listening accuracy)"
+  },
+  "PsixPaperGamma": {
+    "value": "0.95",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.2.1 (discount factor)"
   }
 }

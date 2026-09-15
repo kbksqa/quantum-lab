@@ -94,13 +94,102 @@
 \newcommand{\PthreeLargePaperOptimum}{-132.0}
 \newcommand{\PthreeLargePaperPone}{20.4\%}
 \newcommand{\PthreeLargePaperPtwo}{11.5\%}
+\newcommand{\PtwoEightLRValid}{100.0\%}
+\newcommand{\PtwoEightLROptimal}{99.7\%}
+\newcommand{\PtwoEightLRFormerFailures}{16}
+\newcommand{\PtwoEightLRFormerNowOptimal}{16}
+\newcommand{\PtwoEightJoinedGLR}{670}
+\newcommand{\PtwoEightJoinedMarginal}{303}
+\newcommand{\PtwoEightClutterMeasurements}{4,258}
+\newcommand{\PtwoEightJoinedBetter}{173}
+\newcommand{\PtwoEightJoinedWorse}{2}
+\newcommand{\PtwoEightTruthGain}{63}
+\newcommand{\PtwoEightTruthLoss}{62}
+\newcommand{\PtwoEightCvarPone}{0.0301}
+\newcommand{\PtwoEightExpPone}{0.0126}
+\newcommand{\PtwoEightCvarPthree}{0.104}
+\newcommand{\PtwoEightExpPthree}{0.156}
+\newcommand{\PtwoEightHfiveKept}{87.5\%}
+\newcommand{\PtwoEightHfiveRawKept}{62.5\%}
+\newcommand{\PtwoEightBadQubit}{74.5\%}
+\newcommand{\PtwoEightUsage}{9}
+\newcommand{\PfiveGateMaxDiff}{1.5\times10^{-13}}
+\newcommand{\PfiveXpenPone}{0.018}
+\newcommand{\PfiveXpenPthree}{0.077}
+\newcommand{\PfiveRxyPone}{0.124}
+\newcommand{\PfiveRxyPthree}{0.173}
+\newcommand{\PfivePermPone}{0.536}
+\newcommand{\PfivePermPthree}{0.833}
+\newcommand{\PfiveXpenCZ}{58}
+\newcommand{\PfiveRxyCZ}{105}
+\newcommand{\PfivePermCZ}{1,217}
+\newcommand{\PfiveXpenLiftPone}{9.0}
+\newcommand{\PfiveRxyLiftPone}{3.3}
+\newcommand{\PfivePermLiftPone}{3.2}
+\newcommand{\PfivePermLift}{5.00}
+\newcommand{\PfivePermLiftSE}{0.12}
+\newcommand{\PsixCOneBase}{0.1710}
+\newcommand{\PsixCOneGrover}{0.9172}
+\newcommand{\PsixCOnePostLeft}{0.8509}
+\newcommand{\PsixCOneAmp}{5.36}
+\newcommand{\PsixCTwoMax}{3.3\times10^{-16}}
+\newcommand{\PsixCSixFormulaOne}{0.392}
+\newcommand{\PsixCSixFormulaThree}{1.000}
+\newcommand{\PsixCSixSectionIterations}{2}
+\newcommand{\PsixCSevenH}{0.1499}
+\newcommand{\PsixCSevenTV}{20.6\%}
+\newcommand{\PsixQOneTheory}{1.79}
+\newcommand{\PsixCThreeListenCZ}{2}
+\newcommand{\PsixCThreeListenDepth}{12}
+\newcommand{\PsixCThreeGroverCZ}{3}
+\newcommand{\PsixCThreeGroverDepth}{18}
+\newcommand{\PsixCThreeFourCZ}{45}
+\newcommand{\PsixCThreeFourDepth}{141}
+\newcommand{\PsixCThreeFullCZMin}{1,420}
+\newcommand{\PsixCThreeFullCZMax}{1,496}
+\newcommand{\PsixCThreeFullDepthMin}{3,602}
+\newcommand{\PsixCThreeFullDepthMax}{4,035}
+\newcommand{\PsixQTwoValue}{19.37}
+\newcommand{\PsixQTwoThreshold}{0.0397}
+\newcommand{\PsixQTwoGreedyThreshold}{0.1}
+\newcommand{\PsixCFiveEntryReward}{-20.00}
+\newcommand{\PsixCFiveHorizonMean}{15.7}
+\newcommand{\PsixCFiveHorizonSD}{7.0}
+\newcommand{\PsixCFiveOptimalMean}{21.9}
+\newcommand{\PsixCFiveOptimalSD}{24.2}
+\newcommand{\PsixHwBase}{0.179}
+\newcommand{\PsixHwGrover}{0.906}
+\newcommand{\PsixHwAmp}{5.05}
+\newcommand{\PsixHwHellinger}{0.0065}
+\newcommand{\PsixHwPerOracle}{1.68}
+\newcommand{\PsixHwUsage}{20}
 
 % Constants that exist only in the research log (not machine-checkable):
 \newcommand{\QPUSecondsPzero}{9}  % research log, P0 hardware sweep: IBM dashboard reading
-\newcommand{\QPUSecondsTotal}{81}  % research log, P2.6: 63 s from dashboard readings plus 18 s reported by the P2.6 jobs
+\newcommand{\QPUSecondsTotal}{110}  % research log, P6.4: 63 s from dashboard readings plus 18 s (P2.6), 9 s (P2.8) and 20 s (P6.4) reported by the jobs
 
 % Numbers reported by the paper under study (quoted, not results of this project):
 \newcommand{\PthreePaperHeadline}{64.1}  % quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (percent of optimum)
 \newcommand{\PthreePaperHeadlineSD}{3.3}  % quoted from arXiv:2603.00785, Sec. 8.6 (percentage points, three runs)
 \newcommand{\PthreePaperTwoQubitGates}{433--435}  % quoted from arXiv:2603.00785, Sec. 8.6 and Table 4 (p = 3)
 \newcommand{\PthreePaperSimPthree}{90.9}  % quoted from arXiv:2603.00785, Sec. 8.6 (simulator quality, p = 3, percent)
+\newcommand{\PsixPaperBase}{0.179}  % quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (hardware baseline P(obs = 1))
+\newcommand{\PsixPaperGrover}{0.907}  % quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (hardware P(obs = 1) after one Grover iterate)
+\newcommand{\PsixPaperAmp}{5.1}  % quoted from arXiv:2603.00785, Sec. 8.6 (hardware amplification)
+\newcommand{\PsixPaperTheoryBase}{0.171}  % quoted from arXiv:2603.00785, Sec. 8.6 (theory baseline)
+\newcommand{\PsixPaperTheoryGrover}{0.917}  % quoted from arXiv:2603.00785, Sec. 8.6 (theory after one iterate)
+\newcommand{\PsixPaperPass}{0.15}  % quoted from arXiv:2603.00785, Sec. 2.4 and 8.6 (Hellinger pass threshold)
+\newcommand{\PsixPaperTV}{1.1}  % quoted from arXiv:2603.00785, Sec. 2.4 and 8.6 (stated total-variation equivalent, percent)
+\newcommand{\PsixCodePass}{0.05}  % quoted from github.com/neuraparse/qantis at 7c6509c, scripts/hardware (pass threshold in code)
+\newcommand{\PsixPaperFourObsZero}{0.128}  % quoted from arXiv:2603.00785, Table 15 (4-state obs 0 Hellinger)
+\newcommand{\PsixPaperTableOne}{0.192}  % quoted from arXiv:2603.00785, Table 21 (amplified P(e), G = 1)
+\newcommand{\PsixPaperTableThree}{0.912}  % quoted from arXiv:2603.00785, Table 21 (amplified P(e), G = 3)
+\newcommand{\PsixPaperTableIterations}{3}  % quoted from arXiv:2603.00785, Table 21 (stated optimal G)
+\newcommand{\PsixPaperISAListen}{12}  % quoted from arXiv:2603.00785, Sec. 8.6 (Tiger minimal circuit)
+\newcommand{\PsixPaperISAGrover}{18}  % quoted from arXiv:2603.00785, Sec. 8.6 (Grover circuit)
+\newcommand{\PsixPaperISAFour}{162}  % quoted from arXiv:2603.00785, Sec. 8.6 (4-state circuit)
+\newcommand{\PsixPaperISAFull}{4{,}237}  % quoted from arXiv:2603.00785, Sec. 5.3 and 8.6 (full 11-qubit circuit)
+\newcommand{\PsixPaperTableSixQBRL}{18.7}  % quoted from arXiv:2603.00785, Table 6 (QBRL reward)
+\newcommand{\PsixPaperTableSixSD}{12.1}  % quoted from arXiv:2603.00785, Table 6 (QBRL standard deviation)
+\newcommand{\PsixPaperListen}{0.85}  % quoted from arXiv:2603.00785, Sec. 8.6 (listening accuracy)
+\newcommand{\PsixPaperGamma}{0.95}  % quoted from arXiv:2603.00785, Sec. 8.2.1 (discount factor)
