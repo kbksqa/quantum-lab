@@ -1969,3 +1969,68 @@ measurements removed, exact statevectors):
 
 Next: P6.2 — C3 (circuit sizes on an offline Heron model), C4 (closed-loop action sequences), Q2 (exact Tiger baseline) and Q3
 (threshold sensitivity).
+
+## 2026-09-15 — P6.2: C4 reproduced; C3 not reproduced — the "ISA" numbers are total depths
+
+- **Code:** `src/p6_loops.py` and `src/p6_resources.py`, grading rules written in their headers before the first run;
+  `tools/p6_export_circuits.py`. **Tests:** `tests/test_p6_loops.py` (5 tests; 126 in the project).
+- **Results:** `results/p6_2-loops-20260915-152714.json` and `results/p6_2-resources-20260915-152850.json`.
+- **QPU time:** none.
+
+**C3 — circuit sizes: not reproduced.**
+- *Circuits:* the public circuits from the paper-date commit `7c6509c`, built in the separate environment and exported as
+  QPY, next to ours from P6.1.
+- *Transpilation:* optimisation level 3 on the offline `FakeMarrakesh` model, transpiler seeds 0–19, measurements included.
+- *Ours and theirs* gave identical counts for every small circuit. Ranges over the 20 seeds:
+
+| circuit | paper "ISA" | CZ gates | total depth | grade |
+|---|---|---|---|---|
+| Tiger minimal, listen | 12 | 2 | **12** | partly reproduced — equals total depth |
+| Grover k = 1 | 18 | 3 | **18** | partly reproduced — equals total depth |
+| 4-state | 162 | 45 | 141 | not reproduced |
+| Grover baseline (reported) | 13 | 2 | **13** | — equals total depth |
+| open action (reported) | 4 | 0 | **4** | — equals total depth |
+| full 11-qubit circuit, script default (one AA iteration) | 4,237 | 1,420–1,496 | 3,602–4,035 | not reproduced |
+| full circuit without AA (reported) | — | 458–475 | 1,167–1,343 | — |
+
+- Four of the five small-circuit numbers equal the total depth exactly and are far from the two-qubit gate count. The paper's
+  definition — "the post-transpilation two-qubit gate count" — does not describe the numbers it reports.
+- The 4-state circuit (162 against 141) and the full circuit (4,237, and Table 18's 4,107 and 4,309, against at most 4,035)
+  match neither count on this transpiler and backend model. A different Qiskit version or calibration snapshot could explain
+  the gap; that was not tested.
+- *C3 overall: not reproduced* under the registered rule, because the 4-state value fits neither range.
+
+**Correction during the run.** The first export built the full circuit with amplitude amplification off, but
+`run_tiger_ibm.py`'s default is `--aa-iterations 1` (7c6509c L81). That result file was deleted before any commit, the export
+was fixed, and the grade above uses the script default. The configuration without AA is kept as a reported row.
+
+**C4 — closed-loop action sequences: reproduced for both loops.**
+
+| loop | actions (horizon-1 planner, exact posteriors) | P(tiger-right) after each step |
+|---|---|---|
+| T = 4, obs [0,0,0,0] | listen, listen, open-right, listen — as in Table 16 | 0.150, 0.030, 0.500, 0.150 |
+| T = 8, obs [0,0,0,1,1,1,0,0] | listen, listen, open-right, listen, listen, open-left, listen, listen — as in Table 17 | 0.150, 0.030, 0.500, 0.850, 0.970, 0.500, 0.150, 0.030 |
+
+- The public QBRL planner at horizon 1 (seed 42, as the loop script sets it) chose the same actions as our greedy rule on every
+  belief tested, including 0.0999 / 0.1001 and 0.8999 / 0.9001 around the switching points.
+- *Switching rule:* it opens a door once the probability that the tiger is behind it falls below 0.1.
+
+**Q2 — exact Tiger baseline.**
+- **Value iteration:** 20,001 belief points, 451 iterations, final change 1e-10. V*(0.5) = **19.37**.
+- **Optimal policy:** open a door when the probability that the tiger is behind it is below 0.0397. The horizon-1 planner opens
+  below 0.1.
+- **Why the two policies agree in practice:** from a uniform belief, listening reaches only 0.15, then 0.030 (and their mirror
+  images). Both policies therefore take identical actions in both loops and in simulation.
+- **Simulation:** 100 episodes × 50 steps, seed 42; tiger re-placed and belief reset after each opening. Both policies scored
+  **57.6 ± 65.0** undiscounted and **21.9 ± 24.2** discounted by 0.95ᵗ. Table 6's 17.6–19.1 is compared in P6.3 (C5).
+
+**Q3 — the pass threshold.**
+- *Among 15 reported hardware distances:* the only result that passes at 0.15 but fails at 0.05 is the 4-state obs-0 result
+  (0.128). The full-circuit results (0.23–0.28) fail at both thresholds; every other result passes at both.
+- *Exploratory, after the fact:*
+  - Hellinger distances recomputed from the posteriors the paper prints agree with the reported values.
+  - For all 12 loop steps, the reported value lies inside the range allowed by the printed posteriors' 3-decimal rounding.
+  - The 4-state distances recompute to 0.1275 and 0.0445.
+  - The Grover posterior from the raw counts (6,310 / 1,119) gives 0.0015, as reported.
+
+Next: P6.3 — C5, an attempt to reproduce Table 6.

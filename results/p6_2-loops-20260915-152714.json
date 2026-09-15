@@ -1,0 +1,484 @@
+{
+  "timestamp": "2026-09-15T15:27:14.540998+07:00",
+  "experiment": "P6.2 QANTIS POMDP half: C4 loops, Q2 exact Tiger baseline, Q3 thresholds",
+  "model": {
+    "gamma": 0.95,
+    "listen_accuracy": 0.85,
+    "rewards": {
+      "listen": -1.0,
+      "tiger": -100.0,
+      "treasure": 10.0
+    }
+  },
+  "C4": {
+    "T4": {
+      "steps": [
+        {
+          "t": 0,
+          "prior_p_tiger_right": 0.5,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.15000000000000002
+        },
+        {
+          "t": 1,
+          "prior_p_tiger_right": 0.15000000000000002,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.030201342281879207
+        },
+        {
+          "t": 2,
+          "prior_p_tiger_right": 0.030201342281879207,
+          "obs": 0,
+          "action": "open-right",
+          "posterior_p_tiger_right": 0.5
+        },
+        {
+          "t": 3,
+          "prior_p_tiger_right": 0.5,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.15000000000000002
+        }
+      ],
+      "actions": [
+        "listen",
+        "listen",
+        "open-right",
+        "listen"
+      ],
+      "paper_actions": [
+        "listen",
+        "listen",
+        "open-right",
+        "listen"
+      ],
+      "grade": "reproduced"
+    },
+    "T8": {
+      "steps": [
+        {
+          "t": 0,
+          "prior_p_tiger_right": 0.5,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.15000000000000002
+        },
+        {
+          "t": 1,
+          "prior_p_tiger_right": 0.15000000000000002,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.030201342281879207
+        },
+        {
+          "t": 2,
+          "prior_p_tiger_right": 0.030201342281879207,
+          "obs": 0,
+          "action": "open-right",
+          "posterior_p_tiger_right": 0.5
+        },
+        {
+          "t": 3,
+          "prior_p_tiger_right": 0.5,
+          "obs": 1,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.85
+        },
+        {
+          "t": 4,
+          "prior_p_tiger_right": 0.85,
+          "obs": 1,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.9697986577181208
+        },
+        {
+          "t": 5,
+          "prior_p_tiger_right": 0.9697986577181208,
+          "obs": 1,
+          "action": "open-left",
+          "posterior_p_tiger_right": 0.5
+        },
+        {
+          "t": 6,
+          "prior_p_tiger_right": 0.5,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.15000000000000002
+        },
+        {
+          "t": 7,
+          "prior_p_tiger_right": 0.15000000000000002,
+          "obs": 0,
+          "action": "listen",
+          "posterior_p_tiger_right": 0.030201342281879207
+        }
+      ],
+      "actions": [
+        "listen",
+        "listen",
+        "open-right",
+        "listen",
+        "listen",
+        "open-left",
+        "listen",
+        "listen"
+      ],
+      "paper_actions": [
+        "listen",
+        "listen",
+        "open-right",
+        "listen",
+        "listen",
+        "open-left",
+        "listen",
+        "listen"
+      ],
+      "grade": "reproduced"
+    }
+  },
+  "Q2": {
+    "value_iteration": {
+      "iterations": 451,
+      "last_change": 9.901768294184876e-11,
+      "value_at_0.5": 19.37136837300983,
+      "open_right_when_p_tiger_right_below": 0.039650000000000005,
+      "open_left_when_p_tiger_right_above": 0.96035
+    },
+    "greedy_thresholds": {
+      "open_right_when_p_tiger_right_below": 0.1,
+      "open_left_when_p_tiger_right_above": 0.9
+    },
+    "loops_with_optimal_policy": {
+      "T4": [
+        "listen",
+        "listen",
+        "open-right",
+        "listen"
+      ],
+      "T8": [
+        "listen",
+        "listen",
+        "open-right",
+        "listen",
+        "listen",
+        "open-left",
+        "listen",
+        "listen"
+      ]
+    },
+    "simulation_100x50_seed42": {
+      "greedy_horizon1": {
+        "undiscounted_mean": 57.58,
+        "undiscounted_sd": 65.02201336641478,
+        "discounted_mean": 21.89318100100034,
+        "discounted_sd": 24.184511300514167
+      },
+      "optimal": {
+        "undiscounted_mean": 57.58,
+        "undiscounted_sd": 65.02201336641478,
+        "discounted_mean": 21.89318100100034,
+        "discounted_sd": 24.184511300514167
+      }
+    },
+    "grid_points": 20001
+  },
+  "Q3": {
+    "thresholds": [
+      {
+        "result": "Grover k = 1 posterior (Table 15)",
+        "hellinger": 0.0015,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "Tiger minimal, obs 0 (Table 15)",
+        "hellinger": 0.025,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "Tiger minimal, obs 1 (Table 15)",
+        "hellinger": 0.014,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "4-state, obs 0 (Table 15)",
+        "hellinger": 0.128,
+        "pass_0.15": true,
+        "pass_0.05": false,
+        "changes": true
+      },
+      {
+        "result": "4-state, obs 1 (Table 15)",
+        "hellinger": 0.044,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "Tiger full 11-qubit, raw (\u00a78.6)",
+        "hellinger": 0.235,
+        "pass_0.15": false,
+        "pass_0.05": false,
+        "changes": false
+      },
+      {
+        "result": "Tiger full 11-qubit, ZNE (\u00a78.6)",
+        "hellinger": 0.277,
+        "pass_0.15": false,
+        "pass_0.05": false,
+        "changes": false
+      },
+      {
+        "result": "Tiger minimal ZNE scale 1 (\u00a78.6)",
+        "hellinger": 0.0025,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "Tiger minimal ZNE scale 3 (\u00a78.6)",
+        "hellinger": 0.0176,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "Tiger minimal ZNE scale 5 (\u00a78.6)",
+        "hellinger": 0.0407,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "T = 4 loop, max (Table 16)",
+        "hellinger": 0.0169,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "T = 4 replications, max (\u00a78.6)",
+        "hellinger": 0.0148,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "T = 8 loop, max (Table 17)",
+        "hellinger": 0.0149,
+        "pass_0.15": true,
+        "pass_0.05": true,
+        "changes": false
+      },
+      {
+        "result": "Table 18 full circuit, ibm_torino raw",
+        "hellinger": 0.231,
+        "pass_0.15": false,
+        "pass_0.05": false,
+        "changes": false
+      },
+      {
+        "result": "Table 18 full circuit, ibm_fez raw",
+        "hellinger": 0.259,
+        "pass_0.15": false,
+        "pass_0.05": false,
+        "changes": false
+      }
+    ],
+    "change_grade": [
+      "4-state, obs 0 (Table 15)"
+    ],
+    "exploratory_recomputed_from_printed_posteriors": [
+      {
+        "label": "4-state obs 0",
+        "reported": 0.128,
+        "recomputed": 0.12754961057634853
+      },
+      {
+        "label": "4-state obs 1",
+        "reported": 0.044,
+        "recomputed": 0.044460844032085355
+      },
+      {
+        "label": "Grover posterior",
+        "reported": 0.0015,
+        "recomputed": 0.001980304488924083
+      },
+      {
+        "label": "T4 t0",
+        "reported": 0.0043,
+        "reference_posterior": [
+          0.85,
+          0.15000000000000002
+        ],
+        "recomputed": 0.003939157034083991,
+        "range_over_rounding": [
+          0.0031965019075897378,
+          0.004680984003967455
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T4 t1",
+        "reported": 0.0066,
+        "reference_posterior": [
+          0.9688763136620857,
+          0.031123686337914312
+        ],
+        "recomputed": 0.006522588058550339,
+        "range_over_rounding": [
+          0.005219930808738094,
+          0.007834330625209645
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T4 t2",
+        "reported": 0.0003,
+        "reference_posterior": [
+          0.5,
+          0.5
+        ],
+        "recomputed": 0.0,
+        "range_over_rounding": [
+          0.0,
+          0.0003535534458359835
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T4 t3",
+        "reported": 0.0169,
+        "reference_posterior": [
+          0.85,
+          0.15000000000000002
+        ],
+        "recomputed": 0.017251415042483606,
+        "range_over_rounding": [
+          0.01647890143078178,
+          0.018024928597963275
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t0",
+        "reported": 0.0031,
+        "reference_posterior": [
+          0.85,
+          0.15000000000000002
+        ],
+        "recomputed": 0.002958343250139157,
+        "range_over_rounding": [
+          0.002214375674613156,
+          0.003701475816727936
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t1",
+        "reported": 0.0091,
+        "reference_posterior": [
+          0.9691075514874142,
+          0.030892448512585814
+        ],
+        "recomputed": 0.008212946712428074,
+        "range_over_rounding": [
+          0.006891046136166238,
+          0.00954445456871137
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t2",
+        "reported": 0.0128,
+        "reference_posterior": [
+          0.5,
+          0.5
+        ],
+        "recomputed": 0.012730500959428584,
+        "range_over_rounding": [
+          0.012376738499797781,
+          0.013084275374568088
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t3",
+        "reported": 0.0149,
+        "reference_posterior": [
+          0.15941731637258927,
+          0.8405826836274107
+        ],
+        "recomputed": 0.014767222470493448,
+        "range_over_rounding": [
+          0.014042475096177036,
+          0.01549124689768411
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t4",
+        "reported": 0.0124,
+        "reference_posterior": [
+          0.03608247422680411,
+          0.9639175257731959
+        ],
+        "recomputed": 0.012561498271130268,
+        "range_over_rounding": [
+          0.011459392922902618,
+          0.013658904326285031
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t5",
+        "reported": 0.0036,
+        "reference_posterior": [
+          0.5,
+          0.5
+        ],
+        "recomputed": 0.0035355891511187902,
+        "range_over_rounding": [
+          0.0031820207887381605,
+          0.0038891608285587533
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t6",
+        "reported": 0.0006,
+        "reference_posterior": [
+          0.85253227408143,
+          0.14746772591857005
+        ],
+        "recomputed": 0.00046668918197412897,
+        "range_over_rounding": [
+          3.217994823414512e-05,
+          0.0012170918940930143
+        ],
+        "reported_within_rounding_range": true
+      },
+      {
+        "label": "T8 t7",
+        "reported": 0.0107,
+        "reference_posterior": [
+          0.9704858787310936,
+          0.029514121268906443
+        ],
+        "recomputed": 0.009809632087567185,
+        "range_over_rounding": [
+          0.008444133691038486,
+          0.011185930763991037
+        ],
+        "reported_within_rounding_range": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,842 @@
+{
+  "timestamp": "2026-09-15T15:28:44.512928+07:00",
+  "experiment": "P6.2 C3: circuit sizes on the offline FakeMarrakesh model, optimisation level 3, seeds 0-19",
+  "backend": "fake_marrakesh",
+  "export_manifest": {
+    "qiskit": "2.5.2",
+    "tree_commit": "7c6509c",
+    "circuits": {
+      "minimal_listen": {
+        "built": true,
+        "num_qubits": 2,
+        "logical_depth": 6,
+        "count_ops": {
+          "x": 2,
+          "cry": 2,
+          "measure": 2,
+          "ry": 1
+        }
+      },
+      "minimal_open": {
+        "built": true,
+        "num_qubits": 2,
+        "logical_depth": 2,
+        "count_ops": {
+          "h": 2,
+          "measure": 2
+        }
+      },
+      "grover_baseline": {
+        "built": true,
+        "num_qubits": 2,
+        "logical_depth": 6,
+        "count_ops": {
+          "x": 2,
+          "cry": 2,
+          "measure": 2,
+          "ry": 1
+        }
+      },
+      "grover1": {
+        "built": true,
+        "num_qubits": 2,
+        "logical_depth": 20,
+        "count_ops": {
+          "x": 10,
+          "cry": 6,
+          "ry": 3,
+          "measure": 2,
+          "z": 1,
+          "cz": 1
+        }
+      },
+      "four_state": {
+        "built": true,
+        "num_qubits": 3,
+        "logical_depth": 15,
+        "count_ops": {
+          "x": 10,
+          "ccry": 4,
+          "measure": 3,
+          "cry": 2,
+          "ry": 1
+        }
+      },
+      "framework": {
+        "built": true,
+        "num_qubits": 11,
+        "logical_depth": 138,
+        "count_ops": {
+          "x": 180,
+          "c3ry": 45,
+          "ry": 3,
+          "h": 2,
+          "measure": 2,
+          "z": 1,
+          "mcx": 1
+        }
+      },
+      "framework_no_aa": {
+        "built": true,
+        "num_qubits": 11,
+        "logical_depth": 45,
+        "count_ops": {
+          "x": 56,
+          "c3ry": 15,
+          "measure": 2,
+          "ry": 1
+        }
+      }
+    },
+    "qbrl_horizon1_actions": [
+      {
+        "p_tiger_left": 0.030201342282,
+        "action": 1
+      },
+      {
+        "p_tiger_left": 0.05,
+        "action": 1
+      },
+      {
+        "p_tiger_left": 0.0999,
+        "action": 1
+      },
+      {
+        "p_tiger_left": 0.1001,
+        "action": 0
+      },
+      {
+        "p_tiger_left": 0.15,
+        "action": 0
+      },
+      {
+        "p_tiger_left": 0.5,
+        "action": 0
+      },
+      {
+        "p_tiger_left": 0.85,
+        "action": 0
+      },
+      {
+        "p_tiger_left": 0.8999,
+        "action": 0
+      },
+      {
+        "p_tiger_left": 0.9001,
+        "action": 2
+      },
+      {
+        "p_tiger_left": 0.95,
+        "action": 2
+      },
+      {
+        "p_tiger_left": 0.969798657718,
+        "action": 2
+      }
+    ]
+  },
+  "circuits": {
+    "minimal_listen": {
+      "stated": 12,
+      "ours": {
+        "cz": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "depth": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "cz_range": [
+          2,
+          2
+        ],
+        "depth_range": [
+          12,
+          12
+        ],
+        "cz_median": 2.0,
+        "depth_median": 12.0
+      },
+      "theirs": {
+        "cz": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "depth": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "cz_range": [
+          2,
+          2
+        ],
+        "depth_range": [
+          12,
+          12
+        ],
+        "cz_median": 2.0,
+        "depth_median": 12.0
+      },
+      "grade": "partly reproduced",
+      "graded_on": "theirs"
+    },
+    "grover1": {
+      "stated": 18,
+      "ours": {
+        "cz": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "depth": [
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18
+        ],
+        "cz_range": [
+          3,
+          3
+        ],
+        "depth_range": [
+          18,
+          18
+        ],
+        "cz_median": 3.0,
+        "depth_median": 18.0
+      },
+      "theirs": {
+        "cz": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "depth": [
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18,
+          18
+        ],
+        "cz_range": [
+          3,
+          3
+        ],
+        "depth_range": [
+          18,
+          18
+        ],
+        "cz_median": 3.0,
+        "depth_median": 18.0
+      },
+      "grade": "partly reproduced",
+      "graded_on": "theirs"
+    },
+    "four_state": {
+      "stated": 162,
+      "ours": {
+        "cz": [
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45
+        ],
+        "depth": [
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141
+        ],
+        "cz_range": [
+          45,
+          45
+        ],
+        "depth_range": [
+          141,
+          141
+        ],
+        "cz_median": 45.0,
+        "depth_median": 141.0
+      },
+      "theirs": {
+        "cz": [
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45,
+          45
+        ],
+        "depth": [
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141,
+          141
+        ],
+        "cz_range": [
+          45,
+          45
+        ],
+        "depth_range": [
+          141,
+          141
+        ],
+        "cz_median": 45.0,
+        "depth_median": 141.0
+      },
+      "grade": "not reproduced",
+      "graded_on": "theirs"
+    },
+    "grover_baseline": {
+      "stated": 13,
+      "ours": {
+        "cz": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "depth": [
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13
+        ],
+        "cz_range": [
+          2,
+          2
+        ],
+        "depth_range": [
+          13,
+          13
+        ],
+        "cz_median": 2.0,
+        "depth_median": 13.0
+      },
+      "theirs": {
+        "cz": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "depth": [
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13
+        ],
+        "cz_range": [
+          2,
+          2
+        ],
+        "depth_range": [
+          13,
+          13
+        ],
+        "cz_median": 2.0,
+        "depth_median": 13.0
+      }
+    },
+    "minimal_open": {
+      "stated": 4,
+      "ours": {
+        "cz": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "cz_range": [
+          0,
+          0
+        ],
+        "depth_range": [
+          4,
+          4
+        ],
+        "cz_median": 0.0,
+        "depth_median": 4.0
+      },
+      "theirs": {
+        "cz": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "cz_range": [
+          0,
+          0
+        ],
+        "depth_range": [
+          4,
+          4
+        ],
+        "cz_median": 0.0,
+        "depth_median": 4.0
+      }
+    },
+    "framework": {
+      "stated": 4237,
+      "theirs": {
+        "cz": [
+          1420,
+          1435,
+          1462,
+          1433,
+          1462,
+          1462,
+          1460,
+          1462,
+          1462,
+          1464,
+          1462,
+          1433,
+          1462,
+          1435,
+          1462,
+          1496,
+          1460,
+          1462,
+          1422,
+          1433
+        ],
+        "depth": [
+          3602,
+          3726,
+          3855,
+          3723,
+          3849,
+          3840,
+          3828,
+          4031,
+          3834,
+          4035,
+          3840,
+          3720,
+          3855,
+          3729,
+          3834,
+          3907,
+          3843,
+          3855,
+          3610,
+          3720
+        ],
+        "cz_range": [
+          1420,
+          1496
+        ],
+        "depth_range": [
+          3602,
+          4035
+        ],
+        "cz_median": 1462.0,
+        "depth_median": 3837.0
+      },
+      "grade": "not reproduced"
+    },
+    "framework_no_aa": {
+      "stated": 4237,
+      "theirs": {
+        "cz": [
+          464,
+          466,
+          475,
+          466,
+          475,
+          466,
+          466,
+          464,
+          464,
+          475,
+          466,
+          464,
+          466,
+          464,
+          466,
+          466,
+          464,
+          466,
+          458,
+          464
+        ],
+        "depth": [
+          1335,
+          1343,
+          1274,
+          1343,
+          1277,
+          1343,
+          1343,
+          1335,
+          1335,
+          1274,
+          1343,
+          1335,
+          1343,
+          1335,
+          1343,
+          1343,
+          1335,
+          1343,
+          1167,
+          1335
+        ],
+        "cz_range": [
+          458,
+          475
+        ],
+        "depth_range": [
+          1167,
+          1343
+        ],
+        "cz_median": 466.0,
+        "depth_median": 1335.0
+      }
+    }
+  },
+  "C3_overall": "not reproduced",
+  "framework_grade": "not reproduced"
+}
