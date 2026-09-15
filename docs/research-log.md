@@ -1824,3 +1824,5 @@ Next: P5.3 — summary, release and DOI (P5.2 skipped by the go rule).
 - `docs/p5-summary.md` written from the P5.0 and P5.1 entries. The README roadmap marks P5 as done.
 - No new computation.
 - The release and DOI wait for the author's approval.
+
+**Release.** Approved by the author: v1.2.0 with P5. `CITATION.cff` now names v1.2.0.
