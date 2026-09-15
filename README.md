@@ -21,7 +21,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 | P1 | Assignment / data association as QUBO — brute force vs simulated annealing vs QAOA ([plan](docs/p1-plan.md)) | done — [summary](docs/p1-summary.md): gate passed 588 / 588; penalty choice is solver-dependent; QAOA on `ibm_kingston` kept ~90% of the simulator |
 | P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | done — [summary](docs/p2-summary.md): [benchmark](benchmark/p2/README.md) of 1,620 instances with exact optima; Lagrangian relaxation optimal on 98.7%; H1 held, H2/H3/H5 partly held, H4 failed; 3D QAOA on `ibm_kingston` at 15.7× guessing. [P2.8](docs/p2-summary.md#addendum--p28-2026-09-15-the-open-items-closed) closed the open items: H5's day half and a dissolving Lagrangian recovery (0.997 optimal) held; marginal likelihood and a CVaR objective partly held |
 | P3 | **Reproduction study** of the QANTIS multi-target data association result (arXiv:2603.00785): instance, FPC-QAOA on a simulator, and hardware if the go rule allows ([plan](docs/p3-plan.md)) | done — [report](docs/p3-report.md): instances reproduce exactly (with an unstated cost term); method reproduces on a simulator; the headline metric does not distinguish QAOA from random sampling; three defects confirmed in the public code; hardware not re-run |
-| P4 | Technical report on P0–P3, archived with a DOI ([plan](docs/p4-plan.md)) | done — [technical report](paper/) v1.0, archived as [10.5281/zenodo.22760770](https://doi.org/10.5281/zenodo.22760770) (CC BY 4.0): every number from a machine-checked table, all 18 references verified |
+| P4 | Technical report on P0–P3, archived with a DOI ([plan](docs/p4-plan.md)) | done — [technical report](paper/) v1.1 (adds P2.8, P5 and P6), archived as [10.5281/zenodo.22767749](https://doi.org/10.5281/zenodo.22767749); all versions [10.5281/zenodo.22760769](https://doi.org/10.5281/zenodo.22760769) (CC BY 4.0): every number from a machine-checked table, all 25 references verified |
 | P5 | **QAOA without penalties**: constraint-preserving mixers (row XY, permutation) against the P1 penalty formulation on the same assignment instances ([plan](docs/p5-plan.md)) | done — [summary](docs/p5-summary.md): on 3 × 3, P(optimal) at depth 3 rises from 0.077 (penalty) to 0.173 (row XY) and 0.833 (permutation); H1–H3 held; H4 failed — no constraint-preserving circuit fits 60 CZ, so no hardware run |
 | P6 | **Reproduction study** of the QANTIS POMDP-planning results (arXiv:2603.00785): Grover belief amplification, exact belief updates, closed-loop Tiger, simulated planning table ([plan](docs/p6-plan.md)) | done — [report](docs/p6-report.md): belief circuits, Grover theory, loop actions and the Grover hardware result (0.179 → 0.906 on `ibm_kingston`) reproduced; the gain per oracle application is 1.7×, not the 5.1× per shot; Table 21, the pass-criterion claim and the "ISA depth" definition not reproduced; Table 6 not reproducible |
 
@@ -59,9 +59,12 @@ See `CITATION.cff`. Each tagged release is archived on Zenodo and receives a DOI
 
 To cite the findings rather than the code, cite the technical report:
 
-> Suthsilp, K. (2026). *Pre-registered small-scale experiments on quantum optimisation for multi-target data association: exact
-> baselines, a reproducible benchmark, IBM hardware runs and a reproduction study* (Version 1.0). Zenodo.
-> https://doi.org/10.5281/zenodo.22760770
+> Suthsilp, K. (2026). *Pre-registered small-scale experiments on quantum optimisation for multi-target data association and
+> planning: exact baselines, a reproducible benchmark, IBM hardware runs and two reproduction studies* (Version 1.1). Zenodo.
+> https://doi.org/10.5281/zenodo.22767749
+
+Version 1.0 (P0–P3 only) remains available at https://doi.org/10.5281/zenodo.22760770; the DOI
+[10.5281/zenodo.22760769](https://doi.org/10.5281/zenodo.22760769) always resolves to the latest version of the report.
 
 ## License
 

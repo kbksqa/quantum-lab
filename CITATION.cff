@@ -17,8 +17,8 @@ identifiers:
     value: "10.5281/zenodo.22741037"
     description: "Software, all versions (concept DOI)"
   - type: doi
-    value: "10.5281/zenodo.22760770"
-    description: "Technical report on P0-P3, version 1.0 (CC BY 4.0)"
+    value: "10.5281/zenodo.22760769"
+    description: "Technical report, all versions (concept DOI; version 1.1 is 10.5281/zenodo.22767749, CC BY 4.0)"
 keywords:
   - quantum computing
   - quantum algorithms

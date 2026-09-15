@@ -2254,3 +2254,18 @@ added scope and states that the second email may be mentioned only after the aut
   that could not be reconciled, and links to `docs/p6-report.md`, `docs/p6-sources.md` and the v1.3.0 DOI.
 - **Report:** its P6 section now says that the findings were sent before this version was archived and that any response will be
   recorded. With that the manuscript is final for version 1.1. The author read the draft and asked for no changes.
+
+**Report record for version 1.1.** The author uploaded the PDF as a new version of the report record: **10.5281/zenodo.22767749**,
+under the unchanged concept DOI 10.5281/zenodo.22760769. Checked through the public API:
+- published, type Publication / Report, version 1.1, dated 2026-09-15
+- the new title; the same creator, affiliation and ORCID
+- licence CC BY 4.0; still "is supplemented by" 10.5281/zenodo.22741037
+- the latest of two versions — the concept record resolves to it
+- one file, `quantum-lab-report-v1.1.pdf`, 197,133 bytes, MD5 `17e33da6aed0f73821aa9baafb46703a` — the same as the PDF built
+  from `ac722f3`
+
+**Two cosmetic metadata points,** which can be fixed on the record without a new version:
+- The keywords arrived as one string with backticks, because the upload guide's formatting was pasted literally.
+- The description kept the PDF's line breaks and indentation.
+
+Neither affects the file or the DOI.
