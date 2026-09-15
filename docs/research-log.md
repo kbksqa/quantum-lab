@@ -1826,3 +1826,5 @@ Next: P5.3 — summary, release and DOI (P5.2 skipped by the go rule).
 - The release and DOI wait for the author's approval.
 
 **Release.** Approved by the author: v1.2.0 with P5. `CITATION.cff` now names v1.2.0.
+
+Zenodo DOI for v1.2.0: 10.5281/zenodo.22764261. The concept DOI 10.5281/zenodo.22741037 resolves to it.
