@@ -86,6 +86,32 @@ simulator. Readout was corrected with per-qubit calibration.
 bugs stay visible next to their corrections. Every milestone was released and archived on Zenodo. The numbers in this report are read
 by a script from those committed files, and a test fails if any of them changes.
 
+\paragraph{Outcomes.} Table~\ref{tab:hypotheses} lists the hypotheses and claims that were registered in advance for the two later phases,
+with the grade each received. Grades follow rules written into the plans or into the code before the corresponding run.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{llp{7cm}l}
+\toprule
+phase & id & registered statement (abridged) & grade \\
+\midrule
+P2 & H1 & integer program and QUBO match exhaustive enumeration on every checkable instance & held \\
+P2 & H2 & Lagrangian relaxation reaches the optimum on most low-clutter scenes; gap share rises with clutter and closer spacing & partly held \\
+P2 & H3 & annealing does best near $A_\mathrm{crit}$; QAOA does better with $\max|c|$ than with $1.5\,A_\mathrm{crit}$ & partly held \\
+P2 & H4 & three sensors make the optimum equal the truth more often than single-scan association & failed \\
+P2 & H5 & retention of the P1 hardware circuits repeats on another day and device & partly held \\
+\midrule
+P3 & C1 & the published instance has optimum $\PthreePaperHungarian$ & reproduced (caveat) \\
+P3 & C2 & the published method reaches at least the hardware quality without noise & reproduced \\
+P3 & C3 & the published hardware quality at $p=3$ & not tested \\
+P3 & C4 & greedy association is already optimal on the published instance & reproduced (caveat) \\
+P3 & Q1 & the headline metric exceeds the 95th percentile of random sampling & no \\
+\bottomrule
+\end{tabular}
+\caption{Registered hypotheses (P2) and claims under test (P3) with their outcomes. Full wording and grading rules are in the plans in
+the repository.}\label{tab:hypotheses}
+\end{table}
+
 \section{Single-scan assignment}\label{sec:p1}
 
 \paragraph{Problem.} Synthetic scenes use constant-velocity track predictions, position measurements, detection probability 0.9,
@@ -94,12 +120,27 @@ and an augmented matrix of missed-detection and clutter entries makes every vali
 equalled the true association in only \PoneOptimumTruth{} of realistic three-target scenes, so all solvers were scored against the
 optimum rather than the truth.
 
-\paragraph{QUBO gate.} With one binary variable per allowed cell and a penalty $A$ on each row and column constraint, a penalty
-$A = 2\sum|c| + 1$ provably preserves the optimum. The QUBO minimum equalled the Hungarian optimum on
-\PoneGatePassed{} of \PoneGateInstances{} instances.
+For track $i$ with predicted measurement $\hat z_i$ and innovation covariance $S_i$, a measurement $z_j$ inside the gate costs
+\begin{equation}
+c_{ij} = \tfrac12\, d_{ij}^2 + \tfrac12 \ln\left|2\pi S_i\right| - \ln\frac{P_D}{\lambda},\qquad d_{ij}^2 = (z_j-\hat z_i)^\top S_i^{-1}(z_j-\hat z_i),
+\end{equation}
+where $\lambda$ is the clutter density; a missed detection costs $-\ln(1-P_D)$ and a measurement declared clutter costs zero.
 
-\paragraph{Penalty weight.} The exact critical penalty $A_\mathrm{crit}$, below which an infeasible string wins, was computed by
-enumeration. The provably safe penalty exceeded it by a median factor of \PoneSafeOverCritThree{} ($3\times3$) and
+\paragraph{QUBO gate.} With one binary variable $x_k$ per allowed cell $k=(i,j)$ of an $n\times n$ matrix, the assignment constraints become
+penalties,
+\begin{equation}
+E_A(x) = \sum_k c_k x_k + A\sum_{i}\Bigl(\sum_{j} x_{ij}-1\Bigr)^2 + A\sum_{j}\Bigl(\sum_{i} x_{ij}-1\Bigr)^2 .
+\end{equation}
+Any infeasible string pays at least $A$, so $A = 2\sum_k|c_k| + 1$ provably preserves the optimum. The QUBO minimum, found by exhaustive
+search, equalled the Hungarian optimum on \PoneGatePassed{} of \PoneGateInstances{} instances.
+
+\paragraph{Penalty weight.} Writing $E_A(x) = \mathrm{cost}(x) + A\,V(x)$ with $V$ the squared constraint violation, the optimum survives
+exactly when $A$ exceeds
+\begin{equation}
+A_\mathrm{crit} = \max_{x:\,V(x)>0} \frac{E^\star - \mathrm{cost}(x)}{V(x)} ,
+\end{equation}
+with $E^\star$ the optimal cost; $A_\mathrm{crit}$ was computed by enumerating all strings, and checked by exhaustive search just above and
+below it. The provably safe penalty exceeded it by a median factor of \PoneSafeOverCritThree{} ($3\times3$) and
 \PoneSafeOverCritFour{} ($4\times4$). Simulated annealing did best just above $A_\mathrm{crit}$ (Figure~\ref{fig:penalty}, left), with a
 success rate per restart of \PoneSAOracle{} at $1.5\,A_\mathrm{crit}$ against \PoneSAMaxAbs{} at $A = \max|c|$ and \PoneSASafe{} at the
 safe penalty. QAOA at depth $p=3$ on a simulator showed the opposite preference: \PoneQAOAMaxAbsThree{} per sample with $\max|c|$ and
@@ -112,7 +153,20 @@ reused for another.
 simulator) on the same $3\times3$ instances at two penalty rules.}\label{fig:penalty}
 \end{figure}
 
-\paragraph{Hardware.} Circuits were run on \texttt{ibm\_kingston} with parameters from the simulator (Table~\ref{tab:p15}). Of the four
+\paragraph{QAOA.} The QUBO is mapped to an Ising Hamiltonian $H_C$ with $x_k = (1-Z_k)/2$. Starting from $\lvert+\rangle^{\otimes n}$, a
+depth-$p$ circuit applies
+\begin{equation}
+\lvert\gamma,\beta\rangle = \prod_{l=1}^{p} e^{-i\beta_l\sum_k X_k}\, e^{-i\gamma_l H_C}\,\lvert+\rangle^{\otimes n},
+\end{equation}
+with the cost layer compiled to $R_Z$ and $R_{ZZ}$ rotations~\cite{farhi2014qaoa}. Angles were chosen by COBYLA minimising
+$\langle\gamma,\beta\rvert H_C\lvert\gamma,\beta\rangle$ on an exact statevector simulator, from several random starts and, for $p>1$, a start
+interpolated from depth $p-1$. The simulator was checked against Qiskit~\cite{javadi2024qiskit}. Two-qubit gate counts were estimated by
+transpiling to a heavy-hex model and, for hardware runs, to the chosen device.
+
+\paragraph{Hardware.} Circuits were run on \texttt{ibm\_kingston} with parameters from the simulator (Table~\ref{tab:p15}). The device was
+chosen by the lowest median CZ error in that day's calibration data. Readout was corrected per qubit: calibration circuits preparing all
+zeros and all ones give each measured qubit $q$ an assignment matrix $M_q$, and the measured distribution is multiplied by
+$\bigotimes_q M_q^{-1}$, clipped at zero and renormalised. Of the four
 predictions committed beforehand, three held and one held in part; the nine-qubit circuit, which an earlier step had expected to be
 dominated by noise, kept most of its simulated value.
 
@@ -137,8 +191,21 @@ few instances without any penalty. It was found by the next step's independent c
 \section{Multi-sensor assignment}\label{sec:p2}
 
 \paragraph{Problem.} Three sensors at different positions observe the same targets at one instant; each reports positions with range and
-bearing errors, misses targets and adds clutter. A hypothesis is a tuple of one measurement (or none) per sensor, with a generalised
-likelihood-ratio cost~\cite{deb1997sd}. Valid associations are partitions of all measurements into tuples. The pairwise gate rejected
+bearing errors, misses targets and adds clutter. A hypothesis is a tuple $k=(i_1,i_2,i_3)$ of one measurement (or none, $i_s=0$) per sensor, with a
+generalised likelihood-ratio cost~\cite{deb1997sd}. The target position is replaced by the weighted least-squares fusion
+$\hat x_k = \bigl(\sum_{s\in D_k} R_s^{-1}\bigr)^{-1}\sum_{s\in D_k} R_s^{-1} z_s$ of the tuple's measurements, where $D_k$ is the set of sensors
+that saw it and $R_s$ each measurement's covariance, giving
+\begin{equation}
+c_k = \sum_{s\in D_k}\Bigl[-\ln P_D + \ln\lambda + \tfrac12 (z_s-\hat x_k)^\top R_s^{-1}(z_s-\hat x_k) + \tfrac12\ln|2\pi R_s|\Bigr]
+      - \bigl(3-|D_k|\bigr)\ln(1-P_D).
+\end{equation}
+A single measurement may instead be declared clutter at cost zero. Valid associations are partitions of all measurements into tuples,
+and the problem is the integer program
+\begin{equation}
+\min_{x\in\{0,1\}^K} \sum_k c_k x_k \quad\text{subject to}\quad \sum_{k\ni m} x_k = 1 \ \text{for every measurement } m.
+\end{equation}
+Its QUBO uses $Q_{kk} = c_k - A\,n_k$ and $Q_{kl} = 2A\,|k\cap l|$, where $n_k$ is the number of measurements in tuple $k$ and $|k\cap l|$
+the number two tuples share. The pairwise gate rejected
 \PtwoGateRejectedPct\,\% of \PtwoGateTruePairs{} true pairs, as expected for a 99\,\% chi-square gate.
 
 \paragraph{Gates.} An integer program solved with HiGHS~\cite{huangfu2018highs,virtanen2020scipy} matched exhaustive partition
@@ -159,8 +226,13 @@ Bearing error was then added to the benchmark sweep as a recorded amendment; the
 (exploratory; 95\,\% Wilson intervals).}\label{fig:truth}
 \end{figure}
 
-\paragraph{Classical baselines.} Relaxing one sensor's constraints leaves a two-dimensional assignment problem whose solutions are
-integral, so the best Lagrangian bound equals the bound of the linear programming (LP) relaxation~\cite{geoffrion1974}, and the duality
+\paragraph{Classical baselines.} Greedy association takes tuples in order of cost and skips any that reuse a measurement. Simulated
+annealing runs on the QUBO. Lagrangian relaxation moves the constraints of the third sensor into the objective with multipliers $u$,
+\begin{equation}
+L(u) = \sum_{j} u_j + \min_{x}\ \sum_k \bigl(c_k - u_{i_3(k)}\bigr)x_k \quad\text{subject to the sensor-1 and sensor-2 constraints},
+\end{equation}
+updates $u$ by subgradient steps, and recovers a feasible answer at each step with a second two-dimensional assignment. The inner problem
+of $L(u)$ is a two-dimensional assignment problem whose solutions are integral, so the best Lagrangian bound equals the bound of the linear programming (LP) relaxation~\cite{geoffrion1974}, and the duality
 gap could be measured exactly. Lagrangian relaxation reached the optimum in \PtwoLRLowClutter{} of scenes without clutter. The share of
 scenes with a nonzero gap rose from \PtwoGapClutterZero{} to \PtwoGapClutterTwo{} with clutter, and from \PtwoGapSpacingFar{} to
 \PtwoGapSpacingClose{} with closer spacing, but the intervals overlapped: the hypothesis was graded partly held. The first run of this
@@ -232,8 +304,11 @@ $\PthreeOptimumPaperEq$ and a different optimal association.
 \paragraph{Method.} Implemented from the paper and simulated without noise, the method reached a mean quality of \PthreeQualityA{} at $p=3$,
 above the reported hardware value, so the simulated claim was reproduced. Its probability of the optimal string was \PthreePoptA.
 
-\paragraph{The metric.} The quality metric is the best QUBO value among the ten most frequent bitstrings of 4096 shots, divided by the
-optimum. Uniformly random bitstrings give a mean of \PthreeRandomMean{} with a 95th percentile of \PthreeRandomPninetyfive, and reach the
+\paragraph{The metric.} For a sample of 4096 shots, let $T_{10}$ be the ten most frequent bitstrings. The paper's quality is
+\begin{equation}
+q = \frac{\min_{x\in T_{10}} x^\top Q\, x}{E^\star},
+\end{equation}
+with $E^\star<0$ the optimal QUBO value, so $q=1$ when the optimum is among the ten. Uniformly random bitstrings give a mean of \PthreeRandomMean{} with a 95th percentile of \PthreeRandomPninetyfive, and reach the
 headline value in \PthreeRandomAboveHeadline{} of samples (Figure~\ref{fig:metric}). By the rule registered before the result, the headline
 does not distinguish a working circuit from random sampling. The best of all samples, the measure behind the paper's simulator values, is
 weaker still: random sampling scores \PthreeRandomBestOfAll. On the 19-variable instance the noiseless method reached \PthreeLargeQualityPone{}

@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "paper" / "figures"
+PDF_METADATA = {"CreationDate": None}  # no timestamp, so regenerating unchanged data gives byte-identical files
 
 
 def load(name: str):
@@ -59,7 +60,7 @@ def fig1():
     b.legend(frameon=False, fontsize=8)
     style(b)
     fig.tight_layout()
-    fig.savefig(OUT / "fig1_penalty.pdf")
+    fig.savefig(OUT / "fig1_penalty.pdf", metadata=PDF_METADATA)
 
 
 def fig2():
@@ -73,7 +74,7 @@ def fig2():
     ax.set_ylim(0, 1)
     style(ax)
     fig.tight_layout()
-    fig.savefig(OUT / "fig2_truth.pdf")
+    fig.savefig(OUT / "fig2_truth.pdf", metadata=PDF_METADATA)
 
 
 def fig3():
@@ -95,7 +96,7 @@ def fig3():
     ax.legend(frameon=False, fontsize=8)
     style(ax)
     fig.tight_layout()
-    fig.savefig(OUT / "fig3_baselines.pdf")
+    fig.savefig(OUT / "fig3_baselines.pdf", metadata=PDF_METADATA)
 
 
 def fig4():
@@ -118,7 +119,7 @@ def fig4():
     ax.legend(frameon=False, fontsize=8)
     style(ax)
     fig.tight_layout()
-    fig.savefig(OUT / "fig4_hardware.pdf")
+    fig.savefig(OUT / "fig4_hardware.pdf", metadata=PDF_METADATA)
 
 
 def fig5():
@@ -139,7 +140,7 @@ def fig5():
     ax.legend(frameon=False, fontsize=7, loc="lower right")
     style(ax)
     fig.tight_layout()
-    fig.savefig(OUT / "fig5_metric.pdf")
+    fig.savefig(OUT / "fig5_metric.pdf", metadata=PDF_METADATA)
 
 
 def main() -> None:

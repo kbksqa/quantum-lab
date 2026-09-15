@@ -1449,3 +1449,14 @@ unverifiable. The corrections:
 - Decide on length: the draft is 9 pages against the plan's target of 14–20.
 - Approve or change the message to the QANTIS authors, and set the date after which the report may be archived. The report's
   paragraph on this is left as a comment until then.
+
+## 2026-09-15 — P4.4: the author's review
+
+The author read the P4.3 draft and asked for no changes to its content.
+- **Length:** expand the report towards the plan's range (about 14 pages), without new results. The additions are the formulations
+  as equations (P1 cost and QUBO, the critical penalty, the P2 tuple cost, integer program, QUBO and Lagrangian function), the QAOA
+  circuit and readout correction, the P3 quality metric, and a table of registered hypotheses and claims with their grades.
+- **Message to the QANTIS authors:** not yet decided. The author asked first what difference sending or not sending would make.
+  Nothing has been sent, and the archive date is not set.
+- **Figures:** regeneration is now byte-identical. PDF files were getting a new creation timestamp on every build; the figure script no
+  longer writes one.
