@@ -1749,3 +1749,72 @@ The author approved the plan, and it was pushed as the pre-registration (`f40ecc
   final code.
 
 Next: P5.1 — the simulator study on the P1.4 sets, H1–H4 and the hardware go rule.
+
+## 2026-09-15 — P5.1: simulator study — H1, H2, H3 held; H4 failed; no hardware
+
+- **Command:** `python src/p5_mixers.py study`.
+- **Result:** `results/p5_1-study-20260915-141313.json`. No QPU time.
+- **Setup:**
+  - *R-XY and PERM:* optimised as registered — COBYLA on ⟨H⟩, 6 random starts plus an interpolated start, depths 1–3, seed
+    2051 with one stream per instance.
+  - *X+pen:* taken from the stored P1.4 angles, which reproduced P1.4's P(optimal) to 1e-9 on every instance.
+  - *Gate counts:* the first 5 instances of each size on the P1.4 heavy-hex CZ model, including generic state preparation,
+    so they are upper bounds.
+- **Instances:** every pure 3 × 3 instance has a single optimal permutation. The own-space baselines are therefore 1/512
+  (X+pen), 1/27 (R-XY) and 1/6 (PERM).
+
+**Pure 3 × 3 (graded), mean over 50 instances:**
+
+| ansatz | depth | P(optimal) | P(feasible) | lift over own space | median CZ |
+|---|---|---|---|---|---|
+| X+pen (P1.4) | 1 | 0.0176 ± 0.0008 | 0.102 | 9.0 | **58** |
+| | 2 | 0.0529 ± 0.0017 | 0.269 | 27.1 | 152 |
+| | 3 | 0.0771 ± 0.0027 | 0.409 | 39.5 | 238 |
+| R-XY | 1 | 0.1237 ± 0.0026 | 0.702 | 3.3 | 105 |
+| | 2 | 0.1452 ± 0.0056 | 0.822 | 3.9 | 202 |
+| | 3 | 0.1726 ± 0.0097 | 0.851 | 4.7 | 297 |
+| PERM | 1 | 0.5356 ± 0.0155 | 1.000 | 3.2 | 1,217 |
+| | 2 | 0.7663 ± 0.0172 | 1.000 | 4.6 | 1,634 |
+| | 3 | **0.8331 ± 0.0192** | 1.000 | **5.0** | 2,129 |
+
+**Pure 2 × 2 (reported, not graded):**
+- X+pen: 0.258 / 0.454 / 0.578 at p = 1 / 2 / 3, with 11 / 22 / 39 CZ.
+- R-XY: 0.651 / 0.920 / 0.973, with 16 / 30 / 44 CZ.
+- PERM: 0.999 / 1.000 / 1.000, with 45 / 73 / 103 CZ. There are only two permutations here.
+
+**Hypotheses:**
+1. **H1 — held.** R-XY − X+pen: +0.106 ± 0.003 (p = 1), +0.092 ± 0.006 (p = 2), +0.096 ± 0.010 (p = 3). The difference was
+   positive on all 50 instances at p = 1 and p = 2, and on 49 at p = 3.
+2. **H2 — held.** PERM − R-XY: +0.41 ± 0.02, +0.62 ± 0.02, +0.66 ± 0.02, positive on every instance at every depth.
+3. **H3 — held.** PERM's lift over the uniform permutation state at p = 3 is 5.00 ± 0.12. P(optimal) ranged from 0.53 to 0.99
+   across instances, above 1/6 on every one.
+4. **H4 — failed.** The only configuration within 60 CZ is X+pen at p = 1 (58 CZ). The cheapest constraint-preserving circuits
+   need 105 (R-XY) and 1,217 (PERM) at depth 1.
+
+**Hardware go rule — not met. No QPU time is spent in P5; P5.2 is skipped as the plan requires.**
+
+**Exploratory, after the results — not pre-registered.** Where the gates come from, transpiled separately on the same model (3 × 3):
+
+| part | CZ |
+|---|---|
+| R-XY state preparation (three W states) | 19 |
+| R-XY mixer, one layer (9 XY pairs) | 25 |
+| R-XY column penalty, one layer (9 ZZ terms) | 25 |
+| PERM state preparation (uniform over 6 permutations, generic synthesis) | 727 |
+| PERM mixer, one layer (9 four-qubit rotations) | 390 |
+
+- **Why H4 failed:** it does not rest on the generic state preparation being an upper bound. Without any state preparation,
+  R-XY at p = 1 would still need about 86 CZ, and one PERM mixer layer alone needs 390. On this hardware model the
+  constraint-preserving circuits are too expensive for the registered budget.
+- **Where the gain comes from:** measured against each ansatz's own search space, X+pen's lift at p = 1 (9.0) is larger than
+  R-XY's (3.3) or PERM's (3.2). Most of the constraint-preserving ansätze's higher P(optimal) comes from searching a smaller
+  space. The optimisation still adds a factor of 3–5 on top, which is what H3 tested for PERM.
+
+**Answer to the P5 questions:**
+1. Keeping rows one-hot, and even more keeping whole permutations, gives far higher P(optimal) than the penalty formulation at
+   the same depth — up to 0.83 against 0.08 at p = 3.
+2. Much of that gain is the smaller search space. PERM still improves on the uniform permutation state by a factor of 5.
+3. No constraint-preserving circuit for 3 × 3 fits the 60-CZ hardware budget on this model, so the penalty formulation remains
+   the only one of the three that can run within it.
+
+Next: P5.3 — summary, release and DOI (P5.2 skipped by the go rule).

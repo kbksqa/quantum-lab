@@ -21,10 +21,13 @@ from scipy.linalg import expm
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
 
 from p5_mixers import (  # noqa: E402
+    baselines,
     circuit,
     circuit_statevector,
     energies,
     evolve,
+    grade_difference,
+    grade_lift,
     initial_state,
     perm_quads,
     perm_rotation,
@@ -135,6 +138,26 @@ class TestCircuits(unittest.TestCase):
             gammas, betas = rng.uniform(0, math.pi, 2), rng.uniform(0, math.pi, 2)
             psi = evolve(prep["diag"], n, ansatz, gammas, betas)
             self.assertLess(phase_aligned_difference(psi, circuit_statevector(circuit(n, ansatz, prep, gammas, betas))), 1e-9)
+
+
+class TestStudyRules(unittest.TestCase):
+    def test_baselines_count_optima_by_hand(self):
+        C = np.array([[1.0, 2.0, 3.0], [2.0, 4.0, 6.0], [3.0, 6.0, 9.0]])   # c_ij = (i+1)(j+1): anti-diagonal is optimal
+        optimum = min(sum(C[i, s[i]] for i in range(3)) for s in itertools.permutations(range(3)))
+        base = baselines(C, optimum)
+        n_opt = sum(1 for s in itertools.permutations(range(3)) if abs(sum(C[i, s[i]] for i in range(3)) - optimum) < 1e-9)
+        self.assertAlmostEqual(base["perm"], n_opt / 6)
+        self.assertAlmostEqual(base["rxy"], n_opt / 27)
+        self.assertAlmostEqual(base["all_strings"], n_opt / 512)
+
+    def test_grading_rules(self):
+        d = lambda mean, sem: {"mean": mean, "sem": sem}  # noqa: E731
+        self.assertEqual(grade_difference({"p1": d(0.3, 0.1), "p2": d(0.3, 0.1), "p3": d(0.3, 0.1)}), "held")
+        self.assertEqual(grade_difference({"p1": d(0.1, 0.1), "p2": d(0.3, 0.1), "p3": d(0.3, 0.1)}), "partly held")
+        self.assertEqual(grade_difference({"p1": d(-0.1, 0.1), "p2": d(0.3, 0.1), "p3": d(0.3, 0.1)}), "failed")
+        self.assertEqual(grade_lift(np.array([2.0, 2.2, 1.8, 2.1]))["grade"], "held")
+        self.assertEqual(grade_lift(np.array([0.5, 1.8, 0.9, 1.4]))["grade"], "partly held")
+        self.assertEqual(grade_lift(np.array([0.9, 1.0, 0.8, 1.05]))["grade"], "failed")
 
 
 if __name__ == "__main__":
