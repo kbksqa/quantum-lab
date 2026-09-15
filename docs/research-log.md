@@ -2034,3 +2034,58 @@ was fixed, and the grade above uses the script default. The configuration withou
   - The Grover posterior from the raw counts (6,310 / 1,119) gives 0.0015, as reported.
 
 Next: P6.3 — C5, an attempt to reproduce Table 6.
+
+## 2026-09-15 — P6.3: C5 (Table 6) not reproducible
+
+- **Code:** `src/p6_table6.py`, with the grading rule written in its header before the first run; `tools/p6_table6_entrypoint.py`.
+- **Tests:** `tests/test_p6_table6.py` (3; 129 in the project).
+- **Results:** `results/p6_3-entrypoint-20260915-171109.json` and `results/p6_3-table6-20260915-171313.json`.
+- **QPU time:** none.
+
+**Table 6 (§8.2.1):** Tiger, 100 episodes of 50 steps, horizon 5, seed 42.
+
+| planner | reward |
+|---|---|
+| POMCP | 18.3 ± 12.7 |
+| DESPOT | 19.1 ± 11.4 |
+| PBVI | 17.6 ± 13.2 |
+| QBRL (sim.) | 18.7 ± 12.1 |
+
+**Attempt A — the public entry point: cannot produce the table.**
+- **How it was run:** `_run_pomdp_experiment` from `scripts/run_experiment.py` at the paper-date commit, unmodified. The separate
+  environment lacks the packages the script's `main()` needs to read its YAML file (PyYAML, pydantic, structlog), and nothing
+  was installed. The harness therefore passes the function the case parameters of `configs/experiments/pomdp_default.yaml`
+  at 7c6509c.
+- **The default configuration differs from the table:** 100 episodes of 20 steps (not 50), QBRL horizon 2 (not 5), quantum
+  path on.
+- **Output:** "avg reward: −20.00" after every tenth episode and "Total reward: −2000.00", in 107 s.
+  - The belief never changes, so the planner listens at every step: −1 × 20 = −20.
+  - The configured baselines (POMCP, PBVI, DESPOT) are never called.
+  - No standard deviation is reported.
+
+**Attempt B — a protocol fully determined by the paper: not available.**
+- *Stated:* episodes, steps, horizon, seed and γ.
+- *Not stated:* the rewards (only the code gives them), whether the reported reward is discounted, what happens after a door
+  is opened, and how the tiger is placed.
+
+**C5 — not reproducible**, as the plan expected in advance.
+
+**Exploratory, not graded — protocols the paper leaves open.** Two exact planners, 100 × 50 steps, seed 42:
+- *Horizon-5 lookahead:* the table's H. It opens a door only once P < 0.0255, i.e. after three consistent observations.
+- *Optimal policy:* from P6.2, opening once P < 0.0397.
+
+| after opening a door | reward | horizon-5 lookahead | optimal policy |
+|---|---|---|---|
+| tiger re-placed, belief reset | undiscounted | 47.6 ± 24.2 | 57.6 ± 65.0 |
+| tiger re-placed, belief reset | discounted by 0.95ᵗ | **15.7 ± 7.0** | **21.9 ± 24.2** |
+| episode ends | undiscounted | 5.8 ± 1.9 | 4.1 ± 18.8 |
+| episode ends | discounted | 4.3 ± 2.2 | 3.4 ± 17.0 |
+
+- *Closest protocol:* continuing after an open and discounting. Both of its means fall within Table 6's stated spread of 18.7,
+  but neither standard deviation is close to about 12 (7.0 and 24.2).
+- *Result:* no protocol tried reproduces both the means and the spreads of Table 6. This does not show that the table is
+  wrong, only that the paper does not give enough to rebuild it.
+
+Next: P6.4 — the hardware go rule for the Grover k = 1 experiment (C1 reproduced; C3 partly reproduced for the Grover
+circuit; a dry-run QPU estimate within 60 s still to be made), with predictions and the author's approval before any
+submission.

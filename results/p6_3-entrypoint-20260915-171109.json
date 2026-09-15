@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-09-15T17:12:56.297391+07:00",
+  "experiment": "P6.3 public simulation entry point (_run_pomdp_experiment at 7c6509c, default config)",
+  "case_parameters": {
+    "scenario": "tiger",
+    "tiger": {
+      "listen_accuracy": 0.85,
+      "num_episodes": 100,
+      "max_steps_per_episode": 20
+    },
+    "qbrl": {
+      "horizon": 2,
+      "num_samples": 100,
+      "use_quantum": true,
+      "use_amplitude_amplification": true,
+      "aa_iterations": 1
+    },
+    "baselines": [
+      "pomcp",
+      "pbvi",
+      "despot"
+    ]
+  },
+  "seconds": 106.55614999999989,
+  "error": null,
+  "log": [
+    "INFO Starting POMDP experiment...",
+    "INFO Created Tiger POMDP: 2 states, 3 actions",
+    "INFO Episode 10/100, avg reward: -20.00",
+    "INFO Episode 20/100, avg reward: -20.00",
+    "INFO Episode 30/100, avg reward: -20.00",
+    "INFO Episode 40/100, avg reward: -20.00",
+    "INFO Episode 50/100, avg reward: -20.00",
+    "INFO Episode 60/100, avg reward: -20.00",
+    "INFO Episode 70/100, avg reward: -20.00",
+    "INFO Episode 80/100, avg reward: -20.00",
+    "INFO Episode 90/100, avg reward: -20.00",
+    "INFO Episode 100/100, avg reward: -20.00",
+    "INFO POMDP experiment complete. Total reward: -2000.00",
+    "INFO POMDP experiment finished."
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "timestamp": "2026-09-15T17:13:12.616493+07:00",
+  "experiment": "P6.3 C5: Table 6 reproduction attempt",
+  "table6": {
+    "POMCP": [
+      18.3,
+      12.7
+    ],
+    "DESPOT": [
+      19.1,
+      11.4
+    ],
+    "PBVI": [
+      17.6,
+      13.2
+    ],
+    "QBRL (sim.)": [
+      18.7,
+      12.1
+    ]
+  },
+  "attempt_A_public_entry_point": {
+    "error": null,
+    "seconds": 106.55614999999989,
+    "case_parameters": {
+      "scenario": "tiger",
+      "tiger": {
+        "listen_accuracy": 0.85,
+        "num_episodes": 100,
+        "max_steps_per_episode": 20
+      },
+      "qbrl": {
+        "horizon": 2,
+        "num_samples": 100,
+        "use_quantum": true,
+        "use_amplitude_amplification": true,
+        "aa_iterations": 1
+      },
+      "baselines": [
+        "pomcp",
+        "pbvi",
+        "despot"
+      ]
+    },
+    "final_log_lines": [
+      "INFO Episode 100/100, avg reward: -20.00",
+      "INFO POMDP experiment complete. Total reward: -2000.00",
+      "INFO POMDP experiment finished."
+    ],
+    "reports_all_four_planners": false,
+    "reports_standard_deviation": false,
+    "reproduces_table6": false
+  },
+  "attempt_B_protocol_from_paper": {
+    "available": false,
+    "paper_states": {
+      "episodes": 100,
+      "steps": 50,
+      "horizon": 5,
+      "seed": 42,
+      "gamma": 0.95
+    },
+    "paper_omits": [
+      "rewards",
+      "discounting of the reported reward",
+      "what happens after a door is opened",
+      "initial placement of the tiger"
+    ]
+  },
+  "C5": "not reproducible",
+  "exploratory_protocols": [
+    {
+      "after_open": "continue",
+      "discounted": false,
+      "policy": "horizon-5 lookahead",
+      "mean": 47.57,
+      "sd": 24.153237648168183,
+      "mean_opens": 9.27,
+      "within_sd_of_QBRL_18.7": false
+    },
+    {
+      "after_open": "continue",
+      "discounted": false,
+      "policy": "optimal (value iteration)",
+      "mean": 57.58,
+      "sd": 65.02201336641478,
+      "mean_opens": 13.38,
+      "within_sd_of_QBRL_18.7": false
+    },
+    {
+      "after_open": "continue",
+      "discounted": true,
+      "policy": "horizon-5 lookahead",
+      "mean": 15.681038730777273,
+      "sd": 7.023033550175202,
+      "mean_opens": 9.27,
+      "within_sd_of_QBRL_18.7": true
+    },
+    {
+      "after_open": "continue",
+      "discounted": true,
+      "policy": "optimal (value iteration)",
+      "mean": 21.89318100100034,
+      "sd": 24.184511300514167,
+      "mean_opens": 13.38,
+      "within_sd_of_QBRL_18.7": true
+    },
+    {
+      "after_open": "end",
+      "discounted": false,
+      "policy": "horizon-5 lookahead",
+      "mean": 5.8,
+      "sd": 1.9069251784911847,
+      "mean_opens": 1.0,
+      "within_sd_of_QBRL_18.7": false
+    },
+    {
+      "after_open": "end",
+      "discounted": false,
+      "policy": "optimal (value iteration)",
+      "mean": 4.12,
+      "sd": 18.79355144078883,
+      "mean_opens": 1.0,
+      "within_sd_of_QBRL_18.7": false
+    },
+    {
+      "after_open": "end",
+      "discounted": true,
+      "policy": "horizon-5 lookahead",
+      "mean": 4.292876888892108,
+      "sd": 2.148589884971455,
+      "mean_opens": 1.0,
+      "within_sd_of_QBRL_18.7": false
+    },
+    {
+      "after_open": "end",
+      "discounted": true,
+      "policy": "optimal (value iteration)",
+      "mean": 3.3489701481367184,
+      "sd": 16.95389376222993,
+      "mean_opens": 1.0,
+      "within_sd_of_QBRL_18.7": false
+    }
+  ],
+  "horizon5_policy_thresholds": {
+    "open_right_when_p_tiger_right_below": 0.025500000000000002
+  }
+}
