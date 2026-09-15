@@ -2269,3 +2269,11 @@ under the unchanged concept DOI 10.5281/zenodo.22760769. Checked through the pub
 - The description kept the PDF's line breaks and indentation.
 
 Neither affects the file or the DOI.
+
+**Metadata corrected the same day.** The author edited the record without creating a new version, and a re-check through the API
+confirmed the result:
+- *Keywords:* 11 separate entries — POMDP, planning under uncertainty, Grover search, constraint-preserving mixers, quantum
+  optimisation, QAOA, QUBO, multi-target tracking, data association, reproducibility, benchmark.
+- *Description:* the abstract as one plain paragraph, with no leftover formatting.
+- *Unchanged:* the file, MD5, version, licence, creator and related identifier. The record is still the latest version.
+- *Correction to the upload guide:* it said to keep the old keywords, but version 1.0 had none.
