@@ -1889,3 +1889,83 @@ The author approved the plan, and it was pushed as the pre-registration (`6c9914
 the plan allows. C5 is expected to be not reproducible.
 
 Next: P6.1 — circuits rebuilt from the paper; C1, C2, C6, C7 and Q1 on a noiseless simulator.
+
+## 2026-09-15 — P6.1: C1 and C2 reproduced; C6 and C7 not reproduced
+
+- **Code:** `src/p6_tiger.py`, with the operational grading rules written in its header before the first run.
+- **Tests:** `tests/test_p6_tiger.py` (6 tests).
+- **Results:** `results/p6_1-tiger-20260915-150853.json` and `results/p6_1-repo-crosscheck-20260915-150856.json`.
+- **QPU time:** none.
+
+**How the circuits were built**
+- From the paper's description (§8.6): a prior RY and two conditional RYs for the belief oracle A; G = A S₀ A† S_f with
+  S₀ = X₀X₁·CZ·X₀X₁; open actions as H on both qubits; the 4-state circuit as a UCRy prior and one doubly controlled RY per
+  state.
+- Every circuit statevector matched an independent reference to 4 × 10⁻¹⁶ — the amplitude vector written directly, and
+  A S₀ A† = I − 2|ψ⟩⟨ψ|.
+
+**C1 — Grover k = 1 theory values: reproduced.**
+
+| | ours | paper |
+|---|---|---|
+| P(obs = 1) before | 0.1710 | 0.171 |
+| P(obs = 1) after one iterate | 0.9172 | 0.917 |
+| post-selected posterior | [0.8509, 0.1491] | [0.851, 0.149] |
+| amplification | 5.36 | 5.4 |
+
+- The largest difference is 0.0002, within the 0.0005 rounding threshold.
+- The paper's hardware counts are consistent with its stated values: 7,429 / 8,192 = 0.907 and 1,463 / 8,192 = 0.179, a ratio of
+  5.08.
+
+**C2 — exact belief updates: reproduced.**
+- *Circuits tested:*
+  - the 2-state circuit on 41 priors — every belief value that appears in §8.6, plus 20 random ones — for listen and open
+    actions
+  - the 4-state circuit on the uniform prior and 20 random priors
+- *Result:* the largest Hellinger distance to exact Bayes was 3.3 × 10⁻¹⁶.
+- *Paper's classical posteriors:* the 4-state values of §8.6 ([0.425, 0.350, 0.150, 0.075] and its mirror) are exact.
+
+**C6 — Table 21: not reproduced.** P(e) = 0.05, θ = arcsin√0.05:
+
+| G | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| sin²((2G+1)θ) | 0.050 | 0.392 | 0.816 | **1.000** | 0.804 | 0.377 |
+| Table 21 | 0.050 | 0.192 | 0.485 | 0.912 | 0.721 | 0.298 |
+
+- Only G = 0 matches.
+- **Iteration formulas:**
+  - §5.2's ⌊π/(4θ) − ½⌋ gives 2, while the Table 21 caption and text formulas both give 3.
+  - The formula's own maximum over G = 0–5 is at G = 3 (0.99994).
+  - §5.2's floor-after-subtracting-½ therefore picks a worse count (0.816) than the usual nearest-integer rule.
+
+**C7 — "Hellinger < 0.15 ≡ ≤1.1% total variation": not reproduced.**
+- **Bound:** total variation always lies between H² and H√(2 − H²), i.e. between 2.25% and 21.1% at H = 0.15, so it can never
+  be at most 1.1% when H is close to 0.15.
+- **Explicit example:** [0.5, 0.5] against [0.706, 0.294] has Hellinger 0.1499 and total variation 20.6%.
+- **Thresholds for 1.1%:**
+  - *Guaranteed:* total variation stays at most 1.1% only when H ≤ 0.0078.
+  - *Impossible:* above H = 0.105 it must exceed 1.1%.
+
+**Q1 — usable posterior samples per application of the belief oracle.**
+
+| | direct circuit | Grover k = 1 | classical rejection |
+|---|---|---|---|
+| oracle applications per shot | 1 | 3 | 1 |
+| samples per application, theory | 0.171 | 0.306 | 0.171 |
+| samples per application, paper's hardware values | 0.179 | 0.302 | 0.179 |
+
+- *Per shot:* the Grover circuit gives 5.36× (theory) or 5.07× (hardware) more usable samples.
+- *Per oracle application:* the gain is 1.79× (theory) and 1.69× (hardware).
+- *Scaling claim:* the paper's O(P(e)^−1/2) statement concerns the latter count. At P(e) = 0.171 and k = 1 the measured
+  advantage in that count is 1.7×, not 5.1×.
+
+**Cross-check against the public code** (separate environment, scripts from the paper-date commit `7c6509c`, final
+measurements removed, exact statevectors):
+- *Grover and baseline circuits:* probabilities identical to ours (difference 0.0).
+- *Minimal circuit:* matches exact Bayes on the 21 §8.6 priors for listen and open actions.
+- *4-state circuit:* matches ours after mapping its state order (s = 2q₀ + q₁) to ours.
+- *Observation independence, confirmed by execution:* the 4-state builder produces identical output for target observations 0
+  and 1 (P6.0 finding 3.1).
+
+Next: P6.2 — C3 (circuit sizes on an offline Heron model), C4 (closed-loop action sequences), Q2 (exact Tiger baseline) and Q3
+(threshold sensitivity).

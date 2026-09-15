@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-09-15T15:08:57.045465+07:00",
+  "experiment": "P6.1 cross-check against the QANTIS public repository (scripts at 7c6509c)",
+  "repository_head": "c17c2b52cc001b09abbc06ea19ac9c4694ea429c",
+  "scripts_commit": "7c6509c",
+  "environment": {
+    "python": "3.12.10",
+    "qiskit": "2.5.2"
+  },
+  "grover": {
+    "their_p_obs1_baseline": 0.17099999999999999,
+    "their_p_obs1_grover": 0.9172193760000003,
+    "their_posterior": [
+      0.8508771929824562,
+      0.14912280701754377
+    ],
+    "max_probability_difference_to_ours": 0.0
+  },
+  "minimal": {
+    "priors": 21,
+    "max_hellinger_or_probability_difference": {
+      "listen": 3.3306690738754696e-16,
+      "open": 0.0
+    }
+  },
+  "four_state": {
+    "their_posteriors": {
+      "0": [
+        0.42499999999999993,
+        0.35000000000000003,
+        0.15,
+        0.07499999999999998
+      ],
+      "1": [
+        0.075,
+        0.15,
+        0.35000000000000003,
+        0.42500000000000004
+      ]
+    },
+    "max_hellinger_to_bayes": 3.925231146709438e-17,
+    "max_probability_difference_to_ours": 5.551115123125783e-17,
+    "same_circuit_for_both_observations": true
+  }
+}

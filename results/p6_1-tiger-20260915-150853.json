@@ -1,0 +1,150 @@
+{
+  "timestamp": "2026-09-15T15:08:53.690206+07:00",
+  "experiment": "P6.1 QANTIS POMDP half: C1, C2, C6, C7 and Q1 on a noiseless statevector",
+  "C1": {
+    "ours": {
+      "p_obs1_baseline": 0.17099999999999999,
+      "p_obs1_grover": 0.9172193760000003,
+      "posterior": [
+        0.8508771929824562,
+        0.14912280701754377
+      ],
+      "amplification": 5.363856000000002
+    },
+    "paper": {
+      "p_obs1_baseline": 0.171,
+      "p_obs1_grover": 0.917,
+      "posterior": [
+        0.851,
+        0.149
+      ],
+      "amplification": 5.4
+    },
+    "max_difference": 0.0002193760000002154,
+    "grade": "reproduced",
+    "checks": {
+      "baseline_circuit_vs_direct_amplitudes": 1.1102230246251565e-16,
+      "grover_circuit_vs_reflection_formula": 3.885780586188048e-16,
+      "grover_p_vs_sin2_3theta": 3.3306690738754696e-16,
+      "posterior_vs_exact_bayes_hellinger": 7.850462293418876e-17,
+      "exact_bayes_evidence": 0.171,
+      "exact_bayes_posterior": [
+        0.8508771929824562,
+        0.14912280701754385
+      ],
+      "hardware_count_ratios": {
+        "grover": 0.9068603515625,
+        "baseline": 0.1785888671875,
+        "ratio": 5.077922077922078
+      }
+    }
+  },
+  "C2": {
+    "priors_2_state": 41,
+    "priors_4_state": 21,
+    "max_hellinger_2_state": {
+      "listen": 3.3306690738754696e-16,
+      "open": 0.0
+    },
+    "max_hellinger_4_state": 3.1646225226420963e-16,
+    "max_circuit_vs_direct_amplitudes": {
+      "2_state": 2.220446049250313e-16,
+      "4_state": 3.3306690738754696e-16
+    },
+    "four_state_uniform_prior_posteriors": {
+      "0": [
+        0.42500000000000004,
+        0.3499999999999999,
+        0.15,
+        0.07499999999999998
+      ],
+      "1": [
+        0.07499999999999998,
+        0.1499999999999999,
+        0.35000000000000003,
+        0.42500000000000004
+      ]
+    },
+    "paper_classical_posteriors_match": {
+      "0": 5.551115123125783e-17,
+      "1": 8.326672684688674e-17
+    },
+    "grade": "reproduced"
+  },
+  "C6": {
+    "theta": 0.2255134058981312,
+    "formula": [
+      0.049999999999999996,
+      0.392,
+      0.8160800000000001,
+      0.9999392,
+      0.803844608,
+      0.37682811392000015
+    ],
+    "table": [
+      0.05,
+      0.192,
+      0.485,
+      0.912,
+      0.721,
+      0.298
+    ],
+    "differences": [
+      6.938893903907228e-18,
+      0.2,
+      0.33108000000000015,
+      0.0879392,
+      0.08284460800000004,
+      0.07882811392000016
+    ],
+    "grade": "not reproduced",
+    "iteration_formulas": {
+      "section_5_2_floor(pi/(4 theta) - 1/2)": 2,
+      "table_21_caption_floor(pi/4 sqrt(1/P(e)))": 3,
+      "table_21_text_floor(pi/(4 theta))": 3,
+      "best_G_in_0..5_by_formula": 3
+    }
+  },
+  "C7": {
+    "bounds_at_H_0.15": {
+      "tv_lower_H2": 0.0225,
+      "tv_upper_H_sqrt(2-H2)": 0.21093541665637852
+    },
+    "example": {
+      "p": [
+        0.5,
+        0.5
+      ],
+      "q": [
+        0.7060597944313907,
+        0.2939402055686093
+      ],
+      "hellinger": 0.14989999999999998,
+      "total_variation": 0.2060597944313907
+    },
+    "hellinger_above_which_tv_must_exceed_1.1%": 0.10488088481701516,
+    "hellinger_below_which_tv_is_guaranteed_at_most_1.1%": 0.007778292244171013,
+    "grade": "not reproduced"
+  },
+  "Q1": {
+    "oracle_applications_per_shot": {
+      "direct": 1,
+      "grover_k1": 3,
+      "classical_rejection": 1
+    },
+    "theory": {
+      "direct": 0.17099999999999999,
+      "grover_k1": 0.30573979200000007,
+      "classical_rejection": 0.17099999999999999,
+      "grover_over_direct_per_call": 1.7879520000000004,
+      "grover_over_direct_per_shot": 5.363856000000002
+    },
+    "paper_hardware": {
+      "direct": 0.179,
+      "grover_k1": 0.30233333333333334,
+      "classical_rejection": 0.179,
+      "grover_over_direct_per_call": 1.6890130353817505,
+      "grover_over_direct_per_shot": 5.067039106145252
+    }
+  }
+}
