@@ -1492,3 +1492,8 @@ Zenodo DOI for v1.0.0: 10.5281/zenodo.22760618. The concept DOI 10.5281/zenodo.2
   release v1.0.0
 
 The record's "issued" date entry carries no date value. It is metadata only and can be completed later without changing the file.
+
+**Correction (same day).** The statement above is wrong. The date is present: the InvenioRDM API
+(`Accept: application/vnd.inveniordm.v1+json`) returns `{"date": "2026-09-15", "type": "issued"}`, and the record's edit
+form shows 2026-09-15. The check above used the legacy JSON view of `/api/records/22760770`, which lists the date type
+but omits the value of a single date. Nothing on the record needed changing.
