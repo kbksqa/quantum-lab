@@ -1676,3 +1676,5 @@ one hypothesis; its recorded grade in `docs/p2-summary.md` stays "partly held" f
 
 **Release.** Approved by the author: v1.1.0 with the P2.8 results. `CITATION.cff` now names v1.1.0. The technical report stays
 at version 1.0; a revised report is planned after P5 and P6.
+
+Zenodo DOI for v1.1.0: 10.5281/zenodo.22761584. The concept DOI 10.5281/zenodo.22741037 resolves to it.
