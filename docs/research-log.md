@@ -1828,3 +1828,28 @@ Next: P5.3 — summary, release and DOI (P5.2 skipped by the go rule).
 **Release.** Approved by the author: v1.2.0 with P5. `CITATION.cff` now names v1.2.0.
 
 Zenodo DOI for v1.2.0: 10.5281/zenodo.22764261. The concept DOI 10.5281/zenodo.22741037 resolves to it.
+
+## 2026-09-15 — P6 plan drafted: reproduction of QANTIS's POMDP-planning results
+
+- **Plan:** `docs/p6-plan.md`, written for the author's approval. No P6 code or number exists yet.
+- **How the plan was prepared:** an AI-assisted first read of the paper's POMDP sections and the public repository (clone
+  `c17c2b5`). It reported the instances, claims and nine possible gaps listed in the plan.
+- **Spot-checked before drafting:**
+  - *Pass threshold:* the paper says Hellinger < 0.15, but `scripts/hardware/run_end_to_end_pomdp_ibm.py:641` passes at
+    < 0.05.
+  - *Simulation loop:* `scripts/run_experiment.py:100-107` adds the expected reward at a fixed belief and never samples a
+    state or an observation.
+- **Still to be confirmed:** every other gap is marked as such and has to be confirmed or withdrawn in P6.0.
+- **Claims under test:**
+  - C1: Grover k = 1 theory values
+  - C2: exact belief updates
+  - C3: circuit sizes as two-qubit gate counts
+  - C4: closed-loop action sequences
+  - C5: Table 6
+  - C6: Table 21
+  - C7: "Hellinger < 0.15 ≡ ≤1.1% total variation"
+- **Added questions:**
+  - Q1: usable samples per oracle call
+  - Q2: exact Tiger baseline by value iteration
+  - Q3: threshold sensitivity
+- **Hardware:** only the Grover k = 1 experiment, only if the go rule is met, within 60 s of QPU time.
