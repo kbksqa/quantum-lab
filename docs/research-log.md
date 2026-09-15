@@ -1678,3 +1678,27 @@ one hypothesis; its recorded grade in `docs/p2-summary.md` stays "partly held" f
 at version 1.0; a revised report is planned after P5 and P6.
 
 Zenodo DOI for v1.1.0: 10.5281/zenodo.22761584. The concept DOI 10.5281/zenodo.22741037 resolves to it.
+
+## 2026-09-15 — P5 plan drafted: constraint-preserving mixers for assignment
+
+- **Plan:** `docs/p5-plan.md`, written for the author's approval. No P5 code or number exists yet.
+- **Question:** does keeping QAOA inside the valid assignments beat the P1 penalty formulation on the same pure 2 × 2 and 3 × 3
+  instances, once the smaller search space and the extra gates are counted? P5 compares two mixers: one that keeps every row
+  one-hot (R-XY, column penalty only) and one that keeps whole permutations (PERM, no penalty).
+- **Hypotheses:**
+  - H1: R-XY beats the penalty formulation
+  - H2: PERM beats R-XY
+  - H3: PERM beats simply preparing the uniform permutation state
+  - H4: the best circuit within 60 CZ is a constraint-preserving one
+- **Hardware:** a go rule decides whether any hardware run is justified, with at most 60 s of QPU time.
+
+**Literature check before drafting:**
+- *Verified:* four references on Crossref — Hadfield et al. 2019; Wang et al. 2020; Fuchs et al. 2022; Fuchs and
+  Pariente Bassa 2024.
+- *Read at abstract level:* three 2026 arXiv abstracts.
+- *Not found:* any application of constraint-preserving mixers to measurement-to-track assignment.
+- *Not cited:* a search summary described a penalty-versus-XY comparison on `ibm_kingston`, but its source could not be
+  identified.
+
+The P2 go-rule budget of 60 CZ is reused unchanged. The plan states in advance that PERM's four-qubit rotations may exceed it
+already at depth 1.
