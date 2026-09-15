@@ -1481,3 +1481,14 @@ Next: P4.5 — final build, release, and the Zenodo report record.
   `quantum-lab-report-v1.0.pdf`. The author will create the separate Zenodo record of type "report", linked to the software concept DOI.
 
 Zenodo DOI for v1.0.0: 10.5281/zenodo.22760618. The concept DOI 10.5281/zenodo.22741037 resolves to it.
+
+**Report record.** The author uploaded the report to Zenodo as its own record: **10.5281/zenodo.22760770** (concept
+10.5281/zenodo.22760769). Checked through the public API:
+- published, type Publication / Report, version 1.0, dated 2026-09-15
+- creator Suthsilp, Kiettisak; affiliation "Independent researcher"; ORCID 0009-0003-3249-990X
+- licence CC BY 4.0
+- related identifier "is supplemented by" 10.5281/zenodo.22741037 (the software)
+- one file, `quantum-lab-report-v1.0.pdf`, 173,459 bytes; its MD5 (`b92525235282939470eb86c492731c01`) matches the PDF attached to
+  release v1.0.0
+
+The record's "issued" date entry carries no date value. It is metadata only and can be completed later without changing the file.

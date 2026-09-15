@@ -2,6 +2,9 @@
 
 The LaTeX source of the technical report on P0–P3. Plan and rules: [`docs/p4-plan.md`](../docs/p4-plan.md).
 
+**Version 1.0** is archived on Zenodo as [10.5281/zenodo.22760770](https://doi.org/10.5281/zenodo.22760770) and attached to
+release v1.0.0 as `quantum-lab-report-v1.0.pdf`.
+
 ## Licence
 
 The text and figures in this folder are licensed under the

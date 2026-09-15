@@ -12,6 +12,13 @@ license: Apache-2.0
 version: "v1.0.0"
 date-released: "2026-09-15"
 doi: "10.5281/zenodo.22741037"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22741037"
+    description: "Software, all versions (concept DOI)"
+  - type: doi
+    value: "10.5281/zenodo.22760770"
+    description: "Technical report on P0-P3, version 1.0 (CC BY 4.0)"
 keywords:
   - quantum computing
   - quantum algorithms

@@ -21,7 +21,7 @@ I am an engineer with two decades of experience in multi-sensor data fusion and 
 | P1 | Assignment / data association as QUBO — brute force vs simulated annealing vs QAOA ([plan](docs/p1-plan.md)) | done — [summary](docs/p1-summary.md): gate passed 588 / 588; penalty choice is solver-dependent; QAOA on `ibm_kingston` kept ~90% of the simulator |
 | P2 | **Multi-sensor data association benchmark**: three-dimensional assignment (NP-hard) with exact ILP, Lagrangian relaxation, annealing and QAOA baselines ([plan](docs/p2-plan.md)) | done — [summary](docs/p2-summary.md): [benchmark](benchmark/p2/README.md) of 1,620 instances with exact optima; Lagrangian relaxation optimal on 98.7%; H1 held, H2/H3/H5 partly held, H4 failed; 3D QAOA on `ibm_kingston` at 15.7× guessing |
 | P3 | **Reproduction study** of the QANTIS multi-target data association result (arXiv:2603.00785): instance, FPC-QAOA on a simulator, and hardware if the go rule allows ([plan](docs/p3-plan.md)) | done — [report](docs/p3-report.md): instances reproduce exactly (with an unstated cost term); method reproduces on a simulator; the headline metric does not distinguish QAOA from random sampling; three defects confirmed in the public code; hardware not re-run |
-| P4 | Technical report on P0–P3, archived with a DOI ([plan](docs/p4-plan.md)) | done — [technical report](paper/) v1.0 (CC BY 4.0, PDF attached to release v1.0.0): every number from a machine-checked table, all 18 references verified |
+| P4 | Technical report on P0–P3, archived with a DOI ([plan](docs/p4-plan.md)) | done — [technical report](paper/) v1.0, archived as [10.5281/zenodo.22760770](https://doi.org/10.5281/zenodo.22760770) (CC BY 4.0): every number from a machine-checked table, all 18 references verified |
 
 ## Getting started
 
@@ -52,7 +52,14 @@ notebooks/  exploratory work
 
 ## How to cite
 
-See `CITATION.cff`. Each tagged release is archived on Zenodo and receives a DOI.
+See `CITATION.cff`. Each tagged release is archived on Zenodo and receives a DOI; the concept DOI
+[10.5281/zenodo.22741037](https://doi.org/10.5281/zenodo.22741037) always resolves to the latest one.
+
+To cite the findings rather than the code, cite the technical report:
+
+> Suthsilp, K. (2026). *Pre-registered small-scale experiments on quantum optimisation for multi-target data association: exact
+> baselines, a reproducible benchmark, IBM hardware runs and a reproduction study* (Version 1.0). Zenodo.
+> https://doi.org/10.5281/zenodo.22760770
 
 ## License
 
