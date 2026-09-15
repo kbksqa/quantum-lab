@@ -2246,3 +2246,11 @@ added scope and states that the second email may be mentioned only after the aut
 - The author's review.
 - The sentence about the second email, once its sending is confirmed.
 - The Zenodo upload as a new version of record 10.5281/zenodo.22760770, done by the author.
+
+## 2026-09-15 — Second email sent; report version 1.1 final
+
+- **Email:** the author sent the second email, on the P6 findings, to the correspondence address given in arXiv:2603.00785
+  (research@neuraparse.com) on 15 September 2026, and confirmed it in the conversation. It lists what reproduced, the nine points
+  that could not be reconciled, and links to `docs/p6-report.md`, `docs/p6-sources.md` and the v1.3.0 DOI.
+- **Report:** its P6 section now says that the findings were sent before this version was archived and that any response will be
+  recorded. With that the manuscript is final for version 1.1. The author read the draft and asked for no changes.
