@@ -2192,3 +2192,16 @@ The submission waits for the author's explicit approval to use QPU time, after t
 - The cause was not investigated; twirling over 32 randomisations per circuit is one possible source.
 
 Next: P6.5 — the reproduction report `docs/p6-report.md`, release and DOI.
+
+## 2026-09-15 — P6.5: reproduction report
+
+- `docs/p6-report.md` written from the P6.0–P6.4 entries. The README roadmap marks P6 as done.
+- No new computation. QPU time for P6: 20 s; project total: 110 s.
+- **Grades:**
+  - *Reproduced:* C1, C2, C4 and the Grover hardware claim
+  - *Not reproduced:* C3, C6, C7
+  - *Not reproducible:* C5
+- **Open decisions for the author:**
+  - *The release and DOI.*
+  - *Contacting the paper's authors again.* After P3 the findings were sent by email; the POMDP findings — pass threshold,
+    "ISA depth", Table 21, the per-oracle gain, two citations — would be a separate message.
