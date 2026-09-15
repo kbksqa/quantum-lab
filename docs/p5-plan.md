@@ -1,7 +1,7 @@
 # P5 plan — QAOA without penalties: constraint-preserving mixers for assignment
 
-**Status: draft for the author's approval, written on 2026-09-15.** It becomes the pre-registration when it is approved and
-pushed, before any P5 code is written or any P5 number is computed. Same rules as P1–P3.
+**Status: pre-registered on 2026-09-15.** Approved by the author and pushed before any P5 code was written or any P5 number was
+computed. Same rules as P1–P3.
 
 ## Why P5 exists
 
