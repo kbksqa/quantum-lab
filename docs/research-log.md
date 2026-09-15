@@ -1497,3 +1497,26 @@ The record's "issued" date entry carries no date value. It is metadata only and 
 (`Accept: application/vnd.inveniordm.v1+json`) returns `{"date": "2026-09-15", "type": "issued"}`, and the record's edit
 form shows 2026-09-15. The check above used the legacy JSON view of `/api/records/22760770`, which lists the date type
 but omits the value of a single date. Nothing on the record needed changing.
+
+## 2026-09-15 — P2.8 pre-registration: closing the four open items of P2
+
+The author asked for P2 to be finished, not left with open items. `docs/p2-summary.md` listed four, and all four now have a
+hypothesis in **Amendment 2 of `docs/p2-plan.md`**. This entry is committed before any P2.8 code has been written and before any
+P2.8 number has been computed.
+
+| item | hypothesis | QPU |
+|---|---|---|
+| O1 — H5, day half: the P1.5 circuits again on `ibm_kingston`, on a later day | H5-day: retention within 0.05 of 0.890 | one job, about 9 s, needs approval |
+| O2 — marginal likelihood against the generalised likelihood ratio as the tuple cost | H6: less clutter joined (H6a) and the optimum equals the truth more often (H6b) | none |
+| O3 — Lagrangian recovery at P_D = 1: pairs may be dissolved into singletons | H7: valid on every instance that has an answer, with nothing lost elsewhere | none |
+| O4 — CVaR₀.₁ instead of ⟨H⟩ as the QAOA objective on the sparse instances | H8: higher P(optimal), significant at p = 1 | none |
+
+**Already known before registration, and the only such facts:**
+- the 16 Lagrangian failures and their cause (P2.4)
+- P1.5's retention of 0.890 and P2.6's 0.892 (O1's reference values)
+- the stored P2.5 ⟨H⟩ results that O4 is compared with
+
+No marginal-likelihood cost, dissolved recovery or CVaR number existed when the hypotheses were written. H6b's direction is
+flagged as uncertain in the plan, with the reason.
+
+The benchmark instance file is not rebuilt. The new methods are scored against it by a separate script.

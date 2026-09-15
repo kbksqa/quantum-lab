@@ -130,3 +130,93 @@ Everything above this section stays as originally registered.
 - **Scope:** this adds a sweep dimension only. Hypotheses H1–H5, the cost function, the other sweep values, the hardware budget and
   the go/no-go rule are unchanged. H4 stays recorded as failed, and the new dimension is not used to re-test it as if it had been
   planned.
+
+### Amendment 2 — 2026-09-15, after P4, decided by the author
+
+- **Change:** a new milestone **P2.8** closes the four items that `docs/p2-summary.md` left open. Each item gets a hypothesis
+  below, written before any of its code exists and before any of its numbers have been computed.
+- **Trigger:** the author asked for P2 to be finished rather than left with open items.
+- **Scope:**
+  - Nothing registered above changes.
+  - H1–H5 keep their recorded grades. H5's day half is graded separately as H5-day and does not overwrite the device half.
+  - The benchmark instance file `benchmark/p2/instances.jsonl.gz` is not rebuilt or changed. New baselines are scored against
+    it by a separate script and saved as new result files; the published baseline table stays as it was.
+- **Only the P1.5 repeat uses QPU time**: one job of 12 circuits, about 9 s, inside the P2 budget of 3 minutes (18 s used).
+  It needs the author's approval.
+
+#### O1 — H5, day half (hardware)
+
+- **Run:** the same 10 pure 2 × 2 instances at p = 2 as P1.5, with the same stored parameters, the same readout correction and
+  2048 shots, on **`ibm_kingston`**, the P1.5 device, on a later calendar day than 2026-09-14. The device is fixed in
+  advance and not chosen by that day's ranking, so that only the day changes. If `ibm_kingston` is unavailable, nothing
+  is submitted and the plan is revised.
+- **Order:** dry-run plan file → plan and predictions committed and pushed → author's approval → submission of exactly that
+  plan.
+- **H5-day:** corrected retention = hardware mean P(optimal) / simulator mean 0.5445 stays within a few points of P1.5's 0.890.
+  Operationally, |retention − 0.890| ≤ 0.05 is held, ≤ 0.10 partly held, and anything larger failed.
+
+#### O2 — generalised versus marginal likelihood as the tuple cost
+
+- **Marginal cost:** the unknown target position is integrated out under a uniform prior over the scene window, instead of being
+  replaced by its least-squares fit. For a tuple with at least one detection, the P2.0 cost becomes
+  `c_marg = c_GLR + ln V − ½ ln|2π P|`. Here V is the window area and P = (Σ R_s⁻¹)⁻¹ is the covariance of the fused
+  position. The Gaussian integral is taken over the whole plane; the window extends 200 m past the targets, and each
+  ellipse is at most about 40 m across.
+- **V:** the same window P2.0 uses for clutter, so V = clutter per sensor / clutter density. In scenes without clutter it is
+  the same padded box around the targets. It is one constant per scene and does not depend on the association.
+- **Kept from P2.0:** the singleton rule (cheaper of "target seen once" and "false alarm" at cost 0), the tuple set and the
+  gate, so only the costs change.
+- **Checks before use:**
+  - the closed form matches numerical integration over the window for random tuples, to a relative 1e-6 of the likelihood
+  - the ILP optimum under the new costs matches exhaustive enumeration on every tiny instance, as in P2.1
+- **Instances:** all 1,620 benchmark instances, rebuilt from their seeds and checked against the stored tuples and GLR costs.
+  Instances without a valid partition are counted and left out.
+- **Measures:**
+  - *joined clutter* — the number of clutter measurements that the optimum places in a tuple with two or more measurements
+  - *optimum = truth* — whether the optimum equals the true association
+- **H6 — the marginal likelihood joins less clutter and finds the truth more often.**
+  - *H6a:* over instances with clutter, the per-instance joined-clutter count is lower under the marginal cost. Two-sided sign
+    test on the non-zero differences: p < 0.05 in that direction is held, the right direction without significance is partly
+    held, and the opposite direction is failed.
+  - *H6b:* over all solvable instances, the share whose optimum equals the truth is higher under the marginal cost. The same
+    grading, using an exact McNemar test on the discordant instances.
+  - *Overall:* held if both parts hold, failed if both fail, partly held otherwise.
+  - *Stated before the run:* the direction of H6b is uncertain. Integrating out the position penalises adding a measurement
+    (a smaller P), but the ln V term counts once per target tuple, which favours fewer, larger tuples.
+
+#### O3 — Lagrangian recovery when P_D = 1
+
+- **Cause, found in P2.4:** recovery keeps each relaxed pair (i1, i2) and must complete it with a sensor-3 measurement, because
+  (i1, i2, 0) is impossible when P_D = 1. When the gate leaves too few completions, no valid answer exists.
+- **Change:** recovery may also *dissolve* a pair of two real measurements into its two singletons (i1, 0, 0) and (0, i2, 0).
+  That option sits in the pair's "no sensor-3" column, which now costs the cheaper of (i1, i2, 0) and the two singletons.
+  Nothing else in the method changes: the multipliers, step rule, stopping rule and 200-iteration limit stay the same.
+  The original method stays in the record as registered; the new one is reported as a second method.
+- **H7 — dissolving pairs removes the P_D = 1 failures without costing elsewhere.** Graded on all 1,620 benchmark instances:
+  - *held* if the new method returns a valid answer on every instance that has one, is optimal on at least 8 of the 16 former
+    failures, and stays optimal on every instance where the original method was optimal
+  - *partly held* if it is valid everywhere but misses either of the other two conditions
+  - *failed* if any instance with a valid partition still gets no valid answer
+
+#### O4 — a QAOA objective other than ⟨H⟩
+
+- **Objective:** CVaR_α — the mean energy of the lowest-energy α share of the output distribution — with α = 0.1, following
+  Barkoutsos et al., *Improving Variational Quantum Optimization using CVaR*, Quantum 4, 256 (2020). It is computed exactly
+  from the statevector, including the fractional share of the boundary energy.
+- **Instances and method:** the 30 P2.5 "sparse T=2" instances, rebuilt and checked against their stored optima. Kept from
+  P2.5: A = max(max|c|, 1), depths 1–3, COBYLA with 6 random starts plus an interpolated start. Only the objective changes,
+  and circuits of the same depth have the same gates, so the P2.6 CZ counts still apply.
+- **Comparison:** paired against the stored P2.5 ⟨H⟩ results on the same instances, by P(optimal) from the statevector.
+- **H8 — CVaR raises P(optimal) on the instances where hardware already works.**
+  - *held* if the mean paired difference is positive at p = 1, 2 and 3 and larger than 2 standard errors at p = 1, the depth
+    that ran on hardware
+  - *partly held* if it is positive at p = 1 without the rest
+  - *failed* otherwise
+  - No QPU time is spent on O4.
+
+#### Order and reporting
+
+1. **Order:** O3, O2 and O4 run on classical hardware. O1 waits for the author's approval.
+2. **Reporting:** every result goes into the research log with its grade, including failures. `docs/p2-summary.md` gains an
+   addendum; the original text is kept as it is.
+3. **Release:** a release and DOI, which need the author's approval.
