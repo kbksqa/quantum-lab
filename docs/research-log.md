@@ -2208,3 +2208,5 @@ Next: P6.5 — the reproduction report `docs/p6-report.md`, release and DOI.
 
 **Release.** Approved by the author: v1.3.0 with P6. `CITATION.cff` now names v1.3.0. The author also asked for a draft of a
 second email to the paper's authors; it is prepared outside the repository and sent by the author.
+
+Zenodo DOI for v1.3.0: 10.5281/zenodo.22767339. The concept DOI 10.5281/zenodo.22741037 resolves to it.
