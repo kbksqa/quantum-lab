@@ -1460,3 +1460,13 @@ The author read the P4.3 draft and asked for no changes to its content.
   Nothing has been sent, and the archive date is not set.
 - **Figures:** regeneration is now byte-identical. PDF files were getting a new creation timestamp on every build; the figure script no
   longer writes one.
+
+**Decision on contacting the QANTIS authors (2026-09-15).** After weighing the options, the author decided:
+- to send the findings by private email to the correspondence address given in arXiv:2603.00785 (research@neuraparse.com), not as a
+  public GitHub issue;
+- not to wait for a reply before archiving the report.
+
+The email is drafted for the author to send from his own account. Any reply will be recorded in this log, and a correction will be
+published as a new version if one is needed.
+
+Next: P4.5 — final build, release, and the Zenodo report record.
