@@ -2205,3 +2205,6 @@ Next: P6.5 — the reproduction report `docs/p6-report.md`, release and DOI.
   - *The release and DOI.*
   - *Contacting the paper's authors again.* After P3 the findings were sent by email; the POMDP findings — pass threshold,
     "ISA depth", Table 21, the per-oracle gain, two citations — would be a separate message.
+
+**Release.** Approved by the author: v1.3.0 with P6. `CITATION.cff` now names v1.3.0. The author also asked for a draft of a
+second email to the paper's authors; it is prepared outside the repository and sent by the author.
