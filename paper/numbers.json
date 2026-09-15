@@ -1,0 +1,330 @@
+{
+  "PzeroKingstonHardware": {
+    "value": "0.788",
+    "source": "results/p0-hardware-analysis-20260914-115305.json"
+  },
+  "PzeroKingstonTheory": {
+    "value": "0.945",
+    "source": "results/p0-hardware-analysis-20260914-115305.json"
+  },
+  "PzeroFiveKingstonRaw": {
+    "value": "0.786",
+    "source": "results/p0_5-readout-20260914-121144.json"
+  },
+  "PzeroFiveKingstonCorrected": {
+    "value": "0.808",
+    "source": "results/p0_5-readout-20260914-121144.json"
+  },
+  "PzeroFiveGainMinPP": {
+    "value": "1.5",
+    "source": "results/p0_5-readout-20260914-121144.json"
+  },
+  "PzeroFiveGainMaxPP": {
+    "value": "3.3",
+    "source": "results/p0_5-readout-20260914-121144.json"
+  },
+  "PoneOptimumTruth": {
+    "value": "82.2\\%",
+    "source": "results/p1_0-baseline-augmented-T3-20260914-122157.json"
+  },
+  "PoneGateInstances": {
+    "value": "588",
+    "source": "results/p1_1-gate-20260914-124400.json"
+  },
+  "PoneGatePassed": {
+    "value": "588",
+    "source": "results/p1_1-gate-20260914-124400.json"
+  },
+  "PoneSafeOverCritThree": {
+    "value": "47",
+    "source": "results/p1_2-penalty-20260914-125028.json"
+  },
+  "PoneSafeOverCritFour": {
+    "value": "106",
+    "source": "results/p1_2-penalty-20260914-125028.json"
+  },
+  "PoneSAOracle": {
+    "value": "0.641",
+    "source": "results/p1_3-annealing-20260914-125703.json"
+  },
+  "PoneSAMaxAbs": {
+    "value": "0.355",
+    "source": "results/p1_3-annealing-20260914-125703.json"
+  },
+  "PoneSASafe": {
+    "value": "0.190",
+    "source": "results/p1_3-annealing-20260914-125703.json"
+  },
+  "PoneQAOAMaxAbsThree": {
+    "value": "0.077",
+    "source": "results/p1_4-qaoa-20260914-131628.json"
+  },
+  "PoneQAOAOracleThree": {
+    "value": "0.029",
+    "source": "results/p1_4-qaoa-20260914-131628.json"
+  },
+  "PoneQAOAMaxAbsTwo": {
+    "value": "0.578",
+    "source": "results/p1_4-qaoa-20260914-131628.json"
+  },
+  "PoneCZThreePthree": {
+    "value": "238",
+    "source": "results/p1_4-qaoa-20260914-131628.json"
+  },
+  "PoneFiveTwoPoneCZ": {
+    "value": "11",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPoneSim": {
+    "value": "0.2140",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPoneHw": {
+    "value": "0.1962",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPoneKept": {
+    "value": "91.7\\%",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPtwoCZ": {
+    "value": "22",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPtwoSim": {
+    "value": "0.5445",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPtwoHw": {
+    "value": "0.4847",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveTwoPtwoKept": {
+    "value": "89.0\\%",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveThreePoneCZ": {
+    "value": "58",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveThreePoneSim": {
+    "value": "0.0201",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveThreePoneHw": {
+    "value": "0.0180",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PoneFiveThreePoneKept": {
+    "value": "89.7\\%",
+    "source": "results/p1_5-hardware-20260914-133130.json"
+  },
+  "PtwoGateRejectedPct": {
+    "value": "0.98",
+    "source": "results/p4_supplementary-20260915-072709.json"
+  },
+  "PtwoGateTruePairs": {
+    "value": "38,683",
+    "source": "results/p4_supplementary-20260915-072709.json"
+  },
+  "PtwoILPGate": {
+    "value": "888",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoHfourShare": {
+    "value": "27.4\\%",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoHfourLow": {
+    "value": "23.7\\%",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoHfourHigh": {
+    "value": "31.5\\%",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoFactorDefault": {
+    "value": "0.303",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoFactorPure": {
+    "value": "0.737",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoFactorBearing": {
+    "value": "0.833",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoFactorBearingNoClutter": {
+    "value": "0.933",
+    "source": "results/p2_1-ilp-20260914-144533.json"
+  },
+  "PtwoQUBOGate": {
+    "value": "517",
+    "source": "results/p2_2-qubo-gate-20260914-145351.json"
+  },
+  "PtwoQUBOGatePassed": {
+    "value": "517",
+    "source": "results/p2_2-qubo-gate-20260914-145351.json"
+  },
+  "PtwoLRLowClutter": {
+    "value": "99.5\\%",
+    "source": "results/p2_3-heuristics-20260914-151102.json"
+  },
+  "PtwoGapClutterZero": {
+    "value": "0.065",
+    "source": "results/p2_3-heuristics-20260914-151102.json"
+  },
+  "PtwoGapClutterTwo": {
+    "value": "0.080",
+    "source": "results/p2_3-heuristics-20260914-151102.json"
+  },
+  "PtwoGapSpacingClose": {
+    "value": "0.130",
+    "source": "results/p2_3-heuristics-20260914-151102.json"
+  },
+  "PtwoGapSpacingFar": {
+    "value": "0.085",
+    "source": "results/p2_3-heuristics-20260914-151102.json"
+  },
+  "PtwoBenchInstances": {
+    "value": "1,620",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchInfeasible": {
+    "value": "14",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchGap": {
+    "value": "43",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchLR": {
+    "value": "98.7\\%",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchSA": {
+    "value": "63.3\\%",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchGreedy": {
+    "value": "52.7\\%",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchGreedyNorm": {
+    "value": "41.5\\%",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoHthreeMaxAbs": {
+    "value": "0.0687",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoHthreeOracle": {
+    "value": "0.0304",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoGoRatio": {
+    "value": "12.7",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoGoCZ": {
+    "value": "29",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoSixAKept": {
+    "value": "0.892",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PtwoSixAHw": {
+    "value": "0.4856",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PtwoSixBSim": {
+    "value": "0.0164",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PtwoSixBHw": {
+    "value": "0.0173",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PtwoSixBGuess": {
+    "value": "15.7",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PtwoSixUsage": {
+    "value": "18",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PthreeOptimum": {
+    "value": "-92.35",
+    "source": "results/p3_1-instance-20260914-184805.json"
+  },
+  "PthreeOptimumPaperEq": {
+    "value": "-32.85",
+    "source": "results/p3_1-instance-20260914-184805.json"
+  },
+  "PthreeOptimumLarge": {
+    "value": "-131.98",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "PthreeQualityA": {
+    "value": "0.836",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreePoptA": {
+    "value": "0.0020",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeReversedA": {
+    "value": "0.430",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeQualityC": {
+    "value": "0.575",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeQualityD": {
+    "value": "0.820",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeRandomMean": {
+    "value": "0.582",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeRandomPninetyfive": {
+    "value": "0.866",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeRandomAboveHeadline": {
+    "value": "43.4\\%",
+    "source": "results/p3_2-qaoa-20260914-190507.json"
+  },
+  "PthreeRandomBestOfAll": {
+    "value": "0.995",
+    "source": "results/p4_supplementary-20260915-072709.json"
+  },
+  "PthreeLargeQualityPone": {
+    "value": "0.534",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "PthreeLargeQualityPtwo": {
+    "value": "0.759",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "PthreeLargeRandomMean": {
+    "value": "0.150",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "PthreeLargeRandomAbove": {
+    "value": "44.0\\%",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "QPUSecondsPzero": {
+    "value": "9",
+    "source": "research log, P0 hardware sweep: IBM dashboard reading"
+  },
+  "QPUSecondsTotal": {
+    "value": "81",
+    "source": "research log, P2.6: 63 s from dashboard readings plus 18 s reported by the P2.6 jobs"
+  }
+}

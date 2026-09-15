@@ -1345,3 +1345,38 @@ The author accepted all six recommendations in `docs/p4-plan.md`:
      `f61ce51f0b0ade1015b7de7ef368541c5424e9756ecbd0d7af97d6d48030845f`.
    - matplotlib 3.11.2, added to the project environment and listed in `requirements-dev.txt`.
 6. **Licence of the report text:** CC BY 4.0 (`paper/`); the code stays Apache-2.0.
+
+## 2026-09-15 — P4.1: numbers table, supplementary results, figures
+
+No QPU; no experiment with new settings.
+
+**Supplementary results.** Preparing the numbers table showed that five results quoted in this log existed only as the printed
+output of one-off checks, with no committed file behind them. `tools/p4_supplementary.py` re-ran exactly those checks with the seeds
+recorded at the time and saved them to `results/p4_supplementary-20260915-072709.json`. Every value matched the log:
+- P2.0 gate: 378 of 38,683 true pairs rejected
+- P2.3 greedy without clutter: 100 of 100 all-singleton partitions; median tuple costs 12.54, 19.60, 28.11
+- P2.4 benchmark: a full rebuild gives identical instances (SHA-256 `5d494e42962420dc…`) and identical baselines
+- P2.6: hardware strings carry fewer ones on 10 of 10 instances, mean −0.113; correlation with CZ count 0.050
+- P3.2 random sampling: best of all samples 0.995; optimum sampled in 85.5% of runs; 5.2% of strings reach 0.641
+
+**Numbers table.** `tools/p4_numbers.py` reads 82 numbers from committed files and writes `paper/numbers.tex` (LaTeX macros) and
+`paper/numbers.json` (value and source file for each).
+- Two constants exist only as IBM dashboard readings in this log: 9 s for P0, and 81 s in total. They are listed separately and
+  labelled as not machine-checkable.
+- `tests/test_p4_numbers.py` (3 tests; 95 in the project) fails if the table no longer matches its sources, if a source file is not
+  committed, or if a log-only constant loses its label.
+- The skeleton compiles with the table included.
+
+**Figures.** `tools/p4_figures.py` draws five figures from committed files only, into `paper/figures/`:
+1. penalty study (P1)
+2. optimum-equals-truth by factor (P2.1)
+3. benchmark baselines by target count (P2.4)
+4. simulator against hardware P(optimal) (P1.5, P2.6)
+5. the QANTIS metric against uniform random sampling (P3.2)
+
+Each was checked visually. `paper/.gitignore` was narrowed so that figures are committed and only the manuscript build output is
+ignored.
+
+**Still open:** the message to the QANTIS authors is drafted but has not been approved or sent.
+
+Next: P4.2 — drafting the results sections, then the rest.
