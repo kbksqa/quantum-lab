@@ -121,3 +121,34 @@ P2 used **18 seconds** (9 s per job, as reported by the jobs), well inside its 3
   - generalised against marginal likelihood as the tuple cost
   - a recovery step for Lagrangian relaxation that handles P_D = 1
   - QAOA objectives other than ⟨H⟩ on the sparse instances where hardware already works
+
+## Addendum — P2.8, 2026-09-15: the open items closed
+
+Added after P4, at the author's request, so that P2 ends with no open items. The text above is unchanged. Hypotheses were
+registered in Amendment 2 of the plan (commit `89315eb`, pushed before any P2.8 code existed); details are in the research log.
+
+| item | hypothesis | grade | in one line |
+|---|---|---|---|
+| O1 — P1.5 circuits again on `ibm_kingston`, a later day | H5-day | **held** | corrected retention 0.875 against 0.890 — but raw retention was 0.625, because one qubit misread "0" as "1" in 75% of calibration shots |
+| O2 — marginal likelihood instead of GLR as the tuple cost | H6 | **partly held** | joins 303 clutter measurements instead of 670, but finds the truth equally often (63 against 62 discordant instances) |
+| O3 — Lagrangian recovery that may dissolve pairs | H7 | **held** | valid on every solvable instance; optimal 0.997 instead of 0.987; all 16 former failures now optimal, none lost |
+| O4 — CVaR₀.₁ instead of ⟨H⟩ as the QAOA objective | H8 | **partly held** | P(optimal) at p = 1 from 0.0126 to 0.0301 (+4.7 s.e.), but lower at p = 3 (0.104 against 0.156) |
+
+What changes in the conclusions above:
+- **Result 3:** Lagrangian relaxation with dissolved recovery is now the classical baseline to beat — 0.997 optimal, never
+  invalid. The benchmark files are unchanged; the new scores are in `results/p2_8-benchmark-20260915-102524.json`.
+- **Limits, cost model:** the marginal likelihood was tested. It removes most clutter joins but, on this benchmark, does not
+  bring the optimum closer to the truth; by setting it moved the truth share both up and down (exploratory).
+- **Result 5:** at the depth that fits hardware, a CVaR objective gives more than twice the P(optimal) of ⟨H⟩ on the sparse
+  instances. It was not run on hardware.
+- **Result 6 and H5:**
+  - *Repeat on another day:* on 2026-09-15 the same circuits on `ibm_kingston` kept 0.875 after readout correction, close to
+    0.890 the day before. With P2.6's other-device run (0.892), both halves of H5 have now been tested; the grade recorded
+    in P2 is not rewritten.
+  - *Readout on the day:* one qubit in the chosen layout read almost always "1" during the job, although the device's
+    calibration data from that morning reported a normal readout error for it. The in-job calibration caught this, and the
+    raw retention (0.625) shows how much the correction mattered.
+  - *Lesson:* a device's reported calibration is not a substitute for calibration circuits in the same job.
+
+P2.8 used **9 seconds** of QPU time, bringing the project total to **90 seconds** of the 10-minute IBM Quantum Open Plan
+allowance.

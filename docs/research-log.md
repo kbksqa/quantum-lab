@@ -1626,3 +1626,50 @@ has not been done.
 
 **Answer to the open question from P2.** On the sparse instances at the depth that fits hardware, CVaR₀.₁ is a clearly better
 training objective than ⟨H⟩. At p = 3 it was worse, so it is not better at every depth.
+
+## 2026-09-15 — P2.8 results: O1 (H5-day), checked against the predictions
+
+- **Approval:** given by the author after the predictions (commit `ca65010`) were on GitHub (`dd50349` pushed). Submitted with
+  the registered plan file.
+- **Job:** `dakc8c9hvn6c73cved60` on `ibm_kingston`, submitted 11:06:09 and finished 11:11:28 on 2026-09-15.
+- **Circuits:** re-transpiling gave the plan's CZ counts (22 each).
+- **Result file:** `results/p2_8-h5-hardware-20260915-110607.json`.
+- **QPU usage reported by the job: 9 s.** The project total is now 90 s.
+
+| run | device | day | simulator | hardware raw | hardware corrected | retention corrected (raw) |
+|---|---|---|---|---|---|---|
+| P1.5 | `ibm_kingston` | 2026-09-14 | 0.5445 | 0.4762 | 0.4847 | 0.890 (0.875) |
+| P2.6 A | `ibm_fez` | 2026-09-14 | 0.5445 | 0.4730 | 0.4856 | 0.892 (0.869) |
+| **P2.8 O1** | `ibm_kingston` | **2026-09-15** | 0.5445 | **0.3403** | **0.4763** | **0.875 (0.625)** |
+
+**Predictions:**
+1. **H5-day — held.** Corrected retention 0.875, 0.015 from 0.890; the threshold was 0.05.
+2. **D1 — held.** 0.875 is inside 0.84–0.94; the point estimate was 0.89.
+3. **D2 — held.** Corrected mean 0.4763 is inside 0.455–0.515.
+4. **D3 — failed, by a wide margin.** Readout correction raised the mean from 0.340 to 0.476, which is 40% of the raw value.
+   The prediction was under 15%.
+
+**Why D3 failed — found in the job's own calibration circuits.**
+- **Layout:** the transpiler placed the circuits on physical qubits 2, 3, 16 and 23 (P1.5 used qubits 38–50).
+- **Qubit 16:** read "1" after being prepared in "0" in **74.5%** of the all-0 calibration shots, and "0" after "1" in 13.2%.
+  The other three qubits stayed at 0.05–1.1%.
+- **Reported calibration:** the device's calibration data, last updated at 10:32 that morning, gave qubit 16 a readout error of
+  0.0057 (P(1|0) = 0.0024).
+- **What is known:** the device's reported value did not describe the qubit during this job. The cause — drift after
+  calibration, or something else — cannot be determined from this data.
+
+**What the grade does and does not mean.**
+- **The registered measure held:** after the tensored readout correction from the job's own calibration circuits, retention on a
+  different day was within 0.015 of P1.5.
+- **The correction carried much of the result:** it inverted an assignment matrix for qubit 16 with determinant 0.12. The
+  raw retention was 0.625.
+- **What survived:** the gates and the correction method gave the same answer a day later. A day on which the raw readout of
+  the same device is this different is evidence against trusting raw hardware numbers without a calibration taken in the same
+  job — which is why every hardware run in this project included one.
+
+**Exploratory, not pre-registered.** Per instance, corrected retention ranged from 0.77 to 1.05, and raw retention from 0.26 to
+0.91. The lowest raw values (instances 4 and 7, raw 0.15 and 0.12) recovered to 0.53 and 0.39 after correction. That suggests
+the optimal answers of those instances need qubit 16 to read "0"; it was not checked.
+
+**H5 as a whole.** The device half was held in P2.6 and the day half is held here, with the caveat above. H5 was registered as
+one hypothesis; its recorded grade in `docs/p2-summary.md` stays "partly held" from P2, and the addendum records both halves.
