@@ -1479,3 +1479,5 @@ Next: P4.5 — final build, release, and the Zenodo report record.
   archiving did not wait for a reply. The report is dated as version 1.0.
 - **Release.** Approved by the author. `CITATION.cff` now names v1.0.0. The compiled report is attached to the GitHub release as
   `quantum-lab-report-v1.0.pdf`. The author will create the separate Zenodo record of type "report", linked to the software concept DOI.
+
+Zenodo DOI for v1.0.0: 10.5281/zenodo.22760618. The concept DOI 10.5281/zenodo.22741037 resolves to it.
