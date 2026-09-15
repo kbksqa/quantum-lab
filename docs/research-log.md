@@ -1818,3 +1818,9 @@ Next: P5.1 — the simulator study on the P1.4 sets, H1–H4 and the hardware go
    the only one of the three that can run within it.
 
 Next: P5.3 — summary, release and DOI (P5.2 skipped by the go rule).
+
+## 2026-09-15 — P5.3: summary
+
+- `docs/p5-summary.md` written from the P5.0 and P5.1 entries. The README roadmap marks P5 as done.
+- No new computation.
+- The release and DOI wait for the author's approval.
