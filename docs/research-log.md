@@ -2089,3 +2089,53 @@ Next: P6.3 — C5, an attempt to reproduce Table 6.
 Next: P6.4 — the hardware go rule for the Grover k = 1 experiment (C1 reproduced; C3 partly reproduced for the Grover
 circuit; a dry-run QPU estimate within 60 s still to be made), with predictions and the author's approval before any
 submission.
+
+## 2026-09-15 — P6.4 pre-registration: go rule met; plan and predictions before submission
+
+- **Code:** `src/p6_hardware.py`. **Tests:** `tests/test_p6_hardware.py` (5, offline; 134 in the project).
+- **Plan:** `results/p6_4-plan-20260915-172319.json`, from a dry run at 17:23. **No job has been submitted.**
+- **Refusals built in:** the script submits nothing without a plan file, and nothing if the go rule fails.
+
+**Go rule (plan), all three met:**
+1. C1 reproduced (P6.1).
+2. C3 for the Grover circuit partly reproduced (P6.2).
+3. QPU-time estimate within 60 s.
+   - *Rule, fixed in the script before the dry run:* 9 s — what this project's jobs have reported for up to 49,152 shots —
+     × max(1, shots / 49,152) × 2 for twirling overhead.
+   - *For this job:* 65,536 shots gives an estimate of **24 s**.
+
+**Run:**
+- *Device:* `ibm_kingston`, lowest median CZ error today (0.0021; `ibm_fez` 0.0027, `ibm_marrakesh` 0.0030).
+- *Circuits:* the P6.1 circuits rebuilt from the paper — prior [0.97, 0.03], target observation 1.
+  - Baseline A: 2 CZ, depth 13.
+  - Grover A S₀ A† S_f A: 3 CZ, depth 18.
+  - Both on physical qubits 154 and 155.
+  - The transpiled depths are again the paper's "ISA 13" and "ISA 18".
+- *Job layout:* one job with three replicates of the baseline + Grover pair, plus all-0 / all-1 readout calibration on
+  qubits 154 and 155. That is 8 circuits × 8,192 shots.
+- *Mitigation as the paper documents it:* Pauli twirling on gates with 32 randomisations, XY4 dynamical decoupling.
+  - ZNE is not used, since the paper does not use it for this experiment.
+  - Raw values are the headline, because the paper states no readout correction; corrected values are reported alongside.
+
+**Grading of the hardware claim, fixed now.** Paper values: 0.179 → 0.907, 5.1×, posterior [0.849, 0.151]. Graded on the raw
+means over the three replicates:
+- (a) Grover P(obs = 1) within 0.03 of 0.907
+- (b) amplification within 0.5 of 5.1
+- (c) Hellinger distance of the post-selected posterior to exact Bayes below 0.05
+
+Reproduced if all three hold, partly reproduced if two, not reproduced otherwise.
+
+**Predictions, fixed before any result exists** (raw means over the replicates):
+
+| | prediction | reasoning |
+|---|---|---|
+| E1 | baseline P(obs = 1) between 0.160 and 0.195 | 0.171 plus readout and gate error; the paper saw 0.179 |
+| E2 | Grover P(obs = 1) between 0.860 and 0.930 | 0.917 less a few points for 3 CZ at about 0.002 each and 1% readout; the paper saw 0.907 |
+| E3 | amplification between 4.5 and 5.6 | follows from E1 and E2; the paper saw 5.1 |
+| E4 | posterior Hellinger distance below 0.02 | shot noise on about 7,400 kept shots per replicate is about 0.005; the paper saw 0.0015 |
+| E5 | usable samples per oracle application, Grover over direct, between 1.5 and 1.9 | theory 1.79 (P6.1 Q1), less the hardware loss |
+
+**Shot noise, stated in advance:** at P(obs = 1) ≈ 0.9 with 8,192 shots per replicate, the standard error of one replicate is
+about 0.003 and of the mean of three about 0.002.
+
+The submission waits for the author's explicit approval to use QPU time, after this entry is on GitHub.
