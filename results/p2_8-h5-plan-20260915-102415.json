@@ -1,0 +1,358 @@
+{
+  "stamp": "20260915-102415",
+  "experiment": "P2.8 O1: H5 day half",
+  "day": "2026-09-15",
+  "p1_5_day": "2026-09-14",
+  "device_ranking": [
+    {
+      "backend": "ibm_kingston",
+      "median_cz_error": 0.0020020270257711803,
+      "median_readout_error": 0.00787353515625
+    },
+    {
+      "backend": "ibm_fez",
+      "median_cz_error": 0.0028683560480163572,
+      "median_readout_error": 0.00927734375
+    },
+    {
+      "backend": "ibm_marrakesh",
+      "median_cz_error": 0.0031822639146197873,
+      "median_readout_error": 0.0126953125
+    }
+  ],
+  "shots": 2048,
+  "total_shots": 24576,
+  "experiments": {
+    "A": {
+      "backend": "ibm_kingston",
+      "instances": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "union": [
+        2,
+        3,
+        16,
+        23
+      ],
+      "circuits": 12,
+      "two_qubit_gates": [
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22,
+        22
+      ],
+      "simulator_p_optimal_mean": 0.5444747119114242,
+      "simulator_p_feasible_mean": 0.7214830412205304,
+      "uniform_p_optimal_mean": 0.0625,
+      "items": [
+        {
+          "size": "pure 2x2",
+          "index": 0,
+          "p": 2,
+          "qubits": 4,
+          "A": 16.55972561550353,
+          "optimum": 23.16459870105971,
+          "gammas": [
+            1.836777564277747,
+            2.0025899661572883
+          ],
+          "betas": [
+            0.7104380843936374,
+            -0.46532609289259785
+          ],
+          "simulator": {
+            "p_optimal": 0.6444002875950349,
+            "p_feasible": 0.7343122206338292
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 65,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 1,
+          "p": 2,
+          "qubits": 4,
+          "A": 16.40313712754032,
+          "optimum": 18.328924608142813,
+          "gammas": [
+            2.1952814234547544,
+            2.0971043376683265
+          ],
+          "betas": [
+            2.071471628830497,
+            2.403619335116002
+          ],
+          "simulator": {
+            "p_optimal": 0.5514566687866681,
+            "p_feasible": 0.8484446815071351
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 65,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 2,
+          "p": 2,
+          "qubits": 4,
+          "A": 12.340284063586603,
+          "optimum": 16.39127173112069,
+          "gammas": [
+            1.8333005391240311,
+            1.998391307806477
+          ],
+          "betas": [
+            0.730734689606411,
+            -0.4938411768759005
+          ],
+          "simulator": {
+            "p_optimal": 0.6411919969348941,
+            "p_feasible": 0.7163303808110999
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 65,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 3,
+          "p": 2,
+          "qubits": 4,
+          "A": 22.181930879056907,
+          "optimum": 19.14697469119057,
+          "gammas": [
+            2.6164448283100565,
+            2.5140245224418916
+          ],
+          "betas": [
+            1.2823943793124708,
+            2.6599409352024295
+          ],
+          "simulator": {
+            "p_optimal": 0.47229480727382006,
+            "p_feasible": 0.6838629386494933
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 65,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 4,
+          "p": 2,
+          "qubits": 4,
+          "A": 13.806884436753005,
+          "optimum": 18.310425192814016,
+          "gammas": [
+            1.8544617604549607,
+            2.0219052333381025
+          ],
+          "betas": [
+            0.716430648351051,
+            -0.47755613798955754
+          ],
+          "simulator": {
+            "p_optimal": 0.5881032299444081,
+            "p_feasible": 0.6837772614528161
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 65,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 5,
+          "p": 2,
+          "qubits": 4,
+          "A": 13.051554954972394,
+          "optimum": 17.798658259476795,
+          "gammas": [
+            3.8287530950285813,
+            3.6538947876599908
+          ],
+          "betas": [
+            1.4130333884971953,
+            0.45140360233228055
+          ],
+          "simulator": {
+            "p_optimal": 0.2741340623645465,
+            "p_feasible": 0.6003312292541567
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 66,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 6,
+          "p": 2,
+          "qubits": 4,
+          "A": 23.67735647053237,
+          "optimum": 20.028012548060886,
+          "gammas": [
+            3.898113780943914,
+            -0.3654436579623608
+          ],
+          "betas": [
+            1.272907679985993,
+            0.6298374876326878
+          ],
+          "simulator": {
+            "p_optimal": 0.364258709532964,
+            "p_feasible": 0.6610760569812223
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 67,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 7,
+          "p": 2,
+          "qubits": 4,
+          "A": 15.400245896056106,
+          "optimum": 20.754442560903406,
+          "gammas": [
+            0.3097710324321772,
+            0.5764134491611678
+          ],
+          "betas": [
+            -0.472051996663391,
+            -0.2885268022969929
+          ],
+          "simulator": {
+            "p_optimal": 0.3787145438061083,
+            "p_feasible": 0.6765657034364146
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 68,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 8,
+          "p": 2,
+          "qubits": 4,
+          "A": 11.812322443392652,
+          "optimum": 17.216060527487627,
+          "gammas": [
+            1.7395490391783444,
+            3.509229523945375
+          ],
+          "betas": [
+            0.7887645007422304,
+            0.5614012890971097
+          ],
+          "simulator": {
+            "p_optimal": 0.8296963689873945,
+            "p_feasible": 0.8435099773964453
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 66,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        },
+        {
+          "size": "pure 2x2",
+          "index": 9,
+          "p": 2,
+          "qubits": 4,
+          "A": 11.28617075982094,
+          "optimum": 17.02093510144335,
+          "gammas": [
+            3.365508932639439,
+            3.891655373328021
+          ],
+          "betas": [
+            0.8097651109708708,
+            1.15931321737684
+          ],
+          "simulator": {
+            "p_optimal": 0.7004964438884032,
+            "p_feasible": 0.7666199620826917
+          },
+          "experiment": "A",
+          "two_qubit_gates": 22,
+          "depth": 68,
+          "measured_physical_qubits": [
+            2,
+            23,
+            3,
+            16
+          ]
+        }
+      ]
+    }
+  },
+  "grading": "|retention - 0.890| <= 0.05 held, <= 0.10 partly held, otherwise failed",
+  "status": "plan (dry run, nothing submitted)"
+}

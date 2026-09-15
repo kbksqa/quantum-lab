@@ -1520,3 +1520,33 @@ No marginal-likelihood cost, dissolved recovery or CVaR number existed when the 
 flagged as uncertain in the plan, with the reason.
 
 The benchmark instance file is not rebuilt. The new methods are scored against it by a separate script.
+
+## 2026-09-15 — P2.8 / O1 pre-registration: plan and predictions before submission
+
+- **Code:** `src/p2_8_h5_day.py`. It reuses the P2.6 rebuild, transpile, readout-correction and collect functions and fixes
+  the device to `ibm_kingston`. It refuses to submit without a plan file, on the calendar day of P1.5, or if the device is
+  not operational.
+- **Tests:** `tests/test_p2_8.py`.
+- **Plan:** `results/p2_8-h5-plan-20260915-102415.json`, made by a dry run at 10:24 on 2026-09-15, the day after P1.5.
+  **No job has been submitted.**
+- **Run:** the same 10 pure 2 × 2 instances at p = 2 as P1.5, 22 CZ each (the same as P2.6 on `ibm_fez`), with simulator
+  mean P(optimal) 0.5445. The job has 12 circuits (10 + 2 readout calibration) at 2048 shots, 24,576 shots in total, about
+  9 s of QPU time.
+- **Calibration today** (median CZ error / median readout error):
+  - `ibm_kingston` 0.0020 / 0.0079 — on P1.5's day, 0.0019 / 0.0088
+  - `ibm_fez` 0.0029 / 0.0093
+  - `ibm_marrakesh` 0.0032 / 0.0127
+
+**Predictions, fixed before any result exists.**
+1. **H5-day (registered in Amendment 2):** corrected retention within 0.05 of 0.890 is held, within 0.10 partly held,
+   otherwise failed.
+2. **D1:** retention between 0.84 and 0.94; point estimate 0.89. The median CZ error is the same as on P1.5's day to the
+   reported precision, and P2.6 found no measurable effect from a 50% higher CZ error on these 22-CZ circuits.
+3. **D2:** corrected mean P(optimal) is within ±0.03 of P1.5's 0.4847, that is between 0.455 and 0.515.
+4. **D3:** readout correction changes the mean P(optimal) by less than 15% of its raw value.
+
+**Shot noise, stated in advance:** at P(optimal) ≈ 0.49 with 2048 shots on each of 10 circuits, the standard error of the mean
+is about 0.003, so retention carries about ±0.006 from shots alone. A difference between days smaller than that cannot be told
+apart from sampling.
+
+The submission waits for the author's explicit approval to use QPU time, after this entry is on GitHub.

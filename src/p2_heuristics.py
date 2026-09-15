@@ -9,7 +9,8 @@
 #   Multipliers follow subgradient steps (Polyak step towards the best upper bound; theta starts at 2 and halves after
 #   10 iterations without a better bound; at most 200 iterations; stop when the bounds meet).
 #   Every iteration also recovers a feasible answer - an upper bound. It keeps the relaxed (i1, i2) pairs and assigns the
-#   sensor-3 measurements to them with a second 2D assignment.
+#   sensor-3 measurements to them with a second 2D assignment. P2.8 adds an option to dissolve a pair into two singletons
+#   (dissolve=True); the default is the method as registered in P2.3.
 #   The inner problem has integral solutions (each tuple sits in at most one sensor-1 and one sensor-2 constraint), so the best
 #   possible Lagrangian bound equals the LP relaxation of the ILP. The "duality gap" below is therefore ILP optimum - LP bound,
 #   computed exactly with HiGHS. How far the subgradient's own bound falls short of it is reported separately.
@@ -140,8 +141,13 @@ def lagrangian_value(scene, tuple_set, u: np.ndarray, structure=None) -> tuple[f
     return total, chosen
 
 
-def recover(scene, tuple_set, chosen: list, lookup: dict) -> tuple[float, list | None]:
-    """Keep the relaxed (i1, i2) pairs; assign sensor-3 measurements to them optimally."""
+def recover(scene, tuple_set, chosen: list, lookup: dict, dissolve: bool = False) -> tuple[float, list | None]:
+    """Keep the relaxed (i1, i2) pairs; assign sensor-3 measurements to them optimally.
+
+    dissolve (P2.8, H7): a pair of two real measurements may instead be split into (i1, 0, 0) and (0, i2, 0). That option
+    shares the pair's "no sensor-3" column, which costs the cheaper of (i1, i2, 0) and the two singletons. With P_D = 1,
+    (i1, i2, 0) does not exist, and without this option a pair the gate cannot complete leaves no valid answer.
+    """
     M3 = len(scene.measurements[2])
     pairs = sorted({t[:2] for t in chosen if t[:2] != (0, 0)})
     P = len(pairs)
@@ -149,10 +155,15 @@ def recover(scene, tuple_set, chosen: list, lookup: dict) -> tuple[float, list |
     if N == 0:
         return 0.0, []
     C = np.full((N, N), np.inf)
+    split = [False] * P
     for p, pair in enumerate(pairs):
         for j in range(1, M3 + 1):
             C[p, j - 1] = lookup.get(pair + (j,), np.inf)
         C[p, M3 + p] = lookup.get(pair + (0,), np.inf)
+        if dissolve and pair[0] and pair[1]:
+            singles = lookup.get((pair[0], 0, 0), np.inf) + lookup.get((0, pair[1], 0), np.inf)
+            if singles < C[p, M3 + p]:
+                C[p, M3 + p], split[p] = singles, True
     for j in range(1, M3 + 1):
         C[P + j - 1, j - 1] = lookup.get((0, 0, j), np.inf)
     C[P:, M3:] = 0.0
@@ -162,7 +173,9 @@ def recover(scene, tuple_set, chosen: list, lookup: dict) -> tuple[float, list |
         return math.inf, None
     partition = []
     for a, b in zip(rows, cols):
-        if a < P:
+        if a < P and b >= M3 and split[a]:
+            partition += [(pairs[a][0], 0, 0), (0, pairs[a][1], 0)]
+        elif a < P:
             partition.append(pairs[a] + ((b + 1) if b < M3 else 0,))
         elif b < M3:
             partition.append((0, 0, b + 1))
@@ -170,7 +183,7 @@ def recover(scene, tuple_set, chosen: list, lookup: dict) -> tuple[float, list |
     return partition_cost(tuple_set, partition), partition
 
 
-def lagrangian_relaxation(scene, tuple_set, iterations: int = 200) -> dict:
+def lagrangian_relaxation(scene, tuple_set, iterations: int = 200, dissolve: bool = False) -> dict:
     if len(scene.sensors) != 3:
         raise ValueError("this relaxation is written for three sensors")
     structure = lr_structure(tuple_set)
@@ -191,7 +204,7 @@ def lagrangian_relaxation(scene, tuple_set, iterations: int = 200) -> dict:
             stall += 1
             if stall >= 10:
                 theta, stall = theta / 2, 0
-        ub, partition = recover(scene, tuple_set, chosen, lookup)
+        ub, partition = recover(scene, tuple_set, chosen, lookup, dissolve)
         if ub < best_ub:
             best_ub, best_partition = ub, partition
         if best_ub - best_lb <= tol(best_ub):

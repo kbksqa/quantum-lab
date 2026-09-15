@@ -189,7 +189,7 @@ def main_submit(args) -> pathlib.Path | None:
     return path
 
 
-def collect(path: pathlib.Path) -> None:
+def collect(path: pathlib.Path, prefix: str = "p2_6-hardware") -> pathlib.Path:
     from qiskit_ibm_runtime import QiskitRuntimeService
 
     record = json.loads(path.read_text(encoding="utf-8"))
@@ -231,9 +231,10 @@ def collect(path: pathlib.Path) -> None:
         print("== experiment %s on %s: %s" % (name, e["backend"], {k: round(v, 4) for k, v in e["summary"].items()}))
     record["status"] = "done"
     record["finished_at"] = dt.datetime.now().astimezone().isoformat()
-    out = RESULTS / ("p2_6-hardware-%s.json" % record["stamp"])
+    out = RESULTS / ("%s-%s.json" % (prefix, record["stamp"]))
     out.write_text(json.dumps(record, indent=2), encoding="utf-8")
     print("saved " + str(out))
+    return out
 
 
 def main() -> None:
