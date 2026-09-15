@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-09-15T14:02:11.119098+07:00",
+  "experiment": "P5.0 gates G1-G3 for constraint-preserving mixers",
+  "seed": 2050,
+  "per_size": 5,
+  "G1": {
+    "pure 2x2": {
+      "circuits_checked": 45,
+      "max_amplitude_difference": 1.319485001705613e-15,
+      "passed": true
+    },
+    "pure 3x3": {
+      "circuits_checked": 45,
+      "max_amplitude_difference": 1.5455978853258126e-13,
+      "passed": true
+    }
+  },
+  "G2": {
+    "pure 2x2": {
+      "max_probability_outside": {
+        "rxy": 6.661338147750939e-16,
+        "perm": 6.661338147750939e-16
+      },
+      "passed": true,
+      "space_sizes": {
+        "xpen": 16,
+        "rxy": 4,
+        "perm": 2
+      }
+    },
+    "pure 3x3": {
+      "max_probability_outside": {
+        "rxy": 1.1102230246251565e-15,
+        "perm": 1.1102230246251565e-15
+      },
+      "passed": true,
+      "space_sizes": {
+        "xpen": 512,
+        "rxy": 27,
+        "perm": 6
+      }
+    }
+  },
+  "G3": {
+    "pure 2x2": {
+      "instances": 50,
+      "max_optimum_difference": 0.0,
+      "max_p_optimal_difference": 0.0,
+      "passed": true
+    },
+    "pure 3x3": {
+      "instances": 50,
+      "max_optimum_difference": 0.0,
+      "max_p_optimal_difference": 0.0,
+      "passed": true
+    }
+  },
+  "passed": true
+}

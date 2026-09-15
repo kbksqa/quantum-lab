@@ -1702,3 +1702,50 @@ Zenodo DOI for v1.1.0: 10.5281/zenodo.22761584. The concept DOI 10.5281/zenodo.2
 
 The P2 go-rule budget of 60 CZ is reused unchanged. The plan states in advance that PERM's four-qubit rotations may exceed it
 already at depth 1.
+
+## 2026-09-15 — P5.0: circuits, simulator and the hard gates — all passed
+
+The author approved the plan, and it was pushed as the pre-registration (`f40ecc7`) before any P5 code existed.
+
+- **Code:** `src/p5_mixers.py`. **Tests:** `tests/test_p5_mixers.py` (6; 113 in the project).
+- **Result:** `results/p5_0-gates-20260915-140211.json`. No QPU time.
+- **No P(optimal), lift or gate count of R-XY or PERM has been computed yet.** The gates below use random angles only.
+
+**How the ansätze are built**
+- **Qubits:** qubit k = i · n + j is cell (row i, column j), with basis index Σ x_k 2^k (Qiskit's order).
+- **R-XY:**
+  - *Mixer:* for each row, on every pair of its qubits in lexicographic order, exp(−iβ(|01⟩⟨10| + h.c.)), which is
+    `XXPlusYYGate(2β)` in the circuit.
+  - *Start:* a W state on each row, from `StatePreparation`.
+- **PERM:**
+  - *Mixer:* for rows i < i′ and columns j < j′, a rotation between |a b c d⟩ = |1100⟩ and |0011⟩, with a = (i, j),
+    b = (i′, j′), c = (i, j′), d = (i′, j).
+  - *Circuit:* CX(a→b), CX(a→c) and CX(a→d) map |1100⟩ to |1011⟩ and leave |0011⟩ alone. An RX(2β) on a, controlled by
+    b = 0, c = 1, d = 1, then mixes exactly these two states, and the three CX gates are undone.
+  - *Start:* uniform over the n! permutations, from `StatePreparation`.
+- **Phase operator:** the Ising form of each ansatz's energy, divided by its largest coefficient, as in P1.4. Each Ising form
+  is checked against the energies of all 2^(n²) strings.
+
+**Gates:**
+
+| gate | check | pure 2 × 2 | pure 3 × 3 |
+|---|---|---|---|
+| G1 | transpiled circuit statevector vs simulator; 5 instances × 3 ansätze × depths 1–3, random angles, global phase removed | 45 circuits, max difference 1.3 × 10⁻¹⁵ | 45 circuits, max difference 1.6 × 10⁻¹³ |
+| G2 | probability outside the preserved space, same random angles (threshold 1e-12) | R-XY 6.7 × 10⁻¹⁶, PERM 6.7 × 10⁻¹⁶ | R-XY 1.1 × 10⁻¹⁵, PERM 1.1 × 10⁻¹⁵ |
+| G3 | P1.4 instances and stored angles against stored optima and P(optimal), 50 instances each | 0 difference | 0 difference |
+
+- G3 also confirmed that the permutation mask equals P1's feasibility test (V = 0), that the penalty equals the stored A on
+  every instance, and that this module's X+pen energies and scaled phases equal P1.4's.
+
+**Independent checks in the tests:**
+- The XY rotation and the PERM rotation equal the matrix exponential of their Hamiltonians, built from σ⁺ and σ⁻ with Kronecker
+  products; the PERM circuit gadget matches the same exponential through Qiskit's `Operator`.
+- Space sizes are n^n and n!, and the PERM rotations connect all 6 permutations of 3 × 3.
+
+**Corrections while writing, before the gate run that counts:**
+- A test assumed the rotation acts in one direction only; the test was wrong and was fixed.
+- The controlled RX now passes `annotated=False` explicitly, because Qiskit 2.5 deprecates the default.
+- A first gate run, made before that change, gave identical numbers. Its file was deleted and the gates were run again on the
+  final code.
+
+Next: P5.1 — the simulator study on the P1.4 sets, H1–H4 and the hardware go rule.
