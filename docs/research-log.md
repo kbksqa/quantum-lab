@@ -2277,3 +2277,25 @@ confirmed the result:
 - *Description:* the abstract as one plain paragraph, with no leftover formatting.
 - *Unchanged:* the file, MD5, version, licence, creator and related identifier. The record is still the latest version.
 - *Correction to the upload guide:* it said to keep the old keywords, but version 1.0 had none.
+
+## 2026-09-15 — Project closed
+
+The author closed the project.
+
+**Final state:**
+
+| item | outcome |
+|---|---|
+| Roadmap | P0–P6 complete |
+| Software | release v1.3.0 (10.5281/zenodo.22767339; all versions 10.5281/zenodo.22741037) |
+| Technical report | version 1.1 (10.5281/zenodo.22767749; all versions 10.5281/zenodo.22760769) |
+| Quantum processor time | 110 s of the IBM Quantum Open Plan allowance |
+| Tests | 134 automated tests pass |
+
+**Still open, and only these:**
+- replies to the two emails sent to the QANTIS authors on 15 September 2026
+- the open questions each summary lists, which are left for any future work: for example, cheaper constraint-preserving
+  circuits, and a hardware run of the row-XY mixer at 2 × 2
+
+A reply would be recorded here as a new entry. Any correction to a report would be issued as a new version, not by editing a
+published one.

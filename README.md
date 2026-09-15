@@ -8,6 +8,12 @@ Every experiment is run twice: on a classical simulator and, where it fits, on *
 
 > All data in this repository is **synthetic or public**. Nothing here originates from any operational system.
 
+**Status: closed on 2026-09-15.**
+- **Complete:** the roadmap (P0–P6), with the final software release v1.3.0 and the technical report version 1.1.
+- **Quantum processor time:** 110 s in total.
+- **Still to come:** replies from the QANTIS authors to the two emails will be recorded in the research log, and a corrected
+  report issued if one is needed.
+
 ## Why this repository exists
 
 I am an engineer with two decades of experience in multi-sensor data fusion and target tracking, now working toward research in quantum information theory. Most quantum algorithm research has never met a real tracking problem; most tracking engineers cannot read a quantum paper. This repository is my attempt to stand in both places, in public, one experiment at a time.
