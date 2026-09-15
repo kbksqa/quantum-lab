@@ -8,6 +8,7 @@
 
 import json
 import pathlib
+import re
 import subprocess
 import sys
 import unittest
@@ -39,6 +40,25 @@ class TestNumbers(unittest.TestCase):
         for name, _, note in p4_numbers.LOG_CONSTANTS:
             self.assertIn("research log", self.table[name]["source"])
             self.assertTrue(note)
+        for name, _, note in p4_numbers.QUOTED_CONSTANTS:
+            self.assertIn("quoted from", self.table[name]["source"])
+
+    def test_manuscript_has_no_hand_typed_result_decimals(self):
+        # Design parameters stated in the text are allowed; anything else that looks like a result must come from a macro.
+        allowed = {"0.9", "9.21", "1.5"}
+        text = (ROOT / "paper" / "main.tex").read_text(encoding="utf-8")
+        text = text.split("\\begin{document}", 1)[1]                    # layout settings in the preamble are not results
+        text = re.sub(r"(?<!\\)%.*", "", text)                          # comments
+        text = re.sub(r"\\href\{[^}]*\}\{[^}]*\}", "", text)            # links, including their visible text
+        text = re.sub(r"\\(url|cite|ref|label|includegraphics|input|bibliography\w*)(\[[^\]]*\])?\{[^}]*\}", "", text)
+        text = re.sub(r"\d+\.\d+\.\d+", "", text)                        # version numbers
+        found = set(re.findall(r"(?<![\\\w])\d+\.\d+", text))
+        self.assertEqual(found - allowed, set(), "hand-typed decimals in main.tex; use a macro from numbers.tex")
+
+    def test_every_macro_used_is_defined(self):
+        text = (ROOT / "paper" / "main.tex").read_text(encoding="utf-8")
+        used = set(re.findall(r"\\(P(?:zero|one|two|three)[A-Za-z]+|QPU[A-Za-z]+)", text))
+        self.assertEqual(used - set(self.table), set())
 
 
 if __name__ == "__main__":

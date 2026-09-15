@@ -135,7 +135,7 @@ def entries() -> list:
         ("PtwoHthreeOracle", P25, lambda: get(P25, "sets", "pure T=2", "qaoa", "oracle_1.5x_crit p3", "p_optimal_mean"), F4),
         ("PtwoGoRatio", P25, lambda: get(P25, "go_no_go", "candidates", 6, "ratio_to_guessing"), "{:.1f}"),
         ("PtwoGoCZ", P25, lambda: int(get(P25, "go_no_go", "candidates", 6, "median_cz")), INT),
-        ("PtwoSixAKept", P26, lambda: get(P26, "experiments", "A", "summary", "retention_corrected"), F3),
+        ("PtwoSixAKept", P26, lambda: get(P26, "experiments", "A", "summary", "retention_corrected"), PCT1),
         ("PtwoSixAHw", P26, lambda: get(P26, "experiments", "A", "summary", "hardware_corrected_p_optimal"), F4),
         ("PtwoSixBSim", P26, lambda: get(P26, "experiments", "B", "summary", "simulator_p_optimal"), F4),
         ("PtwoSixBHw", P26, lambda: get(P26, "experiments", "B", "summary", "hardware_corrected_p_optimal"), F4),
@@ -158,6 +158,21 @@ def entries() -> list:
         ("PthreeLargeQualityPtwo", P33, lambda: get(P33, "method_a", "p2", "quality_top10_mean"), F3),
         ("PthreeLargeRandomMean", P33, lambda: get(P33, "random_baseline", "mean"), F3),
         ("PthreeLargeRandomAbove", P33, lambda: get(P33, "random_baseline", "share_at_or_above_0.204"), PCT1),
+        # added while drafting (P4.2)
+        ("PtwoQUBOInfeasible", P22, lambda: sum(s["infeasible"] for s in get(P22, "summary")), INT),
+        ("PtwoHthreePurePositive", P25, lambda: get(P25, "sets", "pure T=2", "paired_max_abs_minus_oracle", "p3", "positive_share"), PCT1),
+        ("PtwoHthreeSparsePositive", P25, lambda: get(P25, "sets", "sparse T=2", "paired_max_abs_minus_oracle", "p3", "positive_share"), PCT1),
+        ("PtwoPureCZ", P25, lambda: int(get(P25, "go_no_go", "candidates", 0, "median_cz")), INT),
+        ("PtwoBenchLRInvalid", BENCH, lambda: sum(r["feasible"] == "True" and r["lagrangian_valid"] != "True" for r in b), INT),
+        ("PtwoBenchGreedyInvalid", BENCH, lambda: sum(r["feasible"] == "True" and r["greedy_valid"] != "True" for r in b), INT),
+        ("PtwoBenchLRGap", BENCH, lambda: share([r for r in b if r["has_gap"] == "True"], "lagrangian_optimal"), PCT1),
+        ("PtwoSixBCZMin", P26, lambda: min(get(P26, "experiments", "B", "two_qubit_gates")), INT),
+        ("PtwoSixBCZMax", P26, lambda: max(get(P26, "experiments", "B", "two_qubit_gates")), INT),
+        ("PthreePaperHungarian", P31, lambda: get(P31, "paper_hungarian"), "{:.1f}"),
+        ("PthreeCOneDiff", P31, lambda: get(P31, "grades", "C1_difference"), F3),
+        ("PthreeLargePaperOptimum", P33, lambda: get(P33, "paper_optimum"), "{:.1f}"),
+        ("PthreeLargePaperPone", P33, lambda: get(P33, "paper_hardware_quality", "1"), PCT1),
+        ("PthreeLargePaperPtwo", P33, lambda: get(P33, "paper_hardware_quality", "2"), PCT1),
     ]
     return e
 
@@ -165,6 +180,14 @@ def entries() -> list:
 LOG_CONSTANTS = [
     ("QPUSecondsPzero", 9, "research log, P0 hardware sweep: IBM dashboard reading"),
     ("QPUSecondsTotal", 81, "research log, P2.6: 63 s from dashboard readings plus 18 s reported by the P2.6 jobs"),
+]
+
+# Numbers reported by the paper under study, quoted (not our results). Only those not already stored in a result file.
+QUOTED_CONSTANTS = [
+    ("PthreePaperHeadline", "64.1", "quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (percent of optimum)"),
+    ("PthreePaperHeadlineSD", "3.3", "quoted from arXiv:2603.00785, Sec. 8.6 (percentage points, three runs)"),
+    ("PthreePaperTwoQubitGates", "433--435", "quoted from arXiv:2603.00785, Sec. 8.6 and Table 4 (p = 3)"),
+    ("PthreePaperSimPthree", "90.9", "quoted from arXiv:2603.00785, Sec. 8.6 (simulator quality, p = 3, percent)"),
 ]
 
 
@@ -186,6 +209,10 @@ def build() -> tuple[str, dict]:
     lines += ["", "% Constants that exist only in the research log (not machine-checkable):"]
     for name, value, note in LOG_CONSTANTS:
         table[name] = {"value": str(value), "source": note}
+        lines.append("\\newcommand{\\%s}{%s}  %% %s" % (name, value, note))
+    lines += ["", "% Numbers reported by the paper under study (quoted, not results of this project):"]
+    for name, value, note in QUOTED_CONSTANTS:
+        table[name] = {"value": value, "source": note}
         lines.append("\\newcommand{\\%s}{%s}  %% %s" % (name, value, note))
     names = [n for n in table]
     if len(names) != len(set(names)):

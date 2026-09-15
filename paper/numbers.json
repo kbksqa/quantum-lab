@@ -232,7 +232,7 @@
     "source": "results/p2_5-qaoa-20260914-160839.json"
   },
   "PtwoSixAKept": {
-    "value": "0.892",
+    "value": "89.2\\%",
     "source": "results/p2_6-hardware-20260914-163413.json"
   },
   "PtwoSixAHw": {
@@ -319,6 +319,62 @@
     "value": "44.0\\%",
     "source": "results/p3_3-q4-20260914-191429.json"
   },
+  "PtwoQUBOInfeasible": {
+    "value": "17",
+    "source": "results/p2_2-qubo-gate-20260914-145351.json"
+  },
+  "PtwoHthreePurePositive": {
+    "value": "96.7\\%",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoHthreeSparsePositive": {
+    "value": "33.3\\%",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoPureCZ": {
+    "value": "85",
+    "source": "results/p2_5-qaoa-20260914-160839.json"
+  },
+  "PtwoBenchLRInvalid": {
+    "value": "16",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchGreedyInvalid": {
+    "value": "21",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoBenchLRGap": {
+    "value": "88.4\\%",
+    "source": "benchmark/p2/baselines.csv"
+  },
+  "PtwoSixBCZMin": {
+    "value": "8",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PtwoSixBCZMax": {
+    "value": "57",
+    "source": "results/p2_6-hardware-20260914-163413.json"
+  },
+  "PthreePaperHungarian": {
+    "value": "-92.4",
+    "source": "results/p3_1-instance-20260914-184805.json"
+  },
+  "PthreeCOneDiff": {
+    "value": "0.045",
+    "source": "results/p3_1-instance-20260914-184805.json"
+  },
+  "PthreeLargePaperOptimum": {
+    "value": "-132.0",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "PthreeLargePaperPone": {
+    "value": "20.4\\%",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
+  "PthreeLargePaperPtwo": {
+    "value": "11.5\\%",
+    "source": "results/p3_3-q4-20260914-191429.json"
+  },
   "QPUSecondsPzero": {
     "value": "9",
     "source": "research log, P0 hardware sweep: IBM dashboard reading"
@@ -326,5 +382,21 @@
   "QPUSecondsTotal": {
     "value": "81",
     "source": "research log, P2.6: 63 s from dashboard readings plus 18 s reported by the P2.6 jobs"
+  },
+  "PthreePaperHeadline": {
+    "value": "64.1",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 and Table 15 (percent of optimum)"
+  },
+  "PthreePaperHeadlineSD": {
+    "value": "3.3",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (percentage points, three runs)"
+  },
+  "PthreePaperTwoQubitGates": {
+    "value": "433--435",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 and Table 4 (p = 3)"
+  },
+  "PthreePaperSimPthree": {
+    "value": "90.9",
+    "source": "quoted from arXiv:2603.00785, Sec. 8.6 (simulator quality, p = 3, percent)"
   }
 }

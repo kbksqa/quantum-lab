@@ -1380,3 +1380,31 @@ ignored.
 **Still open:** the message to the QANTIS authors is drafted but has not been approved or sent.
 
 Next: P4.2 — drafting the results sections, then the rest.
+
+## 2026-09-15 — P4.2: first full draft of the report
+
+`paper/main.tex` now holds a complete first draft: abstract, introduction, way of working, the three results sections (P1, P2, P3),
+lessons, limits, data availability, the AI-assistance disclosure, two appendices, five figures and two tables. `paper/refs.bib` holds
+17 references. The draft compiles to 9 pages and was read page by page after compiling. No QPU; no new result.
+
+**Numbers.**
+- The table grew to 100 macros: 18 added while drafting, all read from committed files.
+- Four numbers quoted from the QANTIS paper are listed separately as quoted constants, labelled with their section.
+- Two new tests (97 in the project) check that every macro the manuscript uses is defined, and that the manuscript contains no
+  hand-typed decimal other than three stated design parameters (0.9, 9.21, 1.5).
+- The P2.6 retention macro was changed to a percentage so it reads alongside P1.5's.
+
+**Corrected while drafting:**
+- A sentence saying the findings had been shared with the QANTIS authors was replaced by a comment. They have not been contacted, and
+  the paragraph is to be completed in P4.4.
+- The P1.5 prediction count was restated as "three held and one held in part".
+- The lesson on hardware transfer was narrowed to where the simulated probability is well above guessing.
+
+**Open for P4.3 (consistency pass):**
+- Verify every reference against its publisher or arXiv record. Several entries are marked "verify" (author lists, given names,
+  venue).
+- Say that the 85-CZ figure for eight-qubit instances is a heavy-hex model estimate, not a device transpilation.
+- Replace "we" in a single-author report.
+- Fix the spacing of the quoted headline (percentage and ± term), the crowded log-axis labels in Figure 4, and one overfull line.
+- Length: 9 pages against the plan's 14–20. The plan's range was a target, not a rule. Whether to expand — for example with method
+  details, the P2 formulation equations and the H1–H5 table — is for the author's review in P4.4.
