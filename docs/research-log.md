@@ -1673,3 +1673,6 @@ the optimal answers of those instances need qubit 16 to read "0"; it was not che
 
 **H5 as a whole.** The device half was held in P2.6 and the day half is held here, with the caveat above. H5 was registered as
 one hypothesis; its recorded grade in `docs/p2-summary.md` stays "partly held" from P2, and the addendum records both halves.
+
+**Release.** Approved by the author: v1.1.0 with the P2.8 results. `CITATION.cff` now names v1.1.0. The technical report stays
+at version 1.0; a revised report is planned after P5 and P6.
