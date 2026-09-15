@@ -2139,3 +2139,56 @@ Reproduced if all three hold, partly reproduced if two, not reproduced otherwise
 about 0.003 and of the mean of three about 0.002.
 
 The submission waits for the author's explicit approval to use QPU time, after this entry is on GitHub.
+
+## 2026-09-15 — P6.4 results: the Grover k = 1 hardware claim reproduced; all five predictions held
+
+- **Approval and submission:** approved by the author after the pre-registration (`e876ac8`) was on GitHub. Submitted with the
+  registered plan file at 17:28:53; results collected at 17:29:20.
+- **Job:** `dakhrp7i3e6s738rjn3g` on `ibm_kingston`. Re-transpiling gave the plan's circuits: 2 and 3 CZ, depths 13 and 18,
+  physical qubits 154 and 155.
+- **Result file:** `results/p6_4-hardware-20260915-172851.json`.
+- **QPU usage reported by the job: 20 s** (estimate 24 s, budget 60 s). The project total is now **110 s**.
+- **Readout calibration in the job:** P(1|0) / P(0|1) = 0.0005 / 0.0039 on qubit 154 and 0.0090 / 0.0073 on qubit 155. No
+  faulty qubit this time.
+
+**Per replicate (raw counts, 8,192 shots per circuit):**
+
+| replicate | baseline P(obs = 1) | Grover P(obs = 1) | amplification | posterior | Hellinger distance | samples per oracle application, Grover / direct |
+|---|---|---|---|---|---|---|
+| 1 | 0.1708 | 0.9073 | 5.31 | [0.8465, 0.1535] | 0.0043 | 1.77 |
+| 2 | 0.1853 | 0.9072 | 4.90 | [0.8391, 0.1609] | 0.0115 | 1.63 |
+| 3 | 0.1823 | 0.9028 | 4.95 | [0.8472, 0.1528] | 0.0036 | 1.65 |
+| **mean ± sd** | **0.1794 ± 0.0077** | **0.9058 ± 0.0026** | **5.05 ± 0.23** | | **0.0065 ± 0.0044** | **1.68 ± 0.08** |
+| paper (one run) | 0.179 | 0.907 | 5.1 | [0.849, 0.151] | 0.0015 | 1.69 from its values (P6.1 Q1) |
+| theory | 0.171 | 0.917 | 5.36 | [0.851, 0.149] | 0 | 1.79 |
+
+- *With readout correction:* the means were 0.1797, 0.9093 and 5.07, with a Hellinger distance of 0.0035. The claim grade is
+  the same.
+
+**Hardware claim — reproduced.**
+- (a) Grover P(obs = 1) 0.9058 is within 0.03 of 0.907.
+- (b) The amplification of 5.05 is within 0.5 of 5.1.
+- (c) The posterior Hellinger distance of 0.0065 is below 0.05.
+
+**Predictions:**
+1. **E1 — held.** Baseline 0.1794, inside 0.160–0.195.
+2. **E2 — held.** Grover 0.9058, inside 0.860–0.930.
+3. **E3 — held.** Amplification 5.05, inside 4.5–5.6.
+4. **E4 — held.** Hellinger distance 0.0065, below 0.02.
+5. **E5 — held.** 1.68 usable samples per oracle application relative to the direct circuit, inside 1.5–1.9.
+
+**What this does and does not show.**
+- **The paper's one-job hardware numbers are repeatable.** Three replicates on a different device (`ibm_kingston` rather than
+  `ibm_marrakesh`) and seven months later give the same values within a few thousandths.
+- **The quantum advantage is 1.7×, not 5.1×.** Counted per application of the belief oracle — the quantity the paper's
+  O(P(e)^−1/2) argument is about — hardware delivered 1.68× the usable samples of the direct circuit, not the 5.1× counted per
+  shot.
+- **The circuits are small.** At 2–3 CZ gates, noise costs about a point of probability. This says nothing about larger belief
+  circuits: C3 showed the full 11-qubit circuit needs about 1,450 CZ.
+
+**Exploratory, not pre-registered.**
+- The baseline varied more between replicates (sd 0.0077) than shot noise alone would give at P ≈ 0.18 (about 0.004).
+- The Grover probability varied as expected (sd 0.0026 against about 0.003).
+- The cause was not investigated; twirling over 32 randomisations per circuit is one possible source.
+
+Next: P6.5 — the reproduction report `docs/p6-report.md`, release and DOI.

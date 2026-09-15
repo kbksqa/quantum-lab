@@ -1,0 +1,282 @@
+{
+  "stamp": "20260915-172851",
+  "experiment": "P6.4 Grover k = 1 on hardware (QANTIS \u00a78.6)",
+  "backend": "ibm_kingston",
+  "device_ranking": [
+    {
+      "backend": "ibm_kingston",
+      "median_cz_error": 0.0020523615375204335,
+      "median_readout_error": 0.009033203125
+    },
+    {
+      "backend": "ibm_fez",
+      "median_cz_error": 0.0027319305736323574,
+      "median_readout_error": 0.01068115234375
+    },
+    {
+      "backend": "ibm_marrakesh",
+      "median_cz_error": 0.0030317098521362024,
+      "median_readout_error": 0.0126953125
+    }
+  ],
+  "circuits": {
+    "baseline": {
+      "two_qubit_gates": 2,
+      "depth": 13,
+      "measured_physical_qubits": [
+        155,
+        154
+      ]
+    },
+    "grover1": {
+      "two_qubit_gates": 3,
+      "depth": 18,
+      "measured_physical_qubits": [
+        155,
+        154
+      ]
+    }
+  },
+  "union": [
+    154,
+    155
+  ],
+  "replicates": 3,
+  "shots": 8192,
+  "total_shots": 65536,
+  "twirling": {
+    "enable_gates": true,
+    "num_randomizations": 32
+  },
+  "dynamical_decoupling": "XY4",
+  "go_rule": {
+    "C1": "reproduced",
+    "C3_grover": "partly reproduced",
+    "estimated_qpu_seconds": 24.0,
+    "budget_seconds": 60.0,
+    "go": true
+  },
+  "predictions": {
+    "E1_baseline_p_obs1": [
+      0.16,
+      0.195
+    ],
+    "E2_grover_p_obs1": [
+      0.86,
+      0.93
+    ],
+    "E3_amplification": [
+      4.5,
+      5.6
+    ],
+    "E4_posterior_hellinger_below": 0.02,
+    "E5_grover_over_direct_per_oracle_application": [
+      1.5,
+      1.9
+    ]
+  },
+  "paper": {
+    "p_obs1_baseline": 0.179,
+    "p_obs1_grover": 0.907,
+    "amplification": 5.1,
+    "posterior": [
+      0.849,
+      0.151
+    ]
+  },
+  "status": "done",
+  "plan_file": "../results/p6_4-plan-20260915-172319.json",
+  "job_id": "dakhrp7i3e6s738rjn3g",
+  "submitted_at": "2026-09-15T17:28:53.722302+07:00",
+  "finished_at": "2026-09-15T17:29:20.095791+07:00",
+  "usage_seconds": 20,
+  "per_qubit_errors": {
+    "154": [
+      0.00048828125,
+      0.00390625
+    ],
+    "155": [
+      0.009033203125,
+      0.00732421875
+    ]
+  },
+  "counts": [
+    {
+      "replicate": 0,
+      "circuit": "baseline",
+      "counts": {
+        "00": 6715,
+        "10": 1157,
+        "11": 242,
+        "01": 78
+      }
+    },
+    {
+      "replicate": 0,
+      "circuit": "grover1",
+      "counts": {
+        "10": 6292,
+        "11": 1141,
+        "00": 718,
+        "01": 41
+      }
+    },
+    {
+      "replicate": 1,
+      "circuit": "baseline",
+      "counts": {
+        "00": 6599,
+        "11": 263,
+        "10": 1255,
+        "01": 75
+      }
+    },
+    {
+      "replicate": 1,
+      "circuit": "grover1",
+      "counts": {
+        "10": 6236,
+        "11": 1196,
+        "00": 718,
+        "01": 42
+      }
+    },
+    {
+      "replicate": 2,
+      "circuit": "baseline",
+      "counts": {
+        "00": 6626,
+        "10": 1221,
+        "11": 272,
+        "01": 73
+      }
+    },
+    {
+      "replicate": 2,
+      "circuit": "grover1",
+      "counts": {
+        "10": 6266,
+        "11": 1130,
+        "00": 759,
+        "01": 37
+      }
+    }
+  ],
+  "replicates_raw": [
+    {
+      "p_obs1_baseline": 0.1707763671875,
+      "p_obs1_grover": 0.9073486328125,
+      "amplification": 5.313080771979986,
+      "posterior": [
+        0.8464953585362572,
+        0.15350464146374276
+      ],
+      "posterior_hellinger": 0.004323225971598203,
+      "grover_over_direct_per_oracle_application": 1.7710269239933285
+    },
+    {
+      "p_obs1_baseline": 0.185302734375,
+      "p_obs1_grover": 0.9072265625,
+      "amplification": 4.895915678524374,
+      "posterior": [
+        0.8390742734122713,
+        0.16092572658772875
+      ],
+      "posterior_hellinger": 0.011531595931008278,
+      "grover_over_direct_per_oracle_application": 1.6319718928414582
+    },
+    {
+      "p_obs1_baseline": 0.1822509765625,
+      "p_obs1_grover": 0.90283203125,
+      "amplification": 4.953784326858674,
+      "posterior": [
+        0.8472147106544078,
+        0.1527852893455922
+      ],
+      "posterior_hellinger": 0.0036170073065193644,
+      "grover_over_direct_per_oracle_application": 1.6512614422862246
+    }
+  ],
+  "replicates_corrected": [
+    {
+      "p_obs1_baseline": 0.17103972535556644,
+      "p_obs1_grover": 0.9108631682197156,
+      "amplification": 5.3254480286738355,
+      "posterior": [
+        0.8531210375070147,
+        0.14687896249298524
+      ],
+      "posterior_hellinger": 0.002234079955928646,
+      "grover_over_direct_per_oracle_application": 1.7751493428912786
+    },
+    {
+      "p_obs1_baseline": 0.18563021088769008,
+      "p_obs1_grover": 0.9107405590975969,
+      "amplification": 4.906208718626155,
+      "posterior": [
+        0.8455762228955849,
+        0.15442377710441516
+      ],
+      "posterior_hellinger": 0.005223611108231526,
+      "grover_over_direct_per_oracle_application": 1.6354029062087185
+    },
+    {
+      "p_obs1_baseline": 0.18256498283472292,
+      "p_obs1_grover": 0.906326630701324,
+      "amplification": 4.964405641370046,
+      "posterior": [
+        0.8538517152161977,
+        0.14614828478380226
+      ],
+      "posterior_hellinger": 0.002964618498810102,
+      "grover_over_direct_per_oracle_application": 1.654801880456682
+    }
+  ],
+  "mean_raw": {
+    "p_obs1_baseline": 0.179443359375,
+    "p_obs1_grover": 0.9058024088541666,
+    "amplification": 5.054260259121011,
+    "posterior_hellinger": 0.0064906097363752815,
+    "grover_over_direct_per_oracle_application": 1.6847534197070038,
+    "p_obs1_baseline_sd": 0.007659364961938961,
+    "p_obs1_grover_sd": 0.002573146444297262,
+    "amplification_sd": 0.22600495242902685,
+    "posterior_hellinger_sd": 0.004379879286188921,
+    "grover_over_direct_per_oracle_application_sd": 0.07533498414300883
+  },
+  "mean_corrected": {
+    "p_obs1_baseline": 0.17974497302599313,
+    "p_obs1_grover": 0.9093101193395455,
+    "amplification": 5.065354129556678,
+    "posterior_hellinger": 0.003474103187656758,
+    "grover_over_direct_per_oracle_application": 1.688451376518893,
+    "p_obs1_baseline_sd": 0.0076931728504419025,
+    "p_obs1_grover_sd": 0.00258450412845562,
+    "amplification_sd": 0.2271196770926922,
+    "posterior_hellinger_sd": 0.0015585265842372488,
+    "grover_over_direct_per_oracle_application_sd": 0.07570655903089744
+  },
+  "claim": {
+    "checks": {
+      "a_grover_p_within_0.03_of_0.907": true,
+      "b_amplification_within_0.5_of_5.1": true,
+      "c_posterior_hellinger_below_0.05": true
+    },
+    "grade": "reproduced"
+  },
+  "predictions_held": {
+    "E1": true,
+    "E2": true,
+    "E3": true,
+    "E4": true,
+    "E5": true
+  },
+  "claim_on_corrected": {
+    "checks": {
+      "a_grover_p_within_0.03_of_0.907": true,
+      "b_amplification_within_0.5_of_5.1": true,
+      "c_posterior_hellinger_below_0.05": true
+    },
+    "grade": "reproduced"
+  }
+}
