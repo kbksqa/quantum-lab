@@ -1550,3 +1550,79 @@ is about 0.003, so retention carries about ±0.006 from shots alone. A differenc
 apart from sampling.
 
 The submission waits for the author's explicit approval to use QPU time, after this entry is on GitHub.
+
+## 2026-09-15 — P2.8 results: O3 (H7) and O2 (H6) on the benchmark
+
+- **Script:** `python src/p2_8_followup.py benchmark`. **Result:** `results/p2_8-benchmark-20260915-102524.json`. No QPU time.
+- **Regeneration check:** every one of the 1,620 instances regenerated from its seed with the same tuples, costs and optimum as
+  the published instance file.
+- **Reproduction check:** the original Lagrangian method reproduced the published `baselines.csv` validity and optimality on
+  every instance. The benchmark files were not changed.
+
+**Gate for the marginal cost — passed.** The ILP under marginal costs matched exact-cover enumeration on 599 tiny scenes (T = 1–3)
+across four variants: default, no clutter, P_D = 1, and P_D = 0.8 with clutter 2. There were 0 mismatches; the largest
+difference was 1.4 × 10⁻¹⁴, and one scene was skipped for exceeding the enumeration limit. The closed form had already matched
+numerical integration over the scene window in the tests.
+
+**O3 — H7: held.**
+
+| Lagrangian relaxation | valid | optimal |
+|---|---|---|
+| original recovery (P2.3) | 0.990 | 0.987 |
+| recovery that may dissolve pairs | **1.000** | **0.997** |
+
+- **Former failures:** all 16 (P_D = 1 with clutter) now get the exact optimum. The registered threshold was 8 of 16.
+- **Nothing lost:** no instance that was optimal before stopped being optimal.
+- **Only change:** the method gained exactly those 16 instances. The 5 valid but non-optimal answers are unchanged.
+
+**O2 — H6: partly held.** 1,606 solvable instances; 1,215 of them have clutter.
+
+| | GLR (P2.0) | marginal likelihood |
+|---|---|---|
+| clutter measurements joined into a multi-measurement tuple (of 4,258) | 670 | **303** |
+| instances with any joined clutter (of 1,215) | 328 | 207 |
+| optimum equals the truth (of 1,606) | 0.5598 | 0.5604 |
+
+- **H6a — held.** Joined clutter was lower in 173 instances and higher in 2 (sign test p = 6 × 10⁻⁴⁹).
+- **H6b — partly held under the registered rule, and in plain terms no difference.** The marginal cost found the truth in 63
+  instances where the GLR did not, and missed it in 62 where the GLR found it (exact McNemar p = 1.0). The rule grades any
+  lead in the predicted direction as "partly held"; here the lead is one instance.
+- The two costs chose different optima in 372 of the 1,606 instances (23%). The changes largely cancel in the truth share.
+
+**Exploratory, after the results — not pre-registered.** By clutter and P_D, the truth share moved both ways. At clutter 1 and
+P_D = 0.8 it rose from 0.385 to 0.452; at clutter 2 and P_D = 0.8 it fell from 0.400 to 0.296, even though joined clutter fell
+from 168 to 47 there. A cost that joins less clutter does not by that alone recover the truth more often. One possible reason —
+the integrated position also discouraging joins of true measurements — was noted as a risk in the plan but has not been tested.
+With P_D = 1 the truth share did not change in any clutter setting.
+
+**Answer to the open question from P2.** A marginal likelihood does join far less clutter — less than half as many clutter
+measurements. It does not make the optimum equal the truth more often on this benchmark.
+
+## 2026-09-15 — P2.8 results: O4 (H8), CVaR objective for QAOA
+
+- **Script:** `python src/p2_8_followup.py cvar`. **Result:** `results/p2_8-cvar-20260915-102642.json`. No QPU time.
+- **Checks before the comparison:** all 30 P2.5 sparse instances regenerated with their stored optimum, variable count and
+  penalty. The stored ⟨H⟩ angles re-simulated to the stored P(optimal) within 1e-9 at every depth.
+
+**Setup:** α = 0.1; COBYLA with 6 random starts plus an interpolated start, as in P2.5; seed 2038. Mean P(optimal) over the
+30 instances; guessing gives 0.0010.
+
+| depth | ⟨H⟩ (P2.5) | CVaR₀.₁ | paired difference ± s.e. | CVaR better on |
+|---|---|---|---|---|
+| p = 1 | 0.0126 | **0.0301** | **+0.0175 ± 0.0037** | 27 of 30 |
+| p = 2 | 0.0780 | 0.0812 | +0.0032 ± 0.0108 | 22 of 30 |
+| p = 3 | 0.1561 | 0.1040 | −0.0521 ± 0.0284 | 19 of 30 |
+
+P(feasible) followed the same pattern: 0.125 against 0.092 at p = 1, and 0.281 against 0.367 at p = 3.
+
+**H8 — partly held.** At p = 1, the depth that ran on hardware, CVaR more than doubled P(optimal): 4.7 standard errors, and
+30 × guessing against 12.7 ×. It was not positive at every depth. At p = 3 the mean was lower, although CVaR still won on 19 of
+30 instances, so a few instances with large losses carry the mean.
+
+**Exploratory, not tested.** The p = 3 loss comes with a lower P(feasible) as well. One possible reason is that the CVaR
+landscape is harder for the same optimiser budget at larger depth; another is the interpolated warm start, which now comes
+from a CVaR p = 2 schedule. Neither was checked. A hardware run of the p = 1 CVaR angles was not part of the registration and
+has not been done.
+
+**Answer to the open question from P2.** On the sparse instances at the depth that fits hardware, CVaR₀.₁ is a clearly better
+training objective than ⟨H⟩. At p = 3 it was worse, so it is not better at every depth.
