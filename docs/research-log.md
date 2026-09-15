@@ -1853,3 +1853,39 @@ Zenodo DOI for v1.2.0: 10.5281/zenodo.22764261. The concept DOI 10.5281/zenodo.2
   - Q2: exact Tiger baseline by value iteration
   - Q3: threshold sensitivity
 - **Hardware:** only the Grover k = 1 experiment, only if the go rule is met, within 60 s of QPU time.
+
+## 2026-09-15 — P6.0: source audit of the QANTIS POMDP half
+
+The author approved the plan, and it was pushed as the pre-registration (`6c9914e`) before this audit.
+
+- **Record:** `docs/p6-sources.md`. No P6 number has been computed and no QPU time was used.
+- **Sources:**
+  - *The paper:* its POMDP sections read in full. Four passages were checked against the live arXiv HTML page.
+  - *The public code:* read at HEAD `c17c2b5` and at `7c6509c`, the commit dated with the paper.
+  - *References:* checked on Crossref, arXiv and publisher listings.
+
+**Gaps from the plan:**
+- *Confirmed:* G1 no data, G2 pass threshold 0.05 in code, G3 total depth recorded as "ISA", G4 the Hellinger / total-variation
+  statement, G5 Table 6 cannot come from the public entry point, G6 three different iteration formulas, G7 three oracle
+  applications per Grover shot, G8 mitigation settings.
+- *G9, citations:* two are wrong — [10] names the wrong authors and publication status, and [17] the wrong first author.
+  [4] is correct for arXiv v1, so that item is withdrawn. [30]'s pages are unresolved.
+
+**New findings:**
+- **Observation-independent circuits.** The minimal and 4-state circuits do not depend on the observation, which only selects
+  the shots kept. The paper's explanation of the 4-state obs-0 / obs-1 difference by different gate paths does not describe
+  the public circuit.
+- **Open-door steps** are H ⊗ H, uniform by construction.
+- **The loop:**
+  - *Planner:* classical with horizon 1.
+  - *BIQAE:* estimates the current belief, with a prior centred on it, and does not select actions.
+  - *References:* each step's reference is the Bayes update of the hardware-propagated prior, so errors do not accumulate in
+    the reported distances.
+  - *Silent fallback:* an empty post-selection silently gives a uniform belief.
+- **`run_tiger_ibm.py --zne`** passes an undefined name and cannot run as published.
+- **Credible intervals.** §5.2 says all credible intervals covered the truth, while §8.6 reports two misses at T = 8.
+
+**Effect on the plan:** none. C1, C2, C6, C7 and Q1 need only the paper; the Tiger rewards for C4 and Q2 come from the code, as
+the plan allows. C5 is expected to be not reproducible.
+
+Next: P6.1 — circuits rebuilt from the paper; C1, C2, C6, C7 and Q1 on a noiseless simulator.
