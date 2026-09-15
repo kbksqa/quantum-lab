@@ -112,6 +112,8 @@ def fig4():
     ax.bar([i + 0.2 for i in x], [h for _, _, h in bars], width=0.4, label="hardware (readout-corrected)")
     ax.set_xticks(list(x), [n for n, _, _ in bars], fontsize=8)
     ax.set_yscale("log")
+    ax.set_ylim(0.01, 1)                                               # three labelled decades
+    ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())  # major decades only; minor labels crowded the axis
     ax.set_ylabel("P(optimal)")
     ax.legend(frameon=False, fontsize=8)
     style(ax)

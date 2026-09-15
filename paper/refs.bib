@@ -1,12 +1,16 @@
 % References for the P4 technical report.
-% Status: DRAFT (P4.2). Every entry is to be checked against the publisher or arXiv record in P4.3 before the report is released;
-% entries whose author lists are incomplete are marked "verify".
+% Status: VERIFIED (P4.3), 2026-09-15, against Crossref, publisher, arXiv and CVF records (sources listed in docs/research-log.md).
+% Given names "Harold W." (Kuhn), "Arthur M." (Geoffrion), "J. A. Julian" (Hall) are the authors' standard names; the records give initials.
 
 @article{farhi2014qaoa,
-  author  = {Farhi, Edward and Goldstone, Jeffrey and Gutmann, Sam},
-  title   = {A Quantum Approximate Optimization Algorithm},
-  journal = {arXiv preprint arXiv:1411.4028},
-  year    = {2014}
+  author        = {Farhi, Edward and Goldstone, Jeffrey and Gutmann, Sam},
+  title         = {A Quantum Approximate Optimization Algorithm},
+  journal       = {arXiv preprint arXiv:1411.4028},
+  year          = {2014},
+  eprint        = {1411.4028},
+  archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
+  doi           = {10.48550/arXiv.1411.4028}
 }
 
 @article{lucas2014ising,
@@ -26,7 +30,8 @@
   volume  = {33},
   number  = {2},
   pages   = {523--538},
-  year    = {1997}
+  year    = {1997},
+  doi     = {10.1109/7.575891}
 }
 
 @article{kuhn1955,
@@ -36,74 +41,92 @@
   volume  = {2},
   number  = {1--2},
   pages   = {83--97},
-  year    = {1955}
+  year    = {1955},
+  doi     = {10.1002/nav.3800020109}
 }
 
 @book{barshalom1995,
   author    = {Bar-Shalom, Yaakov and Li, Xiao-Rong},
   title     = {Multitarget-Multisensor Tracking: Principles and Techniques},
   publisher = {YBS Publishing},
-  year      = {1995}
+  address   = {Storrs, CT},
+  year      = {1995},
+  isbn      = {0964831201}
 }
 
-@article{geoffrion1974,
-  author  = {Geoffrion, Arthur M.},
-  title   = {Lagrangean relaxation for integer programming},
-  journal = {Mathematical Programming Study},
-  volume  = {2},
-  pages   = {82--114},
-  year    = {1974}
+@incollection{geoffrion1974,
+  author    = {Geoffrion, Arthur M.},
+  title     = {Lagrangean relaxation for integer programming},
+  booktitle = {Approaches to Integer Programming},
+  editor    = {Balinski, M. L.},
+  series    = {Mathematical Programming Studies},
+  volume    = {2},
+  publisher = {Springer},
+  address   = {Berlin, Heidelberg},
+  pages     = {82--114},
+  year      = {1974},
+  doi       = {10.1007/BFb0120690}
 }
 
 @article{wilson1927,
   author  = {Wilson, Edwin B.},
-  title   = {Probable inference, the law of succession, and statistical inference},
+  title   = {Probable Inference, the Law of Succession, and Statistical Inference},
   journal = {Journal of the American Statistical Association},
   volume  = {22},
   number  = {158},
   pages   = {209--212},
-  year    = {1927}
+  year    = {1927},
+  doi     = {10.1080/01621459.1927.10502953}
 }
 
 @inproceedings{grover1996,
   author    = {Grover, Lov K.},
   title     = {A fast quantum mechanical algorithm for database search},
-  booktitle = {Proceedings of the 28th Annual ACM Symposium on Theory of Computing},
+  booktitle = {Proceedings of the Twenty-Eighth Annual {ACM} Symposium on Theory of Computing ({STOC} '96)},
+  publisher = {ACM},
   pages     = {212--219},
-  year      = {1996}
+  year      = {1996},
+  doi       = {10.1145/237814.237866}
 }
 
 @article{eker2026qantis,
-  author  = {Eker, Bayram Y{\"u}ksel and others},
-  note    = {verify full author list},
-  title   = {{QANTIS}: A Hardware-Validated Quantum Platform for {POMDP} Planning and Multi-Target Data Association},
-  journal = {arXiv preprint arXiv:2603.00785},
-  year    = {2026}
+  author        = {Eker, Bayram Y{\"u}ksel and Arslan, Suayb S. and Nazl{\i}, {\"O}zg{\"u}r and Demirgil, Mustafa Serhat and Delig{\"o}z, Furkan},
+  title         = {{QANTIS}: A Hardware-Validated Quantum Platform for {POMDP} Planning and Multi-Target Data Association},
+  journal       = {arXiv preprint arXiv:2603.00785},
+  year          = {2026},
+  eprint        = {2603.00785},
+  archivePrefix = {arXiv},
+  doi           = {10.48550/arXiv.2603.00785}
 }
 
 @article{saavedra2025fpc,
-  author  = {Saavedra-Pino, Sebasti{\'a}n and Quispe-Mendiz{\'a}bal, Ricardo and Alvarado Barrios, Gabriel and Solano, Enrique and Retamal, Juan Carlos and Albarr{\'a}n-Arriagada, Francisco},
-  title   = {Quantum Approximate Optimization Algorithm with Fixed Number of Parameters},
-  journal = {arXiv preprint arXiv:2512.21181},
-  year    = {2025}
+  author        = {Saavedra-Pino, Sebasti{\'a}n and Quispe-Mendiz{\'a}bal, Ricardo and Alvarado Barrios, Gabriel and Solano, Enrique and Retamal, Juan Carlos and Albarr{\'a}n-Arriagada, Francisco},
+  title         = {Quantum Approximate Optimization Algorithm with Fixed Number of Parameters},
+  journal       = {arXiv preprint arXiv:2512.21181},
+  year          = {2025},
+  eprint        = {2512.21181},
+  archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
+  doi           = {10.48550/arXiv.2512.21181}
 }
 
 @inproceedings{mccormick2022mtt,
-  author    = {McCormick and Osborn and Angle and Streit},
-  note      = {verify given names and venue},
+  author    = {McCormick, Timothy M. and Osborn, Bryan R. and Angle, R. Blair and Streit, Roy L.},
   title     = {Implementation of a Multiple Target Tracking Filter on an Adiabatic Quantum Computer},
-  booktitle = {IEEE Aerospace Conference},
+  booktitle = {2022 IEEE Aerospace Conference (AERO)},
+  pages     = {1--14},
   year      = {2022},
   doi       = {10.1109/AERO53065.2022.9843451}
 }
 
+% Pages follow the CVF open-access proceedings; the IEEE Xplore version (same DOI) is paginated 8801--8812.
 @inproceedings{zaech2022amot,
-  author    = {Zaech, Jan-Nico and others},
-  note      = {verify full author list},
+  author    = {Zaech, Jan-Nico and Liniger, Alexander and Danelljan, Martin and Dai, Dengxin and Van Gool, Luc},
   title     = {Adiabatic Quantum Computing for Multi Object Tracking},
   booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   pages     = {8811--8822},
-  year      = {2022}
+  year      = {2022},
+  doi       = {10.1109/CVPR52688.2022.00861}
 }
 
 @article{ihara2025mot,
@@ -111,46 +134,54 @@
   title   = {Enhancing multiple object tracking accuracy via quantum annealing},
   journal = {Scientific Reports},
   volume  = {15},
+  number  = {1},
   pages   = {24294},
   year    = {2025},
   doi     = {10.1038/s41598-025-07492-7}
 }
 
 @inproceedings{govaers2021mtda,
-  author    = {Govaers, Felix and Stoo{\ss} and Ulmke, Martin},
-  note      = {verify given names},
+  author    = {Govaers, Felix and Stoo{\ss}, Veit and Ulmke, Martin},
   title     = {Adiabatic Quantum Computing for Solving the Multi-Target Data Association Problem},
-  booktitle = {IEEE International Conference on Multisensor Fusion and Integration for Intelligent Systems (MFI)},
+  booktitle = {2021 IEEE International Conference on Multisensor Fusion and Integration for Intelligent Systems (MFI)},
+  pages     = {1--7},
   year      = {2021},
   doi       = {10.1109/MFI52462.2021.9591187}
 }
 
 @article{stollenwerk2020atm,
-  author  = {Stollenwerk, Tobias and others},
-  note    = {verify full author list},
-  title   = {Quantum annealing applied to de-conflicting optimal trajectories for air traffic management},
-  journal = {IEEE Transactions on Intelligent Transportation Systems},
-  volume  = {21},
-  number  = {1},
-  pages   = {285--297},
-  year    = {2020}
+  author        = {Stollenwerk, Tobias and O'Gorman, Bryan and Venturelli, Davide and Mandr{\`a}, Salvatore and Rodionova, Olga and Ng, Hokkwan and Sridhar, Banavar and Rieffel, Eleanor Gilbert and Biswas, Rupak},
+  title         = {Quantum Annealing Applied to De-Conflicting Optimal Trajectories for Air Traffic Management},
+  journal       = {IEEE Transactions on Intelligent Transportation Systems},
+  volume        = {21},
+  number        = {1},
+  pages         = {285--297},
+  year          = {2020},
+  doi           = {10.1109/TITS.2019.2891235},
+  eprint        = {1711.04889},
+  archivePrefix = {arXiv}
 }
 
 @article{javadi2024qiskit,
-  author  = {Javadi-Abhari, Ali and others},
-  note    = {verify},
-  title   = {Quantum computing with {Q}iskit},
-  journal = {arXiv preprint arXiv:2405.08810},
-  year    = {2024}
+  author        = {Javadi-Abhari, Ali and Treinish, Matthew and Krsulich, Kevin and Wood, Christopher J. and Lishman, Jake and Gacon, Julien and Martiel, Simon and Nation, Paul D. and Bishop, Lev S. and Cross, Andrew W. and Johnson, Blake R. and Gambetta, Jay M.},
+  title         = {Quantum computing with {Q}iskit},
+  journal       = {arXiv preprint arXiv:2405.08810},
+  year          = {2024},
+  eprint        = {2405.08810},
+  archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
+  doi           = {10.48550/arXiv.2405.08810}
 }
 
 @article{virtanen2020scipy,
-  author  = {Virtanen, Pauli and others},
+  author  = {Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and Haberland, Matt and Reddy, Tyler and others},
   title   = {{SciPy} 1.0: fundamental algorithms for scientific computing in {P}ython},
   journal = {Nature Methods},
   volume  = {17},
+  number  = {3},
   pages   = {261--272},
-  year    = {2020}
+  year    = {2020},
+  doi     = {10.1038/s41592-019-0686-2}
 }
 
 @article{huangfu2018highs,
@@ -158,6 +189,8 @@
   title   = {Parallelizing the dual revised simplex method},
   journal = {Mathematical Programming Computation},
   volume  = {10},
+  number  = {1},
   pages   = {119--142},
-  year    = {2018}
+  year    = {2018},
+  doi     = {10.1007/s12532-017-0130-5}
 }

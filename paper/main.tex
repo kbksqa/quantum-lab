@@ -160,10 +160,11 @@ Bearing error was then added to the benchmark sweep as a recorded amendment; the
 \end{figure}
 
 \paragraph{Classical baselines.} Relaxing one sensor's constraints leaves a two-dimensional assignment problem whose solutions are
-integral, so the best Lagrangian bound equals the linear-programming relaxation~\cite{geoffrion1974}; the duality gap could therefore be
-measured exactly. Lagrangian relaxation reached the optimum in \PtwoLRLowClutter{} of scenes without clutter. The share of scenes with a
-nonzero gap rose from \PtwoGapClutterZero{} to \PtwoGapClutterTwo{} with clutter and from \PtwoGapSpacingFar{} to \PtwoGapSpacingClose{} with
-closer spacing, but with overlapping intervals: the hypothesis was graded partly held.
+integral, so the best Lagrangian bound equals the bound of the linear programming (LP) relaxation~\cite{geoffrion1974}, and the duality
+gap could be measured exactly. Lagrangian relaxation reached the optimum in \PtwoLRLowClutter{} of scenes without clutter. The share of
+scenes with a nonzero gap rose from \PtwoGapClutterZero{} to \PtwoGapClutterTwo{} with clutter, and from \PtwoGapSpacingFar{} to
+\PtwoGapSpacingClose{} with closer spacing, but the intervals overlapped: the hypothesis was graded partly held. The first run of this
+study crashed while saving its result file; after a one-line fix the rerun reproduced every printed number.
 
 \paragraph{Benchmark.} The benchmark sweeps target count, clutter, detection probability, spacing and bearing error with three replicates:
 \PtwoBenchInstances{} instances, each with its allowed tuples and costs, exact optimum, LP bound and true association, and a checker that
@@ -198,7 +199,8 @@ $\max|c|$ against \PtwoHthreeOracle{} at $1.5\,A_\mathrm{crit}$, better on \Ptwo
 the mean pointed the same way but the larger penalty won on only \PtwoHthreeSparsePositive{} of instances; the penalty hypothesis was
 graded partly held. The registered rule for spending hardware time --- at least five times the guessing probability with at most 60
 two-qubit gates --- was met only by sparse instances at $p=1$ (\PtwoGoRatio{} times guessing, median \PtwoGoCZ{} CZ gates); the
-eight-qubit instances already needed \PtwoPureCZ{} CZ gates at $p=1$.
+eight-qubit instances were estimated to need \PtwoPureCZ{} CZ gates already at $p=1$ (transpiled to a generic heavy-hex model, not to a
+specific device).
 
 \paragraph{Hardware.} Two jobs were submitted after their predictions were public (Figure~\ref{fig:hw}). The P1 circuits rerun on a
 second device, \texttt{ibm\_fez}, kept \PtwoSixAKept{} of the simulator value against \PoneFiveTwoPtwoKept{} on
@@ -216,8 +218,8 @@ noise. The jobs used \PtwoSixUsage{} seconds of processor time.
 
 \paragraph{Target.} QANTIS~\cite{eker2026qantis} reports QAOA with a fixed number of schedule parameters~\cite{saavedra2025fpc} on a
 two-track, three-measurement instance (11 qubits) on IBM hardware, with a headline solution quality of
-\PthreePaperHeadline\,\%\,$\pm$\,\PthreePaperHeadlineSD{} at $p=3$ using \PthreePaperTwoQubitGates{} two-qubit gates. It was the only
-gate-model data-association result with hardware data and public code that we found. A plan registered four of its claims and four
+\PthreePaperHeadline\,\% $\pm$ \PthreePaperHeadlineSD\,\% of the optimum at $p=3$ using \PthreePaperTwoQubitGates{} two-qubit gates. It was the only
+gate-model data-association result with hardware data and public code found by the literature searches for this study. A plan registered four of its claims and four
 added questions before any code; a source audit of the paper and its public repository preceded the experiments. Only the public code
 was available.
 

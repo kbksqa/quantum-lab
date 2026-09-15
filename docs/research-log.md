@@ -1408,3 +1408,44 @@ lessons, limits, data availability, the AI-assistance disclosure, two appendices
 - Fix the spacing of the quoted headline (percentage and ± term), the crowded log-axis labels in Figure 4, and one overfull line.
 - Length: 9 pages against the plan's 14–20. The plan's range was a target, not a rule. Whether to expand — for example with method
   details, the P2 formulation equations and the H1–H5 table — is for the author's review in P4.4.
+
+## 2026-09-15 — P4.3: consistency pass
+
+**References — all 18 verified.** Each entry was checked against its authoritative record: Crossref (`api.crossref.org/works/<DOI>`),
+the arXiv abstract page, the publisher page, or the CVF proceedings. Seven matched as written; eleven were corrected. Nothing remains
+unverifiable. The corrections:
+- **Full author lists added:** QANTIS (Eker, Arslan, Nazlı, Demirgil, Deligöz), McCormick et al. (Timothy M. McCormick, Bryan R.
+  Osborn, R. Blair Angle, Roy L. Streit), Zaech et al. (five authors), Govaers, Stooß (Veit) and Ulmke, Stollenwerk et al. (nine
+  authors), Qiskit (twelve authors), and the first five SciPy authors.
+- **Venue fixes:** Geoffrion (1974) is a chapter in *Approaches to Integer Programming*, Mathematical Programming Studies 2, so the
+  entry is now `@incollection`. Grover's proceedings are now named in full (STOC '96). The McCormick and Govaers conference names now
+  match the records.
+- **DOIs added wherever one exists.**
+- **One version difference is kept visible:** Zaech et al. are paginated 8811–8822 in the CVF proceedings and 8801–8812 in IEEE
+  Xplore, under the same DOI. The CVF pages are used, and a comment in `paper/refs.bib` says so.
+- **Given names not in the records:** Crossref gives only initials for Kuhn, Geoffrion and Hall. Their standard given names are kept
+  and noted in the file.
+
+**Text and figures:**
+- "We" was removed from this single-author report.
+- The 85-CZ figure for eight-qubit instances is now stated as a heavy-hex model estimate.
+- The quoted QANTIS headline now reads as a percentage of the optimum plus or minus percentage points.
+- The P2.3 serialisation crash and rerun are now mentioned, as `docs/p4-plan.md` rule 3 requires.
+- One overfull line was removed.
+- Figure 4 now shows three labelled decades instead of crowded minor ticks.
+- The draft compiles without warnings, and the P4 tests pass.
+
+**Checked against the plan's rules:**
+- **No new results.** Every result number is a macro read from a committed file. Two log-only constants and four quotations from the
+  paper are labelled.
+- **Failures and corrections all appear.** H4 failed; the P1.2 study bug; the wrong expectation for the nine-qubit hardware run; H4's
+  reasoning; the P2.3 crash; H5's day half untested; C3 not tested.
+- **No claim stronger than its grade**, and no advantage claim.
+- **Statements about QANTIS** stay within `docs/p3-report.md`, including its limits.
+- **Every cited work is verified.**
+
+**Still for the author (P4.4):**
+- Read the draft.
+- Decide on length: the draft is 9 pages against the plan's target of 14–20.
+- Approve or change the message to the QANTIS authors, and set the date after which the report may be archived. The report's
+  paragraph on this is left as a comment until then.
